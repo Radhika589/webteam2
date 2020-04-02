@@ -30,7 +30,7 @@ namespace Webteam2
             var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Context>(options => 
             {
-                options.UseMySQL(connectionString);
+                options.UseSqlServer(connectionString);
                 options.UseLazyLoadingProxies();
             });
             services.AddControllersWithViews();
