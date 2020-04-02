@@ -10,5 +10,8 @@ namespace Webteam2.Models
     {
         [Column("id")]
         public virtual string Id { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Description { get; set; }
+
     }
 }
