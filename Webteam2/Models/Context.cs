@@ -14,14 +14,5 @@ namespace Webteam2.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Issue> Issues { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //Warning!
-            //To protect potentially sensitive information in your connection string, you should move it out of source code.
-            //See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-
-            optionsBuilder.UseMySQL("server=localhost;database=library;user=user;password=password");
-            optionsBuilder.UseLazyLoadingProxies();
-        }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +27,12 @@ namespace Webteam2
         {
             //services.AddMVC();
 
-            services.AddDbContext<Context>();
+            var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<Context>(options => 
+            {
+                options.UseMySQL(connectionString);
+                options.UseLazyLoadingProxies();
+            });
             services.AddControllersWithViews();
         }
 
