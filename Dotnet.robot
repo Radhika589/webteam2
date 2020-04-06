@@ -2,7 +2,7 @@
 
 Library          SeleniumLibrary
 Library          DateTime
-Resource         ../Resources/Dotnetkeywords.robot
+Resource         Dotnetkeywords.robot
 
 *** Variables ***
 
