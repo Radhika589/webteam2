@@ -14,5 +14,10 @@ namespace Webteam2.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Issue> Issues { get; set; }
+
+        internal Task<IEnumerable<Issue>> TolistAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
