@@ -2,12 +2,21 @@
 
 Library          SeleniumLibrary
 Library          DateTime
-Resource         Dotnetkeywords.robot
+
 
 *** Variables ***
 
 ${url}           https://localhost:44373/
 ${browser}       chrome
+
+
+
+*** Keywords ***
+Begin Web Test
+    Open Browser    about:blank         ${BROWSER}
+
+Load Page
+    Go to       ${url}
 
 *** Test Cases ***
 
