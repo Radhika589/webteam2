@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2 class="text-info">Jobs List</h2>
+<br />
+<form action="/" method="post">
+    <label for="location_input_field">Location</label>
+    <input type="text" name="location" id="location_input_field" />
+    <label for="payment_input_field">Payment</label>
+    <input type="text" name="payment" id="payment_input_field" />
+    <input type="submit" name="submit" value="Submit" asp-action="Index" asp-controller="Job" />
+</form>
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-1">
+        <h4 class="text-info">ID</h4>
+    </div>
+    <div class="col-3">
+        <h4 class="text-info">Title</h4>
+    </div>
+    <div class="col-5">
+        <h4 class="text-info">Description</h4>
+    </div>
+    <div class="col-2">
+        <h4 class="text-info">Payment</h4>
+    </div>
+    <div class="col-1">
+        <h4 class="text-info">Issuer Rep</h4>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form action="/" method="post">
+            <table id="jobs_table" class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label>ID</label>
+                    </th>
+                    <th>
+                        <label>Title</label>
+                    </th>
+                    <th>
+                        <label>Description</label>
+                    </th>
+                    <th>
+                        <label>Payment</label>
+                    </th>
+                    <th>
+                        <label>Issuer Rep</label>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/JobsList.js"></script>
+}

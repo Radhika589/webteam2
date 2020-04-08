@@ -18,11 +18,6 @@ namespace Webteam2.Controllers
             return View();
         }
 
-        public IActionResult Jobs()
-        {           
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
