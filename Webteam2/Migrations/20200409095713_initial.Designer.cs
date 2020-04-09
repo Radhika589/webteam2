@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webteam2.Models;
 
 namespace Webteam2.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200409095713_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,36 +46,6 @@ namespace Webteam2.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b589c613-41f6-4aa7-aa86-4e834e53d028",
-                            ConcurrencyStamp = "9568393f-b970-4874-b8f7-9657569edf0e",
-                            Name = "Visitor",
-                            NormalizedName = "VISITOR"
-                        },
-                        new
-                        {
-                            Id = "65f7545a-6947-48f8-812e-df08be8bc9e7",
-                            ConcurrencyStamp = "91818e41-6c82-411c-a452-c106c80efc7c",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "c62d96bc-761c-4a72-95a7-50542a999e3b",
-                            ConcurrencyStamp = "38dea008-51c5-4000-9d14-fedcd10a3bcf",
-                            Name = "Contractor",
-                            NormalizedName = "CONTRACTOR"
-                        },
-                        new
-                        {
-                            Id = "3377a643-9f9f-422f-8f37-b3d411cace13",
-                            ConcurrencyStamp = "5373f460-2af6-4fbb-ab5a-6320420da945",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

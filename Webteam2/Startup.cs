@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,14 +28,18 @@ namespace Webteam2
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMVC();
-
+            services.AddAutoMapper(typeof(Startup));
             var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Context>(options => 
             {
                 options.UseSqlServer(connectionString);
                 options.UseLazyLoadingProxies();
             });
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
