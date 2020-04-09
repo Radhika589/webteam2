@@ -24,7 +24,14 @@ namespace Webteam2.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Json(new { data=await _db.Issues.ToListAsync()});
+            if (_db.Issues.Any())
+            {
+                return Json(new { data = await _db.Issues.ToListAsync() });
+            }
+            else
+            {
+                return Json(new { success = false, message = "No Jobs Are Available!" });
+            }
         }
 
         [HttpDelete]
