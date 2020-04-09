@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,27 +6,21 @@
     <title>@ViewData["Title"] - Webteam2</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Webteam2</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+        <nav id="navbar" class="navbar">
+            <div class="nav_container">
+                <ul>
+                    <li><a id="navbar_item_0" class="menu_left" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a id="navbar_item_1" class="menu_left" asp-area="" asp-controller="" asp-action="">About</a></li>
+                    <li><a id="navbar_item_2" class="menu_left" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                    <!-- Menu items to the right, revesed order -->
+                    <li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
+                    <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="" asp-action="">Example</a></li>
+                </ul>
             </div>
         </nav>
     </header>
