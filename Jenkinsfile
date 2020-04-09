@@ -30,26 +30,7 @@ pipeline {
             steps {
                 sh 'robot -d results --variable BROWSER:headlesschrome Dotnet.robot'
             }
-            post {
-                always {
-                    script {
-                          step(
-                                [
-                                  $class              : 'RobotPublisher',
-                                  outputPath          : 'webteam2pipe',
-                                  outputFileName      : '**/output.xml',
-                                  reportFileName      : '**/report.html',
-                                  logFileName         : '**/log.html',
-                                  disableArchiveOutput: false,
-                                  passThreshold       : 50,
-                                  unstableThreshold   : 40,
-                                  otherFiles          : "**/*.png,**/*.jpg",
-                                ]
-                          )
                     }
-                }
-            }
-        }
 
         
  }
