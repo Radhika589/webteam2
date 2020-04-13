@@ -1,12 +1,11 @@
 *** Settings ***
-
-Library          SeleniumLibrary
-Library          DateTime
-
+Library     SeleniumLibrary
+Library     DateTime
+Library   SeleniumLibrary
 
 *** Variables ***
 
-${url}           https://localhost:44373/
+${url}           https://google.com
 ${browser}       chrome
 
 

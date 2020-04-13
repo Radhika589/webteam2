@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200410 22:34:13.240" rpa="false">
-<suite id="s1" name="WebTeam2Test" source="C:\Users\Sharda\source\repos\webteam2\Test\WebTeam2Test.robot">
-<test id="s1-t1" name="Login page">
+<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200413 22:23:39.889" rpa="false">
+<suite id="s1" name="Tests" source="C:\Users\Sharda\source\repos\webteam2\Test\Tests">
+<suite id="s1-s1" name="WebTeam2Test" source="C:\Users\Sharda\source\repos\webteam2\Test\Tests\WebTeam2Test.robot">
+<test id="s1-s1-t1" name="Login page">
 <kw name="Begin Web Test">
-<kw name="Open Browser">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
 <arguments>
 <arg>about:blank</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20200410 22:34:13.283" level="FAIL">No keyword with name 'Open Browser' found.</msg>
-<status status="FAIL" starttime="20200410 22:34:13.283" endtime="20200410 22:34:13.283"></status>
+<msg timestamp="20200413 22:23:40.157" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<status status="PASS" starttime="20200413 22:23:40.157" endtime="20200413 22:23:45.499"></status>
 </kw>
-<status status="FAIL" starttime="20200410 22:34:13.281" endtime="20200410 22:34:13.284"></status>
+<status status="PASS" starttime="20200413 22:23:40.156" endtime="20200413 22:23:45.500"></status>
 </kw>
-<status status="FAIL" starttime="20200410 22:34:13.281" endtime="20200410 22:34:13.284" critical="yes">No keyword with name 'Open Browser' found.</status>
+<kw name="Load Page">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20200413 22:23:45.502" level="INFO">Opening url 'https://google.com'</msg>
+<status status="PASS" starttime="20200413 22:23:45.502" endtime="20200413 22:23:46.686"></status>
+</kw>
+<status status="PASS" starttime="20200413 22:23:45.501" endtime="20200413 22:23:46.686"></status>
+</kw>
+<status status="PASS" starttime="20200413 22:23:40.156" endtime="20200413 22:23:46.686" critical="yes"></status>
 </test>
-<status status="FAIL" starttime="20200410 22:34:13.243" endtime="20200410 22:34:13.287"></status>
+<status status="PASS" starttime="20200413 22:23:39.921" endtime="20200413 22:23:46.688"></status>
+</suite>
+<status status="PASS" starttime="20200413 22:23:39.892" endtime="20200413 22:23:46.691"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1">Critical Tests</stat>
-<stat pass="0" fail="1">All Tests</stat>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" id="s1" name="WebTeam2Test">WebTeam2Test</stat>
+<stat pass="1" fail="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" id="s1-s1" name="WebTeam2Test">Tests.WebTeam2Test</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20200410 22:34:13.276" level="ERROR">Error in file 'C:\Users\Sharda\source\repos\webteam2\Test\WebTeam2Test.robot': Importing test library 'SeleniumLibrary' failed: ModuleNotFoundError: No module named 'SeleniumLibrary'
-Traceback (most recent call last):
-  None
-PYTHONPATH:
-  C:\Users\Sharda\Python\Scripts\robot.exe
-  c:\users\sharda\python\python38.zip
-  c:\users\sharda\python\DLLs
-  c:\users\sharda\python\lib
-  c:\users\sharda\python
-  c:\users\sharda\python\lib\site-packages</msg>
 </errors>
 </robot>
