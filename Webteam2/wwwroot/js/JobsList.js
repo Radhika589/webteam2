@@ -1,8 +1,24 @@
 ﻿window.addEventListener("load", () => {
   
-    var jobs= GetAllJobs();
-    $('#jobs_table').dataTable( {
+    var events = $('#events');
+    var table = $('#jobs_table').DataTable({
         "ajax": "/job/getall/",
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: "print",
+                autoPrint:false,
+                text: 'Print Selected Row(chanage to "Accept Job" later)',
+                exportOptions: {
+                    modifier: {
+                        selected: true
+                    }
+                }
+            }
+        ],
+        "select": {
+            style:'single'
+        },
         "columns":[
             {"data":"id"},
             {"data":"title"},
@@ -12,44 +28,55 @@
         ]
       } );
 
+    //table
+    //    .on('select', function (e, dt, type, indexes) {
+    //        var rowData = table.rows(indexes).data().toArray();
+    //        events.prepend('<div><b>' + type + ' selection</b> - ' + JSON.stringify(rowData) + '</div>');
+    //    })
+    //    .on('deselect', function (e, dt, type, indexes) {
+    //        var rowData = table.rows(indexes).data().toArray();
+    //        events.prepend('<div><b>' + type + ' <i>de</i>selection</b> - ' + JSON.stringify(rowData) + '</div>');
+    //    });
+    
 
-     async function GetAllJobs() {
-         let fetchedJobs;
-         fetchedJobs = await fetch("/job/getall/").
-             then(response => response.json()).
-             catch(error => console.log(error));
-         return fetchedJobs;
-     };
 
-    PrintJobs();
-    async function PrintJobs() {
-        let jobs = await GetAllJobs();
-        jobs.data.forEach(job => {
-            console.log(job.id);
-            console.log(job.title);
-            console.log(job.description);
-            console.log(job.payment);
-            console.log(job.issuer.reputation);
-        });
-    };
 
-    async function PopulateTable(){
-        let id_nod= document.createElement("TD");
-        let title_nod= document.createElement("TD");
-        let description_nod= document.createElement("TD");
-        let payment_nod= document.createElement("TD");
-        let issuer_rep_nod= document.createElement("TD");
 
-        let text=document.createTextNode("test");
 
-        id_nod.appendChild(text);
-        title_nod.appendChild(text);
-        description_nod.appendChild(text);
-        payment_nod.appendChild(text);
-        issuer_rep_nod.appendChild(text);
 
-        document.getElementById("table_row").appendChild(id_nod);
-    };
 
-    //PopulateTable();
+
+
+
+
+
+
+    // async function GetAllJobs() {
+    //     let fetchedJobs;
+    //     fetchedJobs = await fetch("/job/getall/").
+    //         then(response => response.json()).
+    //         catch(error => console.log(error));
+    //     return fetchedJobs;
+    // };
+
+    //PrintJobs();
+    //async function PrintJobs() {
+    //    let jobs = await GetAllJobs();
+    //    jobs.data.forEach(job => {
+    //        console.log(job.id);
+    //        console.log(job.title);
+    //        console.log(job.description);
+    //        console.log(job.payment);
+    //        console.log(job.issuer.reputation);
+    //    });
+    //};
+
+
+
+
+
+
+
+
+
 });
