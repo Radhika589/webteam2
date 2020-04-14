@@ -21,6 +21,11 @@ pipeline {
     bat 'dotnet build Webteam2.sln'
      }
     }
+stage('Run') {
+            steps {
+                bat 'START /B dotnet C:/Program Files (x86)/Jenkins/workspace/webteam2pipe/Webteam2/bin/Debug/netcoreapp3.1/Webteam2.dll'
+            }
+        }
   stage('UI tests') {
             steps {
                     
