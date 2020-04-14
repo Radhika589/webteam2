@@ -1,7 +1,7 @@
 ﻿window.addEventListener("load", () => {
   
     var events = $('#events');
-    /*var table =*/ $('#jobs_table').DataTable({
+    var table = $('#jobs_table').DataTable({
         "ajax": "/job/getall/",
         dom: 'Bfrtip',
         buttons: [
