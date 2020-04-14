@@ -26,7 +26,7 @@ pipeline {
         stage('UI tests') {
             steps {
                     
-                    bat 'robot Dotnet'
+                    bat 'robot C:/Users/46764/PycharmProjects/test/Dotnet'
             }
         }
     }
