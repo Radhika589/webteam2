@@ -34,18 +34,18 @@ namespace Webteam2.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var job = await _db.Issues.FirstOrDefaultAsync(job=>job.Id==id);
-            if (job==null)
-            {
-                return Json(new { success = false, message="Error while deleting" }) ;
-            }
-            _db.Issues.Remove(job);
-            await _db.SaveChangesAsync();
-            return Json(new { success=true,message="Deleting was successful"});
-        }
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    var job = await _db.Issues.FirstOrDefaultAsync(job=>job.Id==id);
+        //    if (job==null)
+        //    {
+        //        return Json(new { success = false, message="Error while deleting" }) ;
+        //    }
+        //    _db.Issues.Remove(job);
+        //    await _db.SaveChangesAsync();
+        //    return Json(new { success=true,message="Deleting was successful"});
+        //}
         #endregion
     }
 }
