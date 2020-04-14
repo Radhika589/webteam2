@@ -35,8 +35,14 @@ namespace Webteam2
                 options.UseSqlServer(connectionString);
                 options.UseLazyLoadingProxies();
             });
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<Context>();
+            services.AddIdentity<User, IdentityRole>(opt => 
+            {
+                opt.Password.RequiredLength = 7;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = true;
+                opt.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
 
             
@@ -59,7 +65,7 @@ namespace Webteam2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

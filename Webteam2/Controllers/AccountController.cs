@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Webteam2.Models;
@@ -49,6 +51,36 @@ namespace Webteam2.Controllers
             await _userManager.AddToRoleAsync(user, userModel.Role);
 
             return RedirectToAction(nameof(HomeController.Index),"Home");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginModel userLoginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userLoginModel);
+            }
+            var user = await _userManager.FindByEmailAsync(userLoginModel.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, userLoginModel.Password))
+            {
+                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid Username or Password");
+                return View();
+            }
         }
     }
 }

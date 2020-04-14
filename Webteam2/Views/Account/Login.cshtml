@@ -1,0 +1,33 @@
+﻿@model Webteam2.Models.UserLoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class=formContainer>
+    <form id=loginForm asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" placeholder="Email" required>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" placeholder="Password" required>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check"> 
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+            </label>
+        </div>
+        <div>
+            <button class="loginBtn" type="submit">Login</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
