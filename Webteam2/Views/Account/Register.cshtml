@@ -2,55 +2,49 @@
 @{
     ViewData["Title"] = "Register";
 }
-<h1 class="display-4 p-3 mb-5 text-center">Register</h1>
-<hr />
-<div class="container text-center mx-auto row">
-    <div class="container col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="Role" class="dropdown"></label>
-                <select asp-for="Role" class="form-control">
-                    <option value="Visitor">Visitor</option>
-                    <option value="Customer">Customer</option>
-                    <option value="Contractor">Contractor</option>
-                    <option value="Administrator">Administrator</option>
-                </select>
-                <span asp-validation-for="Role" class="text-danger"></span> 
-            </div>
-
-
-
-            <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-dark w-100" />
-            </div>
-        </form>
-    </div>
+<div class=formContainer>
+    <form class="cust_base_form" asp-action="Register">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <h1 class="cust_form_header">Register</h1>
+        <div class="cust_form_group">
+            <label asp-for="FirstName" class="cust_control_label">Firstname</label>
+            <input asp-for="FirstName" class="cust_form_control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <label asp-for="LastName" class="cust_control_label">Lastname</label>
+            <input asp-for="LastName" class="cust_form_control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <label asp-for="Email" class="cust_control_label">Email</label>
+            <input asp-for="Email" class="cust_form_control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <label asp-for="Password" class="cust_control_label">Password</label>
+            <input type="password" asp-for="Password" class="cust_form_control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <label asp-for="ConfirmPassword" class="cust_control_label">Confirm Password</label>
+            <input type="password" asp-for="ConfirmPassword" class="cust_form_control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <label asp-for="Role" class="cust_control_label">Role</label>
+            <select asp-for="Role" class="cust_form_control">
+                <option value="Visitor">Visitor</option>
+                <option value="Customer">Customer</option>
+                <option value="Contractor">Contractor</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+        <div class="cust_form_group">
+            <input type="submit" value="Register" class="cust_basic_btn" />
+        </div>
+    </form>
 </div>
 
 @section Scripts {

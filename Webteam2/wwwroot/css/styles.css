@@ -1,9 +1,4 @@
-﻿/*Navbar region*/
-
-.navbar{
-    padding: 0;
-}
-.navbar ul {
+﻿.cust_navbar ul {
     background-color: rgb(0, 0, 0);
     z-index: 999; /*the 'layer' of the element*/
     width: 100%;
@@ -13,38 +8,74 @@
     margin: 0;
     padding: 0;
 }
-.navbar ul li .menu_left {
-    float: left;
-}
 
-.navbar ul li .menu_right {
-    float: right;
-}
+    .cust_navbar ul li .menu_left {
+        float: left;
+    }
 
-.navbar ul li a {
-    display: block;
-    /* text color*/
-    color: white;
-    text-align: center;
-    padding: 5px 10px;
-    text-decoration: none;
-}
+    .cust_navbar ul li .menu_right {
+        float: right;
+    }
 
-.navbar ul li a:hover {
-    background-color: rgb(37, 37, 37);
-    text-decoration: underline;
-}
-/* To make some space under the navbar*/
-.container{
+    .cust_navbar ul li a {
+        display: block;
+        /* text color*/
+        color: white;
+        text-align: center;
+        padding: 5px 10px;
+        text-decoration: none;
+    }
+
+        .cust_navbar ul li a:hover {
+            background-color: rgb(37, 37, 37);
+            text-decoration: underline;
+        }
+
+.container {
     margin-top: 50px;
+    text-align: center;
 }
-
-/* Login Region*/
 
 .formContainer {
     width: 360px;
-    padding: 8% 0 0;
     margin: auto;
+}
+
+.cust_base_form {
+    position: relative;
+    z-index: 1;
+    background: rgb(187, 187, 187);
+    max-width: 360px;
+    border-radius: 5px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+}
+
+    .cust_base_form .cust_form_header {
+        margin-top: 0;
+    }
+
+    .cust_base_form .cust_form_group {
+        width: 100%;
+        display: inline-block;
+    }
+
+        .cust_base_form .cust_form_group label {
+            float: left;
+            clear: both;
+        }
+
+.cust_form_group .cust_form_control {
+    outline: 0;
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 #loginForm {
@@ -70,20 +101,36 @@ input[type=text], input[type=password] {
     font-size: 14px;
 }
 
-.loginBtn {
+.cust_basic_btn {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     width: 100%;
     outline: 0;
-    background: rgb(79, 211, 101);
+    background: rgb(15, 15, 15);
     width: 100%;
     border: 0;
     padding: 15px;
     color: #FFFFFF;
 }
 
-.loginBtn:hover {
-    background-color: rgb(68, 173, 86);
+    .cust_basic_btn:hover {
+        background-color: rgb(46, 46, 46);
+    }
+
+.pushLeft {
+    float: left;
 }
 
+.pushRight {
+    float: right;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+}
