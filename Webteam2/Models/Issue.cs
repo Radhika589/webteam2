@@ -15,6 +15,8 @@ namespace Webteam2.Models
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
         [Required]
+        public virtual string Location { get; set; }
+        [Required]
         public virtual int Payment { get; set; }
         [Required]
         public virtual User Issuer { get; set; }

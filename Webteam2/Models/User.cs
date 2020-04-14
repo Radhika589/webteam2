@@ -17,6 +17,8 @@ namespace Webteam2.Models
         public virtual string LastName { get; set; }
         [Required]
         public virtual string Tel { get; set; }
+        [Required]
+        public virtual string Location { get; set; }
         public virtual int Reputation { get; set; }
     }
 }
