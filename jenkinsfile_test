@@ -1,0 +1,33 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Checkout') {
+                steps {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Radhika589/webteam2.git']]])
+                }
+        }
+        stage('Restore') {
+            steps {
+                bat 'dotnet restore'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" Webteam2.sln'
+            }
+        }
+        stage('Run') {
+            steps {
+                bat 'START /B dotnet C:\Program Files (x86)\Jenkins\workspace\webteam2pipe\Webteam2\bin\Debug\netcoreapp3.1/Webteam2.dll'
+            }
+        }
+        stage('UI tests') {
+            steps {
+                    bat 'sleep 10s'
+                    bat 'robot Tests'
+            }
+        }
+    }
+}
