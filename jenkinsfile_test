@@ -26,7 +26,7 @@ pipeline {
         stage('UI tests') {
             steps {
                     
-                    bat 'robot Tests'
+                    bat 'robot Dotnet'
             }
         }
     }
