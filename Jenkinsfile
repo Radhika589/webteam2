@@ -23,17 +23,20 @@ pipeline {
     }
 stage('Run') {
             steps {
-                bat 'START /B dotnet C:/Program Files (x86)/Jenkins/workspace/webteam2/Webteam2/bin/Debug/netcoreapp3.1/Webteam2.dll'
+                bat 'START /B dotnet C:/Program Files (x86)/Jenkins/workspace/WebTeam2_Pipeline/Webteam2/bin/Debug/netcoreapp3.1/Webteam2.dll'
             }
         }
   stage('UI tests') {
             steps {
 
-                    bat 'robot WebTeam2Test'
+                    bat 'robot WebTeam2Test.robot'
 
             }
         }
 
-
  }
+   post{
+   	    always{
+               bat 'TASKKILL /F /IM dotnet.exe'
+   	}
 }
