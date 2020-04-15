@@ -21,36 +21,19 @@ pipeline {
     bat 'dotnet build Webteam2.sln'
      }
     }
-  stage('Pack') {
-   steps {
-    bat 'dotnet pack --no-build --output nupkgs'
-   }
-  }
-  stage('Robot Framework System tests with Selenium') {
+stage('Run') {
             steps {
-                sh 'robot -d results --variable BROWSER:headlesschrome   "Test/Tests/WebTeam2Test.robot"'
+                bat 'START /B dotnet C:/Program Files (x86)/Jenkins/workspace/webteam2/Webteam2/bin/Debug/netcoreapp3.1/Webteam2.dll'
             }
-            post {
-                always {
-                    script {
-                          step(
-                                [
-                                  $class              : 'RobotPublisher',
-                                  outputPath          : 'results',
-                                  outputFileName      : '**/output.xml',
-                                  reportFileName      : '**/report.html',
-                                  logFileName         : '**/log.html',
-                                  disableArchiveOutput: false,
-                                  passThreshold       : 50,
-                                  unstableThreshold   : 40,
-                                  otherFiles          : "**/*.png,**/*.jpg",
-                                ]
-                          )
-                    }
-                }
+        }
+  stage('UI tests') {
+            steps {
+
+                    bat 'robot C:\Projects\webteam2\Test\WebTeam2Test'
+
             }
         }
 
-        
+
  }
 }
