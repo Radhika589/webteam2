@@ -35,8 +35,5 @@ stage('Run') {
         }
 
  }
-   post{
-   	    always{
-               bat 'TASKKILL /F /IM dotnet.exe'
-   	}
+   
 }
