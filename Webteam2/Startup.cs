@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Webteam2.Factory;
 using Webteam2.Models;
 
 namespace Webteam2
@@ -43,6 +44,7 @@ namespace Webteam2
                 opt.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<Context>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             services.AddControllersWithViews();
 
             

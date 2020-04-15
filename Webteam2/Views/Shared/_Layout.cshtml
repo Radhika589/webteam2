@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,8 +21,27 @@
                     <li><a id="navbar_item_1" class="menu_left" asp-area="" asp-controller="" asp-action="">About</a></li>
                     <li><a id="navbar_item_2" class="menu_left" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                     <!-- Menu items to the right, revesed order -->
-                    <li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li> @*här skall du fortsätta knappen ser cp ut*@
+                            <form asp-controller="Account" asp-action="Logout">
+                                <button id="navbar_item_5" class="menu_right" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+
+                    }
+
+
+
+
+                    @*<li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
                 </ul>
             </div>
         </nav>

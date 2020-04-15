@@ -4,7 +4,7 @@
 }
 
 <div class=formContainer>
-    <form id=loginForm class="cust_base_form" asp-action="Login">
+    <form id=loginForm class="cust_base_form" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div>
             <input asp-for="Email" type="text" class="cust_form_control" placeholder="Email" required>
