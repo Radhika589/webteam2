@@ -1,40 +1,50 @@
 pipeline {
+
     agent any
-     stages {
+
+    stages {
         stage('Checkout') {
+                steps {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Radhika589/webteam2.git/']]])
+                }
+        }
+        stage('Build') {
             steps {
-                git 'https://github.com/Radhika589/webteam2.git'
-             }
-         }
-        stage('Restore Packages') {
-            steps {
-            bat "dotnet restore"
+                bat 'dotnet build'
             }
-         }
-  stage('Clean') {
-   steps {
-    bat 'dotnet clean'
-   }
-  }
-   stage('Build') {
-     steps {
-    bat 'dotnet build Webteam2.sln'
-     }
+        }
+        stage('Run') {
+            steps {
+                bat 'START /B dotnet run'
+            }
+        }
+        stage('Robot') {
+            steps {
+                    sleep 10
+                    bat 'robot -d results --variable BROWSER:headlesschrome "webteam2/Test/Tests/WebTeam2Test.robot" '
+            }
+            post {
+                always {
+                    script {
+                        step(
+                             [
+                               $class              : 'RobotPublisher',
+                               outputPath          : 'results',
+                               outputFileName      : '**/output.xml',
+                               reportFileName      : '**/report.html',
+                               logFileName         : '**/log.html',
+                               disableArchiveOutput: false,
+                               passThreshold       : 50,
+                               unstableThreshold   : 40,
+                               otherFiles          : "**/*.png,**/*.jpg",
+                            ]
+                        )
+                    }
+                }
+            }
+
+        }
+
     }
-stage('Run') {
-            steps {
-                bat 'START /B dotnet C:/Program Files (x86)/Jenkins/workspace/WebTeam2_Pipeline/Webteam2/bin/Debug/netcoreapp3.1/Webteam2.dll'
-            }
-        }
-  stage('UI tests') {
-            steps {
-
-                    bat 'robot WebTeam2Test.robot'
-            }
-        }
-
-
-
-}
 
 }
