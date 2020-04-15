@@ -29,7 +29,7 @@ stage('Run') {
   stage('UI tests') {
             steps {
 
-                    cmd 'robot C:/Projects/webteam2/Test/Tests/WebTeam2Test.robot'
+                    bat 'robot WebTeam2Test.robot'
             }
         }
 
