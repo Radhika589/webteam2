@@ -1,12 +1,7 @@
 pipeline {
     agent any
      stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Radhika589/webteam2.git'
-             }
-         }
-        stage('Restore Packages') {
+                stage('Restore Packages') {
             steps {
             bat "dotnet restore"
             }
