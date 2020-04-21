@@ -1,47 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200413 22:23:39.889" rpa="false">
-<suite id="s1" name="Tests" source="C:\Users\Sharda\source\repos\webteam2\Test\Tests">
-<suite id="s1-s1" name="WebTeam2Test" source="C:\Users\Sharda\source\repos\webteam2\Test\Tests\WebTeam2Test.robot">
-<test id="s1-s1-t1" name="Login page">
-<kw name="Begin Web Test">
+<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200417 20:38:58.728" rpa="false">
+<suite id="s1" name="Tests" source="C:\Users\Sharda\PycharmProjects\WebTeam2Project\tests">
+<suite id="s1-s1" name="Webteam2" source="C:\Users\Sharda\PycharmProjects\WebTeam2Project\tests\Webteam2.robot">
+<test id="s1-s1-t1" name="Registration">
+<kw name="Begin Web Test" library="Webteam2keywords" type="setup">
 <kw name="Open Browser" library="SeleniumLibrary">
 <doc>Opens a new browser instance to the optional ``url``.</doc>
 <arguments>
 <arg>about:blank</arg>
-<arg>${BROWSER}</arg>
+<arg>${browser}</arg>
 </arguments>
-<msg timestamp="20200413 22:23:40.157" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
-<status status="PASS" starttime="20200413 22:23:40.157" endtime="20200413 22:23:45.499"></status>
+<msg timestamp="20200417 20:38:58.971" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<status status="PASS" starttime="20200417 20:38:58.971" endtime="20200417 20:39:04.684"></status>
 </kw>
-<status status="PASS" starttime="20200413 22:23:40.156" endtime="20200413 22:23:45.500"></status>
+<status status="PASS" starttime="20200417 20:38:58.970" endtime="20200417 20:39:04.684"></status>
 </kw>
-<kw name="Load Page">
+<kw name="Load Page" library="Webteam2keywords">
 <kw name="Go To" library="SeleniumLibrary">
 <doc>Navigates the current browser window to the provided ``url``.</doc>
 <arguments>
 <arg>${url}</arg>
 </arguments>
-<msg timestamp="20200413 22:23:45.502" level="INFO">Opening url 'https://google.com'</msg>
-<status status="PASS" starttime="20200413 22:23:45.502" endtime="20200413 22:23:46.686"></status>
+<msg timestamp="20200417 20:39:04.686" level="INFO">Opening url 'https://localhost:44373/'</msg>
+<status status="PASS" starttime="20200417 20:39:04.685" endtime="20200417 20:39:08.897"></status>
 </kw>
-<status status="PASS" starttime="20200413 22:23:45.501" endtime="20200413 22:23:46.686"></status>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20200417 20:39:08.897" endtime="20200417 20:39:13.031"></status>
 </kw>
-<status status="PASS" starttime="20200413 22:23:40.156" endtime="20200413 22:23:46.686" critical="yes"></status>
+<status status="PASS" starttime="20200417 20:39:04.685" endtime="20200417 20:39:13.031"></status>
+</kw>
+<kw name="Verify Home" library="Webteam2keywords">
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>Welcome</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200417 20:39:13.717" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200417 20:39:13.106" endtime="20200417 20:39:13.717"></status>
+</kw>
+<msg timestamp="20200417 20:39:13.744" level="FAIL">Page should have contained text 'Welcome' but did not.</msg>
+<status status="FAIL" starttime="20200417 20:39:13.033" endtime="20200417 20:39:13.744"></status>
+</kw>
+<status status="FAIL" starttime="20200417 20:39:13.032" endtime="20200417 20:39:13.744"></status>
+</kw>
+<kw name="End Web Test" library="Webteam2keywords" type="teardown">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20200417 20:39:13.745" endtime="20200417 20:39:15.996"></status>
+</kw>
+<status status="PASS" starttime="20200417 20:39:13.745" endtime="20200417 20:39:15.996"></status>
+</kw>
+<doc>Test for registering the visitor profile</doc>
+<tags>
+<tag>Register_TC 1</tag>
+</tags>
+<status status="FAIL" starttime="20200417 20:38:58.969" endtime="20200417 20:39:15.997" critical="yes">Page should have contained text 'Welcome' but did not.</status>
 </test>
-<status status="PASS" starttime="20200413 22:23:39.921" endtime="20200413 22:23:46.688"></status>
+<test id="s1-s1-t2" name="Login">
+<kw name="Begin Web Test" library="Webteam2keywords" type="setup">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>about:blank</arg>
+<arg>${browser}</arg>
+</arguments>
+<msg timestamp="20200417 20:39:16.001" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<status status="PASS" starttime="20200417 20:39:16.000" endtime="20200417 20:39:21.259"></status>
+</kw>
+<status status="PASS" starttime="20200417 20:39:16.000" endtime="20200417 20:39:21.259"></status>
+</kw>
+<kw name="Load Page" library="Webteam2keywords">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20200417 20:39:21.262" level="INFO">Opening url 'https://localhost:44373/'</msg>
+<status status="PASS" starttime="20200417 20:39:21.261" endtime="20200417 20:39:25.475"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20200417 20:39:25.475" endtime="20200417 20:39:29.601"></status>
+</kw>
+<status status="PASS" starttime="20200417 20:39:21.260" endtime="20200417 20:39:29.601"></status>
+</kw>
+<kw name="Invalid Login Email" library="Webteam2keywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://*[@id="navbar_item_4"]</arg>
+</arguments>
+<msg timestamp="20200417 20:39:29.603" level="INFO">Clicking element 'xpath://*[@id="navbar_item_4"]'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200417 20:39:30.235" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200417 20:39:29.621" endtime="20200417 20:39:30.235"></status>
+</kw>
+<msg timestamp="20200417 20:39:30.250" level="FAIL">Element with locator 'xpath://*[@id="navbar_item_4"]' not found.</msg>
+<status status="FAIL" starttime="20200417 20:39:29.603" endtime="20200417 20:39:30.250"></status>
+</kw>
+<status status="FAIL" starttime="20200417 20:39:29.602" endtime="20200417 20:39:30.250"></status>
+</kw>
+<kw name="End Web Test" library="Webteam2keywords" type="teardown">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20200417 20:39:30.251" endtime="20200417 20:39:32.491"></status>
+</kw>
+<status status="PASS" starttime="20200417 20:39:30.251" endtime="20200417 20:39:32.492"></status>
+</kw>
+<doc>Test for login page</doc>
+<tags>
+<tag>Login_TC 2</tag>
+</tags>
+<status status="FAIL" starttime="20200417 20:39:15.999" endtime="20200417 20:39:32.492" critical="yes">Element with locator 'xpath://*[@id="navbar_item_4"]' not found.</status>
+</test>
+<status status="FAIL" starttime="20200417 20:38:58.755" endtime="20200417 20:39:32.496"></status>
 </suite>
-<status status="PASS" starttime="20200413 22:23:39.892" endtime="20200413 22:23:46.691"></status>
+<status status="FAIL" starttime="20200417 20:38:58.730" endtime="20200417 20:39:32.502"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0">Critical Tests</stat>
-<stat pass="1" fail="0">All Tests</stat>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
 </total>
 <tag>
+<stat pass="0" fail="1">Login_TC 2</stat>
+<stat pass="0" fail="1">Register_TC 1</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" id="s1" name="Tests">Tests</stat>
-<stat pass="1" fail="0" id="s1-s1" name="WebTeam2Test">Tests.WebTeam2Test</stat>
+<stat pass="0" fail="2" id="s1" name="Tests">Tests</stat>
+<stat pass="0" fail="2" id="s1-s1" name="Webteam2">Tests.Webteam2</stat>
 </suite>
 </statistics>
 <errors>
