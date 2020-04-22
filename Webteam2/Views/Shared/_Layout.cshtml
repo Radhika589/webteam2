@@ -20,15 +20,19 @@
                     <li><a id="navbar_item_0" class="menu_left" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a id="navbar_item_1" class="menu_left" asp-area="" asp-controller="" asp-action="">About</a></li>
                     <li><a id="navbar_item_2" class="menu_left" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+
                     <!-- Menu items to the right, revesed order -->
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li> @*här skall du fortsätta knappen ser cp ut*@
-                            <form asp-controller="Account" asp-action="Logout">
-                                <button id="navbar_item_5" class="menu_right" type="submit">Logout</button>
-                            </form>
-                        </li>
+                <li>
+                    @*här skall du fortsätta knappen ser cp ut*@
+                    <form asp-controller="Account" asp-action="Logout">
+                        <button id="navbar_item_5" class="menu_right navbar_logout" type="submit">Logout</button>
+                        <p class="menu_right navbar_text">@User.Identity.Name</p>
+                    </form>
+                </li>
+                        <li><a id="navbar_item_2" class="menu_left" asp-area="" asp-controller="Issues" asp-action="Index">Issues</a></li>
                     }
                     else
                     {
@@ -41,7 +45,7 @@
 
 
                     @*<li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
+        <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
                 </ul>
             </div>
         </nav>

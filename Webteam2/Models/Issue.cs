@@ -8,10 +8,9 @@ namespace Webteam2.Models
 {
     public class Issue
     {
-        [Column("id")]
-        public virtual string Id { get; set; }
+        public virtual int ID { get; set; }
+        public virtual string OwnerID { get; set; }
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
-
     }
 }

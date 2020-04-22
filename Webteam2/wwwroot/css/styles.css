@@ -8,10 +8,14 @@
     margin: 0;
     padding: 0;
 }
-
-    .cust_navbar ul li .menu_left {
-        float: left;
-    }
+.navbar_text {
+    color: white;
+    margin: 0;
+    padding: 5px 10px;
+}
+.cust_navbar ul li .menu_left {
+    float: left;
+}
 
     .cust_navbar ul li .menu_right {
         float: right;
@@ -25,11 +29,25 @@
         padding: 5px 10px;
         text-decoration: none;
     }
-
+.navbar_logout {
+    display: block;
+    text-align: center;
+    /*padding: 5px 10px;*/
+    background-color: darkred;
+    color: white;
+    border-radius: 2px;
+    border: 0;
+    margin: 5px;
+}
         .cust_navbar ul li a:hover {
             background-color: rgb(37, 37, 37);
             text-decoration: underline;
         }
+    .cust_navbar ul li .navbar_logout:hover {
+        background-color: red;
+    }
+
+
 
 .container {
     margin-top: 50px;
