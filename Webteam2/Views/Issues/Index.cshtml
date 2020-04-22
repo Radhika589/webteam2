@@ -1,0 +1,47 @@
+﻿
+@model IssuesViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+@{
+    var _user = await UserManager.GetUserAsync(User);
+    var roles = await UserManager.GetRolesAsync(_user);
+    var role = roles.FirstOrDefault();
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Account role: @role</p>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a href="#My" class="nav-link" aria-controls="My" role="tab" data-toggle="tab">My issues</a>
+            </li>
+            @if (await UserManager.IsInRoleAsync(_user, "Administrator"))
+            {
+                <li class="nav-item">
+                    <a href="#All" class="nav-link" aria-controls="All" role="tab" data-toggle="tab">All</a>
+                </li>
+            }
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="My">
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+                @await Html.PartialAsync("~/Views/Issues/IssueView.cshtml", Model.UserIssues)
+
+            </div>
+            @if (await UserManager.IsInRoleAsync(_user, "Administrator") || await UserManager.IsInRoleAsync(_user, "Contractor"))
+            {
+                <div role="tabpanel" class="tab-pane" id="All">
+                    @await Html.PartialAsync("~/Views/Issues/IssueView.cshtml", Model.AllIssues)
+                </div>
+            }
+
+        </div>
+    </div>
+}
