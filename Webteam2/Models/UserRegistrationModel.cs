@@ -8,7 +8,9 @@ namespace Webteam2.Models
 {
     public class UserRegistrationModel
     {
+        [Required(ErrorMessage = "Firstname is required")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Lastname is required")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
