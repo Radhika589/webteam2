@@ -46,7 +46,6 @@ namespace Webteam2
             .AddEntityFrameworkStores<Context>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             services.AddControllersWithViews();
-
             
         }
 

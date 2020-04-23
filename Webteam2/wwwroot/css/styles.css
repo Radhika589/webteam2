@@ -49,8 +49,9 @@
 
 
 
-.container {
+.cust_container {
     margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -107,17 +108,6 @@
     text-align: center;
 }
 
-input[type=text], input[type=password] {
-    outline: 0;
-    background: white;
-    border-radius: 5px;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
 
 .cust_basic_btn {
     border-radius: 5px;
