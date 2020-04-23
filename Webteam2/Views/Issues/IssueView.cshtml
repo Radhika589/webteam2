@@ -1,18 +1,28 @@
 ﻿@model IEnumerable<Webteam2.Models.Issue>
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<User> UserManager
-@{ 
+@{
     var _user = await UserManager.GetUserAsync(User);
 }
 
-<table class="table">
+<table class="table table-striped border">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th>
+                Issuer
             </th>
             <th></th>
         </tr>
@@ -20,22 +30,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                @if (item.OwnerID == UserManager.GetUserId(User) || await UserManager.IsInRoleAsync(_user, "Administrator"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                }
-            </td>
-        </tr>
+
+            <tr id="table_row">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+
+                @*<td class="text-left">
+                        <a class="text-truncate" asp-action="Details" asp-route-id="@item.ID"
+                           >@Html.DisplayFor(modelItem => item.Description)</a>
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => UserManager.FindByIdAsync(item.OwnerID).Result.UserName)
+                </td>
+                <td>
+                    @if (item.OwnerID == UserManager.GetUserId(User) || await UserManager.IsInRoleAsync(_user, "Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">
+                            <input type="button" value="Edit" class="btn btn-warning" />
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">
+                            <input type="button" value="Delete" class="btn btn-danger" />
+                        </a>
+                    }
+                </td>
+
+            </tr>
         }
     </tbody>
 </table>

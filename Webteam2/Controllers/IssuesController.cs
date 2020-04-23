@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,10 +13,14 @@ using Webteam2.Models;
 
 namespace Webteam2.Controllers
 {
+    [Authorize]
     public class IssuesController : Controller
     {
         private readonly Context _context;
         private readonly UserManager<User> _userManager;
+        private User _user { get { return _userManager.GetUserAsync(User).Result; } }
+        private bool _IsAdmin { get { return _userManager.IsInRoleAsync(_user, "Administrator").Result; } }
+        private string _userRole { get { return _userManager.GetRolesAsync(_user).Result[0]; } }
 
         public IssuesController(Context context, UserManager<User> userManager)
         {
@@ -21,22 +28,40 @@ namespace Webteam2.Controllers
             _userManager = userManager;
         }
 
+        private bool HasWriteAccess(Issue issue)
+        {
+            if (_IsAdmin || _user.Id == issue.OwnerID)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CanReadDetails(Issue issue)
+        {
+            string[] allowedRoles = { "Administrator","Contractor"};
+            if (allowedRoles.Contains(_userRole) || HasWriteAccess(issue))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         // GET: Issues
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var userid = _userManager.GetUserId(User);
-                var user = await _userManager.GetUserAsync(User);
-                var roles = await _userManager.GetRolesAsync(user);
-                if (roles != null)
-                {
-                    Console.WriteLine(roles.First());
-                }
                 IssuesViewModel issuesView = new IssuesViewModel();
-                issuesView.AllIssues = await _context.Issues.ToListAsync();
-                issuesView.UserIssues = await _context.Issues.Where(id => id.OwnerID == userid).ToListAsync();
-                //return View(await _context.Issues.Where(id => id.OwnerID == userid).ToListAsync());
+                if (await _context.Issues.ToListAsync() != null)
+                {
+                    issuesView.AllIssues = await _context.Issues.ToListAsync();
+                    issuesView.UserIssues = issuesView.AllIssues.Where(id => id.OwnerID == _user.Id).ToList();
+                }
                 return View(issuesView);
             }
             else
@@ -56,18 +81,34 @@ namespace Webteam2.Controllers
 
             var issue = await _context.Issues
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (issue == null)
+            if (issue != null )
+            {
+                if (CanReadDetails(issue))
+                {
+                    return View(issue);
+                }
+                else
+                {
+                    return NotFound("You're not allowed here.");
+                }
+            }
+            else
             {
                 return NotFound();
             }
-
-            return View(issue);
         }
 
         // GET: Issues/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            if (_userRole == "Customer" || _IsAdmin)
+            {
+                return View();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // POST: Issues/Create
@@ -75,7 +116,7 @@ namespace Webteam2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description")] Issue issue)
+        public async Task<IActionResult> Create([Bind("ID,Location,Payment,Title,Description")] Issue issue)
         {
             if (ModelState.IsValid)
             {
@@ -96,11 +137,21 @@ namespace Webteam2.Controllers
             }
 
             var issue = await _context.Issues.FindAsync(id);
-            if (issue == null)
+            if (issue != null)
+            {
+                if (HasWriteAccess(issue))
+                {
+                    return View(issue);
+                }
+                else
+                {
+                    return NotFound("You're not allowed here.");
+                }
+            }
+            else
             {
                 return NotFound();
             }
-            return View(issue);
         }
 
         // POST: Issues/Edit/5
@@ -108,9 +159,9 @@ namespace Webteam2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,OwnerID,Title,Description")] Issue issue)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Location,OwnerID,Payment,Title,Description")] Issue issue)
         {
-            Console.WriteLine($"id = {id} - issueID = {issue.ID}");
+           
             if (id != issue.ID)
             {
                 return NotFound();
@@ -142,24 +193,30 @@ namespace Webteam2.Controllers
         // GET: Issues/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            if (id <= 0)
+            if (!IssueExists(id))
             {
                 return NotFound();
             }
 
             var issue = await _context.Issues
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (issue == null)
+            if (issue != null)
+            {
+                if (HasWriteAccess(issue))
+                {
+                    return View(issue);
+                }
+                else
+                {
+                    return NotFound("You're not allowed here.");
+                }
+            }
+            else
             {
                 return NotFound();
             }
+        }
 
-            return View(issue);
-        }
-        public async Task<IActionResult> MyIssues()
-        {
-            return PartialView("My");
-        }
         // POST: Issues/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

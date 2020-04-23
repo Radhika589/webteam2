@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webteam2.Migrations
 {
-    public partial class New_initial : Migration
+    public partial class Updated_issues : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,33 +22,6 @@ namespace Webteam2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Issues",
                 columns: table => new
                 {
@@ -56,7 +29,9 @@ namespace Webteam2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerID = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Payment = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,6 +57,40 @@ namespace Webteam2.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    IssueID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Issues_IssueID",
+                        column: x => x.IssueID,
+                        principalTable: "Issues",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,10 +183,10 @@ namespace Webteam2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "9f34a688-bfc2-4d8e-9cd0-a81e71937bdb", "75d9cac8-0caf-4724-81a1-7e146f9db93e", "Visitor", "VISITOR" },
-                    { "f5627824-39af-4d49-9500-e29ec2480960", "496e0c91-3909-41db-9b54-93a0b4ab5632", "Customer", "CUSTOMER" },
-                    { "922b028f-8236-46d9-ab2f-03e5c9f2fdad", "1af14037-ced2-49ef-8995-9ea8feac0eed", "Contractor", "CONTRACTOR" },
-                    { "afc08b5c-de6b-4cf6-ba2c-0b757b051af8", "015648a7-8c8b-4b72-b555-9bb2ae56db38", "Administrator", "ADMINISTRATOR" }
+                    { "0a281b6b-7e5a-434c-9911-8e12025c4b96", "f199c01f-6ebe-4643-b69c-aa8b957b478a", "Visitor", "VISITOR" },
+                    { "6a6ff164-d9da-4190-b52a-60dfb9f4f694", "a551002f-09da-4331-a3d0-ab3d7fe853e8", "Customer", "CUSTOMER" },
+                    { "316927bd-100c-4cfe-9364-fa65a6737157", "6abe78e9-83ed-4eb2-8b69-1ece48a22308", "Contractor", "CONTRACTOR" },
+                    { "782e8705-6b3b-450a-bd93-1d4a65948784", "d284cddb-f794-40dc-993a-ebc611c21ff6", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -206,6 +215,11 @@ namespace Webteam2.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_IssueID",
+                table: "AspNetUsers",
+                column: "IssueID");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -238,13 +252,13 @@ namespace Webteam2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Issues");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Issues");
         }
     }
 }

@@ -19,7 +19,7 @@
             <li class="nav-item">
                 <a href="#My" class="nav-link" aria-controls="My" role="tab" data-toggle="tab">My issues</a>
             </li>
-            @if (await UserManager.IsInRoleAsync(_user, "Administrator"))
+            @if (await UserManager.IsInRoleAsync(_user, "Administrator") || await UserManager.IsInRoleAsync(_user, "Contractor"))
             {
                 <li class="nav-item">
                     <a href="#All" class="nav-link" aria-controls="All" role="tab" data-toggle="tab">All</a>
@@ -29,9 +29,11 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="My">
-                <p>
-                    <a asp-action="Create">Create New</a>
-                </p>
+
+                <a id="newIssueBtn" asp-action="Create">
+                    <input type="button" value="New Issue" class="btn btn-info pushLeft" />
+                </a>
+
                 @await Html.PartialAsync("~/Views/Issues/IssueView.cshtml", Model.UserIssues)
 
             </div>
