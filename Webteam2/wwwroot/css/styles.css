@@ -85,7 +85,7 @@
             clear: both;
         }
 
-.cust_form_group .cust_form_control {
+.cust_form_control {
     outline: 0;
     background: white;
     border-radius: 5px;
