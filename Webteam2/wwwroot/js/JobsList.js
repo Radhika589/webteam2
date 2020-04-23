@@ -24,7 +24,9 @@
             {"data":"description"},
             {"data":"location"},
             {"data":"payment"},
-            {"data":"issuer.reputation"}
+            { "data": "issuer.reputation" },
+            { "data": "issuer.firstName" },
+            { "data": "issuer.lastName" }
         ]
       } );
 
