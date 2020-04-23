@@ -2,8 +2,8 @@
 Library     SeleniumLibrary
 Library     DateTime
 
-*** Variables ***
 
+*** Variables ***
 ${url}           https://localhost:44373/
 ${browser}       chrome
 
@@ -12,21 +12,21 @@ ${browser}       chrome
 Begin Web Test
    Open Browser     about:blank     ${browser}
    Load Page
-
+   #Verify Home
 
 Load Page
    Go To                            ${url}
    Maximize Browser Window
 
 Verify Home
-   Page Should Contain              No Model?
+   Page Should Contain              Welcome
    Page Should Contain Element      link:Login
    Page Should Contain Element      link:Register
    Page Should Contain Element      link:About
    Page Should Contain Element      link:Privacy
 
-Register Link
-   Click Link                       xpath:/html/body/div/main/div[2]/a
+Click Register Link
+   Click Link                       xpath://*[@id="navbar_item_3"]
 
 Input Email
    [Arguments]      ${username}
@@ -41,101 +41,24 @@ Input CnfmPwd
 Click Register Button
    Click Button                     xpath:/html/body/div/main/div/form/div[8]/input
 
-Random Email
-
-
-Valid Credentials
-   ${Radndom_email}                 Mailosaur.generate_email_address        ${Server_id}
-   Click Element                    xpath://*[@id="FirstName"]
-   Input Text                       id:FirstName    Tina
-   Click Element                    xpath://*[@id="LastName"]
-   Input Text                       id:LastName     Henrik
-   Click Element                    xpath://*[@id="Email"]
-   Input Text                       id:Email         ${Radndom_email}
-   Click Element                    xpath://*[@id="Password"]
-   Input Text                       id:Password     Login@123
-   Click Element                    xpath://*[@id="ConfirmPassword"]
-   Input Text                       id :ConfirmPassword     Login@123
-   Click Element                    xpath://*[@id="Role"]
-   Sleep                            2s
-   Select from List by Index        id:Role         2
-   Click Button                     xpath:/html/body/div/main/div/form/div[8]/input
-   Sleep                            5s
-   Page Should Contain Link         xpath://*[@id="navbar_item_4"]
-
-Invalid Email
-   Click Element                    xpath://*[@id="FirstName"]
-   Input Text                       id:FirstName    T
-   Click Element                    xpath://*[@id="LastName"]
-   Input Text                       id:LastName     Henrik
-   Click Element                    xpath://*[@id="Email"]
-   Input Text                       id:Email        Radhika
-   Click Element                    xpath://*[@id="Password"]
-   Input Text                       id:Password     login
-   Click Element                    xpath://*[@id="ConfirmPassword"]
-   Input Text                       id :ConfirmPassword     login
-   Click Element                    xpath://*[@id="Role"]
-   Sleep                            2s
-   Select from List by Index        id:Role         2
-   Click Button                     xpath:/html/body/div/main/div/form/div[8]/input
-
-Error Message
-   Page Should Not Contain          Welcome
-
 Click Login Button
    Click Button                     xpath://*[@id="loginForm"]/div[4]/button
-
-Invalid Password
-   Click Element                    xpath://*[@id="FirstName"]
-   Input Text                       id:FirstName    T
-   Click Element                    xpath://*[@id="LastName"]
-   Input Text                       id:LastName     Henrik
-   Click Element                    xpath://*[@id="Email"]
-   Input Text                       id:Email        Radhika@yahoo.com
-   Click Element                    xpath://*[@id="Password"]
-   Input Text                       id:Password     login
-   Click Element                    xpath://*[@id="ConfirmPassword"]
-   Input Text                       id :ConfirmPassword     login
-   Click Element                    xpath://*[@id="Role"]
-   Sleep                            2s
-   Select from List by Index        id:Role         2
-   Click Button                     xpath:/html/body/div/main/div/form/div[8]/input
-   Page Should Contain              Passwords must be at least 7 characters.
-   Page Should Contain              Passwords must have at least one uppercase ('A'-'Z').
-   Page Should Contain              Passwords must have at least one non alphanumeric character.
 
 Login
    Click Element                    xpath://*[@id="navbar_item_4"]
 
-
-
-
 Login Page
    Click Element                    xpath://*[@id="navbar_item_4"]
-   Input Text                       id:Email    Tina@yahoo.com
+   Input Text                       id:Email       abc@yahoo.com
    Input Text                       id:Password     Login@123
    Click Button                     xpath://*[@id="loginForm"]/div[4]/button
-   Sleep                            5s
 
 Logout Button
-      Click Element                 xpath://*[@id="navbar_item_5"]
-      Page Should Contain Link      xpath://*[@id="navbar_item_4"]
-
-Invalid Login Password
-   Click Element                    xpath://*[@id="navbar_item_4"]
-   Input Text                       id:Email    Tina@yahoo.com
-   Input Text                       id:Password     login
-   Click Button                     xpath://*[@id="loginForm"]/div[4]/button
+    Click Element                   xpath://*[@id="navbar_item_5"]
+    Page Should Contain Link        xpath://*[@id="navbar_item_4"]
 
 Login Error Message
    Page Should Contain Button       xpath://*[@id="loginForm"]/div[4]/button
-
-Invalid Login Email
-   Click Element                    xpath://*[@id="navbar_item_4"]
-   Input Text                       id:Email    Tina
-   Input Text                       id:Password     Login@123
-   Click Button                     xpath://*[@id="loginForm"]/div[4]/button
-   Page Should Contain              The Email field is not a valid e-mail address.
 
 Jobs
    Page Should Contain              No Model?
@@ -146,6 +69,9 @@ Jobs
    Table Header Should Contain      xpath://*[@id="jobs_table"]     Location
    Table Header Should Contain      xpath://*[@id="jobs_table"]     Payment
    Table Header Should Contain      xpath://*[@id="jobs_table"]     Issuer Rep
+   Table Header Should Contain      xpath://*[@id="jobs_table"]     Issuer First Name
+   Table Header Should Contain      xpath://*[@id="jobs_table"]     Issuer Last Name
+
 
 Filter By Title
    Input Text                       xpath://*[@id="jobs_table_filter"]/label/input      Driver
@@ -159,19 +85,18 @@ Filter By Title
    Table Cell Should Contain        xpath://*[@id="jobs_table"]     2   5   12
    Table Row Should Contain         xpath://*[@id="jobs_table"]     10  Driver
 
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[2]
-   Page Should Contain      Showing 11 to 20 of 33 entries (filtered from 149 total entries)
-   Click Element            xpath://div[@id='jobs_table_paginate']/span/a[3]
-   Page Should Contain      Showing 21 to 30 of 33 entries (filtered from 149 total entries)
-   Click Element            xpath://div[@id='jobs_table_paginate']/span/a[4]
-   Page Should Contain      Showing 31 to 33 of 33 entries (filtered from 149 total entries)
-
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[3]
-   Page Should Contain      Showing 21 to 30 of 33 entries (filtered from 149 total entries)
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[2]
-   Page Should Contain      Showing 11 to 20 of 33 entries (filtered from 149 total entries)
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[1]
-   Page Should Contain      Showing 1 to 10 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://*[@id="jobs_table_paginate"]/span/a[2]
+   Page Should Contain             Showing 11 to 20 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://div[@id='jobs_table_paginate']/span/a[3]
+   Page Should Contain             Showing 21 to 30 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://div[@id='jobs_table_paginate']/span/a[4]
+   Page Should Contain             Showing 31 to 33 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://*[@id="jobs_table_paginate"]/span/a[3]
+   Page Should Contain             Showing 21 to 30 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://*[@id="jobs_table_paginate"]/span/a[2]
+   Page Should Contain             Showing 11 to 20 of 33 entries (filtered from 149 total entries)
+   Click Element                   xpath://*[@id="jobs_table_paginate"]/span/a[1]
+   Page Should Contain             Showing 1 to 10 of 33 entries (filtered from 149 total entries)
 
 Filter By Location
    Input Text                       xpath://*[@id="jobs_table_filter"]/label/input      Göteborg
@@ -184,24 +109,25 @@ Filter By Location
    Table Cell Should Contain        xpath://*[@id="jobs_table"]     4   4   	525
    Table Cell Should Contain        xpath://*[@id="jobs_table"]     4   5   8
    Table Row Should Contain         xpath://*[@id="jobs_table"]     10  Göteborg
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[2]
-   Page Should Contain      Showing 11 to 20 of 31 entries (filtered from 149 total entries)
-   Click Element            xpath://div[@id='jobs_table_paginate']/span/a[3]
-   Page Should Contain      Showing 21 to 30 of 31 entries (filtered from 149 total entries)
-   Click Element            xpath://div[@id='jobs_table_paginate']/span/a[4]
-   Page Should Contain      Showing 31 to 31 of 31 entries (filtered from 149 total entries)
 
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[3]
-   Page Should Contain      Showing 21 to 30 of 31 entries (filtered from 149 total entries)
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[2]
-   Page Should Contain      Showing 11 to 20 of 31 entries (filtered from 149 total entries)
-   Click Element            xpath://*[@id="jobs_table_paginate"]/span/a[1]
-   Page Should Contain      Showing 1 to 10 of 31 entries (filtered from 149 total entries)
+   Click Element                    xpath://*[@id="jobs_table_paginate"]/span/a[2]
+   Page Should Contain              Showing 11 to 20 of 31 entries (filtered from 149 total entries)
+   Click Element                    xpath://div[@id='jobs_table_paginate']/span/a[3]
+   Page Should Contain              Showing 21 to 30 of 31 entries (filtered from 149 total entries)
+   Click Element                    xpath://div[@id='jobs_table_paginate']/span/a[4]
+   Page Should Contain              Showing 31 to 31 of 31 entries (filtered from 149 total entries)
+
+   Click Element                    xpath://*[@id="jobs_table_paginate"]/span/a[3]
+   Page Should Contain              Showing 21 to 30 of 31 entries (filtered from 149 total entries)
+   Click Element                    xpath://*[@id="jobs_table_paginate"]/span/a[2]
+   Page Should Contain              Showing 11 to 20 of 31 entries (filtered from 149 total entries)
+   Click Element                    xpath://*[@id="jobs_table_paginate"]/span/a[1]
+   Page Should Contain              Showing 1 to 10 of 31 entries (filtered from 149 total entries)
 
 Users
-    Page Should Contain              No Model?
-    Click Element       xpath:/html/body/header/nav/div/div/ul/li[4]/a
-    Page Should Contain     Users List
+
+    Click Element                   xpath:/html/body/header/nav/div/div/ul/li[4]/a
+    Page Should Contain             Users List
     Table Header Should Contain     xpath://*[@id="users_table"]    First Name
     Table Header Should Contain     xpath://*[@id="users_table"]    Last Name
     Table Header Should Contain     xpath://*[@id="users_table"]    Reputation
@@ -214,15 +140,15 @@ Filter By First Name
    Log To Console                   ${rows}
 
    Table Cell Should Contain        xpath://*[@id="users_table"]      2   1   Pamela
-   Table Cell Should Contain        xpath://*[@id="users_table"]        2   2   Reed
+   Table Cell Should Contain        xpath://*[@id="users_table"]      2   2   Reed
    Table Cell Should Contain        xpath://*[@id="users_table"]      2   3   11
    Table Cell Should Contain        xpath://*[@id="users_table"]      2   4   123
    Table Cell Should Contain        xpath://*[@id="users_table"]      2   5   Stockholm
-   Table Row Should Contain         xpath://*[@id="users_table"]     1   Pamela
-   Click Element    xpath://*[@id="users_table_next"]
-   Page Should Contain   Showing 1 to 1 of 1 entries (filtered from 19 total entries)
-   Click Element    xpath://*[@id="users_table_previous"]
-   Page Should Contain   Showing 1 to 1 of 1 entries (filtered from 19 total entries)
+   Table Row Should Contain         xpath://*[@id="users_table"]      1   Pamela
+   Click Element                    xpath://*[@id="users_table_next"]
+   Page Should Contain              Showing 1 to 1 of 1 entries (filtered from 19 total entries)
+   Click Element                    xpath://*[@id="users_table_previous"]
+   Page Should Contain              Showing 1 to 1 of 1 entries (filtered from 19 total entries)
 
 Filter By Last Name
    Input Text                       xpath://*[@id="users_table_filter"]/label/input      Walker
@@ -235,19 +161,18 @@ Filter By Last Name
    Table Cell Should Contain        xpath://*[@id="users_table"]      4   4   123
    Table Cell Should Contain        xpath://*[@id="users_table"]      4   5   Stockholm
    Table Row Should Contain         xpath://*[@id="users_table"]     3   Walker
-   Click Element    xpath://*[@id="users_table_next"]
-   Page Should Contain   Showing 1 to 3 of 3 entries (filtered from 19 total entries)
-   Click Element    xpath://*[@id="users_table_previous"]
-   Page Should Contain   Showing 1 to 3 of 3 entries (filtered from 19 total entries)
+   Click Element                    xpath://*[@id="users_table_next"]
+   Page Should Contain              Showing 1 to 3 of 3 entries (filtered from 19 total entries)
+   Click Element                    xpath://*[@id="users_table_previous"]
+   Page Should Contain              Showing 1 to 3 of 3 entries (filtered from 19 total entries)
 
 Sorting
-    Click Element   xpath://*[@id="users_table"]/thead/tr/th[2]
-    Click Element   xpath://*[@id="users_table"]/thead/tr/th[1]
+    Click Element                   xpath://*[@id="users_table"]/thead/tr/th[2]
+    Click Element                   xpath://*[@id="users_table"]/thead/tr/th[1]
 
-
-
-
-
+Print
+   Click Element                    xpath:/html/body/div/main/div/div/form/div/div[1]/button
+   Page Should Contain              Index - Webteam2
 
 End Web Test
    Close Browser
