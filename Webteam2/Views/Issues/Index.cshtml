@@ -29,11 +29,12 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="My">
-
-                <a id="newIssueBtn" asp-action="Create">
-                    <input type="button" value="New Issue" class="btn btn-info pushLeft" />
-                </a>
-
+                @if (role == "Customer" || role == "Administrator")
+                {
+                    <a id="newIssueBtn" asp-action="Create">
+                        <input type="button" value="New Issue" class="btn btn-info pushLeft" />
+                    </a>
+                }
                 @await Html.PartialAsync("~/Views/Issues/IssueView.cshtml", Model.UserIssues)
 
             </div>
