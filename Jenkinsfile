@@ -24,7 +24,7 @@ stage('Run') {
   stage('UI tests') {
             steps {
 
-                    bat 'robot C:/Projects/webteam2/Test'
+                    bat 'python -m robot.run C:/Projects/webteam2/Test'
             }
         }
 
