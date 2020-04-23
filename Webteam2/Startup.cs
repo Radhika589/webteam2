@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Webteam2.Factory;
+using Webteam2.Models;
 
 namespace Webteam2
 {
@@ -23,7 +28,26 @@ namespace Webteam2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMVC();
+            services.AddAutoMapper(typeof(Startup));
+            var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<Context>(options => 
+            {
+                options.UseSqlServer(connectionString);
+                options.UseLazyLoadingProxies();
+            });
+            services.AddIdentity<User, IdentityRole>(opt => 
+            {
+                opt.Password.RequiredLength = 7;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = true;
+                opt.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<Context>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             services.AddControllersWithViews();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +67,7 @@ namespace Webteam2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
