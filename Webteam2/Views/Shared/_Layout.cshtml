@@ -8,9 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Webteam2</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/styles.css" />
-
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/sl-1.3.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/r-2.2.3/rr-1.2.6/sl-1.3.1/datatables.min.css" />
 </head>
 <body>
     <header>
@@ -24,11 +29,16 @@
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li> @*här skall du fortsätta knappen ser cp ut*@
+                        <li>
+                            @*här skall du fortsätta knappen ser cp ut*@
                             <form asp-controller="Account" asp-action="Logout">
                                 <button id="navbar_item_5" class="menu_right" type="submit">Logout</button>
                             </form>
                         </li>
+                        <li><a id="navbar_item_6" class="menu_left" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a></li>
+
+                        <li><a id="navbar_item_7" class="menu_left" asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
+
                     }
                     else
                     {
@@ -41,7 +51,7 @@
 
 
                     @*<li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
+        <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
                 </ul>
             </div>
         </nav>
@@ -60,6 +70,15 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/sl-1.3.1/datatables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/r-2.2.3/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

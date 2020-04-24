@@ -48,29 +48,29 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b589c613-41f6-4aa7-aa86-4e834e53d028",
-                            ConcurrencyStamp = "9568393f-b970-4874-b8f7-9657569edf0e",
+                            Id = "786c11a8-bb85-49c3-8417-b76f582f8700",
+                            ConcurrencyStamp = "f99705d5-7f74-4ab1-b015-d0a746d26d01",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "65f7545a-6947-48f8-812e-df08be8bc9e7",
-                            ConcurrencyStamp = "91818e41-6c82-411c-a452-c106c80efc7c",
+                            Id = "bea54d1f-56ff-4857-8aec-3abdeedb76b2",
+                            ConcurrencyStamp = "e9a91439-c54b-465b-a7f8-d286c4ec73cd",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "c62d96bc-761c-4a72-95a7-50542a999e3b",
-                            ConcurrencyStamp = "38dea008-51c5-4000-9d14-fedcd10a3bcf",
+                            Id = "f81a8517-0f7c-4cd3-a0d8-d19eed7c7347",
+                            ConcurrencyStamp = "5d73abe9-e301-4a31-a5f6-d4eb1c29f8d5",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "3377a643-9f9f-422f-8f37-b3d411cace13",
-                            ConcurrencyStamp = "5373f460-2af6-4fbb-ab5a-6320420da945",
+                            Id = "a42214c1-8cd9-4688-8547-c5a076994931",
+                            ConcurrencyStamp = "3f12e3dc-91f5-4977-9605-c9ec2eeae497",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -183,16 +183,26 @@ namespace Webteam2.Migrations
             modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnName("id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IssuerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Payment")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IssuerId");
 
                     b.ToTable("Issues");
                 });
@@ -317,6 +327,13 @@ namespace Webteam2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Webteam2.Models.Issue", b =>
+                {
+                    b.HasOne("Webteam2.Models.User", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId");
                 });
 #pragma warning restore 612, 618
         }
