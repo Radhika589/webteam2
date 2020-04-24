@@ -9,16 +9,16 @@ namespace Webteam2.Models
 {
     public class Issue
     {
-        [Key]
+        //[Key]
         public virtual string Id { get; set; }
-        [Required]
+        //[Required]
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
-        [Required]
+        //[Required]
         public virtual string Location { get; set; }
-        [Required]
+        //[Required]
         public virtual int Payment { get; set; }
-        [Required]
+        //[Required]
         public virtual User Issuer { get; set; }
     }
 }
