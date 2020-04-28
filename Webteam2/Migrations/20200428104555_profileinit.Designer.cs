@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webteam2.Models;
 
 namespace Webteam2.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200428104555_profileinit")]
+    partial class profileinit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,29 +50,29 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d63bcfa2-2648-4b9a-9445-0f480c05474d",
-                            ConcurrencyStamp = "dd17d0ce-df07-4d59-92a8-6f6e682442f8",
+                            Id = "26b227a8-0684-4fda-89f8-1fde838daf82",
+                            ConcurrencyStamp = "f40d9a0f-7f7d-41cb-a190-20651aaa5604",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "8dec8425-5fee-4704-af33-37ef478c4041",
-                            ConcurrencyStamp = "81a2ae1f-b051-40ef-b55d-d82bf44a2765",
+                            Id = "58d89c0d-2009-4d7b-aa20-aab4eeed5fda",
+                            ConcurrencyStamp = "f992492c-2aa2-4f3c-b03f-32048c59f051",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "c4405be8-a30d-4819-ae40-c71e81ec102c",
-                            ConcurrencyStamp = "f87b7cef-6f3e-44d6-bc98-2b8405c28158",
+                            Id = "da0d6fd0-217d-4535-aa85-03c25583d044",
+                            ConcurrencyStamp = "d3fb87c7-f979-400f-af77-0f41283b73f8",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "5a828f75-c1d1-4705-bfdc-5d7fd5a9fc46",
-                            ConcurrencyStamp = "c0453bfb-0597-40bc-9c1a-6ec5d1da53b9",
+                            Id = "a4a3d33a-8b8a-46cc-b9f1-fe50baae0e3e",
+                            ConcurrencyStamp = "8140b867-5382-4d45-a07e-0ade6b323fbc",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -207,33 +209,7 @@ namespace Webteam2.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Webteam2.Profile", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PictureURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("Webteam2.User", b =>
+            modelBuilder.Entity("Webteam2.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -315,7 +291,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,7 +300,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,7 +315,7 @@ namespace Webteam2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,7 +324,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -357,16 +333,9 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
-                    b.HasOne("Webteam2.User", "Issuer")
+                    b.HasOne("Webteam2.Models.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId");
-                });
-
-            modelBuilder.Entity("Webteam2.Profile", b =>
-                {
-                    b.HasOne("Webteam2.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("Webteam2.Profile", "UserId");
                 });
 #pragma warning restore 612, 618
         }

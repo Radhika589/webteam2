@@ -14,6 +14,7 @@ namespace Webteam2.Controllers
         public UserController(Context db)
         {
             _db = db;
+            
         }
         public IActionResult Index()
         {

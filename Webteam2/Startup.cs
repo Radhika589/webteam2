@@ -30,7 +30,8 @@ namespace Webteam2
         {
             //services.AddMVC();
             services.AddAutoMapper(typeof(Startup));
-            var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = "Data Source=localhost;Initial Catalog=uberappdb;Integrated Security=True";
+            //var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Context>(options => 
             {
                 options.UseSqlServer(connectionString);

@@ -18,6 +18,11 @@ namespace Webteam2.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.Profile)
+                .WithOne(b => b.User)
+                .HasForeignKey<Profile>(b => b.UserId);
+
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
         public DbSet<User> Users { get; set; }
