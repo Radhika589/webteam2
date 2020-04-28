@@ -22,5 +22,7 @@ namespace Webteam2.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Issue> Issues { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+
     }
 }
