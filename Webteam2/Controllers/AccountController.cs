@@ -48,7 +48,9 @@ namespace Webteam2.Controllers
             {
                 Id = Guid.NewGuid().ToString(),
                 User = user,
-                UserId = user.Id
+                UserId = user.Id,
+                Description = "",
+                PictureURL = "http://placegoat.com/300/400"
             };
             
             user.Profile = userProfile;
