@@ -52,15 +52,26 @@ namespace Webteam2.Controllers
             }
             await _userManager.AddToRoleAsync(user, userModel.Role);
 
-            return RedirectToAction(nameof(HomeController.Index),"Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ValidateContactor()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            await _userManager.RemoveFromRoleAsync(user, "NotValidatedContractor");
+            await _userManager.AddToRoleAsync(user, "ValidatedContractor");
+            await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

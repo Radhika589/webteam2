@@ -46,6 +46,19 @@
                         <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
 
                     }
+                    @if (User.IsInRole("NotValidatedContractor"))
+                    {
+                        <li>
+                            <form asp-controller="Account" asp-action="ValidateContactor">
+                                <button id="navbar_item_10" class="menu_right" type="submit">Du är ej validerad. knapp ska validera</button>
+                            </form>
+                        </li>
+                    }
+                    @if (User.IsInRole("ValidatedContractor"))
+                    {
+                        <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Du är validerad</a></li>
+                    }
+
 
 
 
