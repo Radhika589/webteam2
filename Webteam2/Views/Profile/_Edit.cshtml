@@ -1,0 +1,24 @@
+﻿@model EditProfileModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+<div>
+    
+    @if (User.Claims.First(c => c.Type == "id").Value == Model.UserProfile.UserId)
+    {
+    <form class="cust_base_form" asp-action="Update">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="cust_form_group">
+                <label asp-for="Description" class="cust_control_label">Describe yourself!</label>
+                <textarea rows="5" cols="160" asp-for="Description" class="cust_form_control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="cust_form_group">
+                <input type="submit" value="Update" class="btn btn-dark m-2" />
+            </div>
+        </form>
+        
+    }
+
+</div>
