@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webteam2.Models;
 
 namespace Webteam2.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200504125333_test_migration_2")]
+    partial class test_migration_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,29 +50,29 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "35e4678e-f369-4b5b-ae7d-365cee34b1f2",
-                            ConcurrencyStamp = "b93970ff-700f-4235-952e-5e6e60c61a6b",
+                            Id = "0a840f66-31ad-493d-a033-51f38713e464",
+                            ConcurrencyStamp = "8444b822-43c8-4e8b-af43-2697cc93d372",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "0c399790-854b-4b03-bb41-4623cccb9c62",
-                            ConcurrencyStamp = "a71d73c4-a511-442d-bb59-3c139890556c",
+                            Id = "c74fed01-1830-4296-aff2-6362c89eeb56",
+                            ConcurrencyStamp = "4c1edc9f-9b13-41f6-9174-4f2af4833e39",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "ef75dc1a-f839-40c1-95bb-a674b331a5ae",
-                            ConcurrencyStamp = "05262c6d-f0e4-407a-b7d4-7c8769b607cd",
+                            Id = "ff043115-6788-4676-9aa5-bf89deea27b3",
+                            ConcurrencyStamp = "852da996-9e17-427a-8bd9-9c334cc91144",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "5b51e704-e1a2-4aaf-939c-2d7b7982795b",
-                            ConcurrencyStamp = "3dcca506-fc94-4909-9565-efd4fccfa40e",
+                            Id = "ef0cf648-5224-43f2-9fd6-b6922ba9c2df",
+                            ConcurrencyStamp = "98a4dadb-3482-460c-b86f-987986f9a87e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -185,7 +187,7 @@ namespace Webteam2.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("Bid")
+                    b.Property<int>("Bid")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -257,9 +259,6 @@ namespace Webteam2.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("Reputation")
-                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
