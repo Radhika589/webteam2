@@ -4,10 +4,8 @@
     ViewData["Title"] = "Edit Profile";
 }
 <div>
-    
-    @if (User.Claims.First(c => c.Type == "id").Value == Model.UserProfile.UserId)
-    {
-    <form class="cust_base_form" asp-action="Update">
+
+    <form class="cust_base_form" asp-action="Update" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="cust_form_group">
                 <label asp-for="Description" class="cust_control_label">Describe yourself!</label>
@@ -17,8 +15,8 @@
             <div class="cust_form_group">
                 <input type="submit" value="Update" class="btn btn-dark m-2" />
             </div>
-        </form>
+    </form>
         
-    }
+    
 
 </div>

@@ -32,20 +32,18 @@ namespace Webteam2
             });
         }
 
-//        public async Task<IActionResult> Edit() 
-//        {
-//            var user = await _userManager.GetUserAsync(User);
-//
-//            return View(new ProfileViewModel
-//            {
-//                UserProfile = user.Profile,
-//                IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
-//            });
-//        }
-
-        public IActionResult Update(EditProfileModel model)
+        [HttpPost]
+        public async Task<IActionResult> Update(EditProfileModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                user.Profile.Description = model.Description;
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", model);
         }
     }
 }
