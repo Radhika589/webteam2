@@ -44,10 +44,8 @@ namespace Webteam2
                 opt.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<Context>();
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
             services.AddControllersWithViews();
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
