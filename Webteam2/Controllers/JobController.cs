@@ -32,7 +32,8 @@ namespace Webteam2.Controllers
             return Json(new { success = false, message = "No Jobs Are Available!" });
         }
 
-        public IActionResult PreviewContract(object JqueryValue)
+        [HttpPost]
+        public IActionResult PreviewContract(object json)
         {
 
             return View();

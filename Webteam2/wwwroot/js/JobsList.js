@@ -14,9 +14,22 @@
                             //https://datatables.net/reference/type/selector-modifier
 
                             let selectedRow = table.row({ selected: true }).data();
-                            //var url = Url.Action("PreviewContract","Job",new{id:selectedRow});
-                                
-                            var data = table.buttons.exportData({modifier:{selected:true}});
+
+                            var data = table.buttons.exportData({ modifier: { selected: true } });
+                            AjaxDisplayString();
+
+                            
+
+                            function AjaxDisplayString() {
+                                $.ajax({
+                                    url: '/job/PreviewContract/',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: data,
+                                    success: console.log('yes'),
+                                    error:console.log('no')
+                                });
+                            }
 
                             console.log(data);
                             
@@ -44,5 +57,6 @@
             { "data": "issuer.lastName" }
         ]
     });
+        
 });
 
