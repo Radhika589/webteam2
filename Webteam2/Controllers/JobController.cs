@@ -32,23 +32,13 @@ namespace Webteam2.Controllers
             return Json(new { success = false, message = "No Jobs Are Available!" });
         }
 
-        //[HttpPost]
         [HttpGet]
         public async Task<IActionResult> PreviewContract(string id)
         {
-            var issue =await _db.Issues
+            var issue = await _db.Issues
                 .FirstOrDefaultAsync(issue => issue.Id == id);
             return View(issue);
-            //return RedirectToPage($"/PreviewContract?id={id}", issue);
         }
-
-        //public ActionResult PreviewContract(Issue issue)
-        //{
-        //    //var issue = _db.Issues
-        //    //    .FirstOrDefaultAsync(issue => issue.Id == id);
-        //    ////return View(issue);
-        //    return View(issue);
-        //}
 
         //[HttpDelete]
         //public async Task<IActionResult> Delete(string id)
