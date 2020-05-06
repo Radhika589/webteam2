@@ -9,18 +9,16 @@ namespace Webteam2.Models
 {
     public class Issue
     {
-        public virtual int ID { get; set; }
-        public virtual string OwnerID { get; set; }
-
-        [Required]
+        //[Key]
+        public virtual string Id { get; set; }
+        //[Required]
         public virtual string Title { get; set; }
-        [Required]
         public virtual string Description { get; set; }
-        [Required]
+        //[Required]
         public virtual string Location { get; set; }
-        [Required]
+        //[Required]
         public virtual int Payment { get; set; }
-
-        public virtual IEnumerable<User> Contractors { get; set; }
+        //[Required]
+        public virtual User Issuer { get; set; }
     }
 }

@@ -8,26 +8,13 @@
     margin: 0;
     padding: 0;
 }
-.navbar_text {
-    color: white;
-    margin: 0;
-    padding: 5px 10px;
-}
-.cust_navbar ul li .menu_left {
-    float: left;
-}
+
+    .cust_navbar ul li .menu_left {
+        float: left;
+    }
 
     .cust_navbar ul li .menu_right {
         float: right;
-    }
-
-    .cust_navbar ul li a {
-        display: block;
-        /* text color*/
-        color: white;
-        text-align: center;
-        padding: 5px 10px;
-        text-decoration: none;
     }
 .navbar_logout {
     display: block;
@@ -39,19 +26,23 @@
     border: 0;
     margin: 5px;
 }
+
+    .cust_navbar ul li a {
+        display: block;
+        /* text color*/
+        color: white;
+        text-align: center;
+        padding: 5px 10px;
+        text-decoration: none;
+    }
+
         .cust_navbar ul li a:hover {
             background-color: rgb(37, 37, 37);
             text-decoration: underline;
         }
-    .cust_navbar ul li .navbar_logout:hover {
-        background-color: red;
-    }
 
-
-
-.cust_container {
+.cust_container{
     margin-top: 50px;
-    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -85,7 +76,7 @@
             clear: both;
         }
 
-.cust_form_control {
+.cust_form_group .cust_form_control {
     outline: 0;
     background: white;
     border-radius: 5px;
@@ -108,6 +99,17 @@
     text-align: center;
 }
 
+input[type=text], input[type=password] {
+    outline: 0;
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
 
 .cust_basic_btn {
     border-radius: 5px;

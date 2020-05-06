@@ -48,29 +48,29 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0a281b6b-7e5a-434c-9911-8e12025c4b96",
-                            ConcurrencyStamp = "f199c01f-6ebe-4643-b69c-aa8b957b478a",
+                            Id = "786c11a8-bb85-49c3-8417-b76f582f8700",
+                            ConcurrencyStamp = "f99705d5-7f74-4ab1-b015-d0a746d26d01",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "6a6ff164-d9da-4190-b52a-60dfb9f4f694",
-                            ConcurrencyStamp = "a551002f-09da-4331-a3d0-ab3d7fe853e8",
+                            Id = "bea54d1f-56ff-4857-8aec-3abdeedb76b2",
+                            ConcurrencyStamp = "e9a91439-c54b-465b-a7f8-d286c4ec73cd",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "316927bd-100c-4cfe-9364-fa65a6737157",
-                            ConcurrencyStamp = "6abe78e9-83ed-4eb2-8b69-1ece48a22308",
+                            Id = "f81a8517-0f7c-4cd3-a0d8-d19eed7c7347",
+                            ConcurrencyStamp = "5d73abe9-e301-4a31-a5f6-d4eb1c29f8d5",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "782e8705-6b3b-450a-bd93-1d4a65948784",
-                            ConcurrencyStamp = "d284cddb-f794-40dc-993a-ebc611c21ff6",
+                            Id = "a42214c1-8cd9-4688-8547-c5a076994931",
+                            ConcurrencyStamp = "3f12e3dc-91f5-4977-9605-c9ec2eeae497",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -182,18 +182,16 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("IssuerId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("OwnerID")
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Payment")
@@ -202,7 +200,9 @@ namespace Webteam2.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IssuerId");
 
                     b.ToTable("Issues");
                 });
@@ -228,9 +228,6 @@ namespace Webteam2.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IssueID")
-                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -269,8 +266,6 @@ namespace Webteam2.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IssueID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -334,11 +329,11 @@ namespace Webteam2.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Webteam2.Models.User", b =>
+            modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
-                    b.HasOne("Webteam2.Models.Issue", null)
-                        .WithMany("Contractors")
-                        .HasForeignKey("IssueID");
+                    b.HasOne("Webteam2.Models.User", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId");
                 });
 #pragma warning restore 612, 618
         }

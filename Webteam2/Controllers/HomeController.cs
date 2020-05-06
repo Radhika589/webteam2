@@ -1,9 +1,11 @@
+﻿using System.Diagnostics;
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Webteam2.Models;
@@ -13,7 +15,6 @@ namespace Webteam2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -21,11 +22,11 @@ namespace Webteam2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
         public IActionResult Privacy()
         {
-            return View();
+            return View("Privacy");
         }
 
         //public IActionResult Login()
