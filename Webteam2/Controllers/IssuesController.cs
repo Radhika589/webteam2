@@ -29,20 +29,11 @@ namespace Webteam2.Controllers
             _userManager = userManager;
         }
 
-        private string[] AcceptedRoles = new string[] { "Customer", "Administrator" };
-
         // GET: Issues/Create
-        public async Task<IActionResult> Create()
+        [Authorize(Roles = "Administrator, Customer")]
+        public ActionResult Create()
         {
-            var sender = await this._userManager.GetUserAsync(User);
-            if (AcceptedRoles.Contains(GetUserRole(sender)))
-            {
-                return View();
-            }
-            else
-            {
-                return NotFound();
-            }
+            return View();
         }
 
         // POST: Issues/Create
@@ -50,38 +41,27 @@ namespace Webteam2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Location,Payment,Title,Description")] Issue issue)
+        public async Task<IActionResult> Create([Bind("Location,Payment,Title,Description")] Issue issue)
         {
+            issue.Id = NewIssueId();
+            issue.Issuer = await this._userManager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
-                var sender = await this._userManager.GetUserAsync(User);
-                if (AcceptedRoles.Contains(GetUserRole(sender)))
-                {
-                    issue.Id = NewIssueId();
-                    issue.Issuer = sender;
+                _context.Add(issue);
 
-                    _context.Add(issue);
-
-                    await _context.SaveChangesAsync();
-                    ViewData["IssueResult"] = "Success: Issue added!";
-                    return View(); //new JsonResult("Success: Issue added! //This string is temporary and should later return to your profile.");
-                }
+                await _context.SaveChangesAsync();
+                ViewData["IssueResult"] = "Success: Issue added!";
+                return View();        
             }
             ViewData["IssueResult"] = "Fail...";
             return View(issue);
-        }
-
-
-        private string GetUserRole(User user)
-        {
-            return _userManager.GetRolesAsync(user).Result.FirstOrDefault();
         }
 
         private bool IssueExists(string id)
         {
             return _context.Issues.Any(e => e.Id == id);
         }
-
 
         private string NewIssueId()
         {
@@ -92,7 +72,6 @@ namespace Webteam2.Controllers
             }
             return id;
         }
-
 
         private string GenerateIdString()
         {
