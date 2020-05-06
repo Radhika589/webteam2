@@ -18,12 +18,13 @@ namespace Webteam2.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly Context _db;
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, Context context)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _db = context;
         }
 
         [HttpGet]
@@ -64,7 +65,52 @@ namespace Webteam2.Controllers
             await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        
+        [HttpGet]
+        public IActionResult GetAllConstultantsToValidate(ContractorsToValidateModel contractorsToValidateModel)
+        {
+            contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;
+            return View(contractorsToValidateModel);
+        }
+        //kopierad
+
+        //public async Task<IActionResult> ListUser()
+        //{
+        //    var users = _userManager.Users;
+        //    var roles = new List<string>();
+        //    foreach (var user in users)
+        //    {
+        //        string str = "";
+        //        foreach (var role in await _userManager.GetRolesAsync(user.Id))
+        //        {
+        //            str = (str == "") ? role.ToString() : str + " - " + role.ToString();
+        //        }
+        //        roles.Add(str);
+        //    }
+        //    var model = new ListUserViewModel()
+        //    {
+        //        users = users.ToList(),
+        //        roles = roles.ToList()
+        //    };
+        //    return View(model);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {

@@ -1,0 +1,11 @@
+﻿@model Webteam2.Models.ContractorsToValidateModel
+@{
+    ViewData["Title"] = "ContractorsToValidate";
+}
+
+<h1>ContractorsToValidate</h1>
+@foreach (var item in Model.UsersList)
+{
+    <h2>@item.LastName.</h2>
+    }
+
