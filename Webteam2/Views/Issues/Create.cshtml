@@ -45,9 +45,10 @@
         <div class="form-group">
             <input id="createNewIssueBtn" type="submit" value="Create" class="btn btn-primary" />
         </div>
+        <span id="IssueResult">@Html.ViewData["IssueResult"]</span>
     </form>
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" asp-controller="job">Back to List</a>
     </div>
 </div>
 @section Scripts {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webteam2.Migrations
 {
-    public partial class Updated_issues : Migration
+    public partial class newmaster : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,44 +19,6 @@ namespace Webteam2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Issues",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerID = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Payment = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Issues", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,18 +41,32 @@ namespace Webteam2.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    IssueID = table.Column<int>(nullable: true)
+                    LastName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Issues_IssueID",
-                        column: x => x.IssueID,
-                        principalTable: "Issues",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,15 +154,37 @@ namespace Webteam2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Issues",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Payment = table.Column<int>(nullable: false),
+                    IssuerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Issues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Issues_AspNetUsers_IssuerId",
+                        column: x => x.IssuerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0a281b6b-7e5a-434c-9911-8e12025c4b96", "f199c01f-6ebe-4643-b69c-aa8b957b478a", "Visitor", "VISITOR" },
-                    { "6a6ff164-d9da-4190-b52a-60dfb9f4f694", "a551002f-09da-4331-a3d0-ab3d7fe853e8", "Customer", "CUSTOMER" },
-                    { "316927bd-100c-4cfe-9364-fa65a6737157", "6abe78e9-83ed-4eb2-8b69-1ece48a22308", "Contractor", "CONTRACTOR" },
-                    { "782e8705-6b3b-450a-bd93-1d4a65948784", "d284cddb-f794-40dc-993a-ebc611c21ff6", "Administrator", "ADMINISTRATOR" }
+                    { "b3e96494-c110-470b-9ae4-01dd6641bae6", "d57691d1-bdfe-4053-b5f3-9d0a904d1289", "Visitor", "VISITOR" },
+                    { "fe81e832-464c-4d4e-9596-c3f32be504af", "572d4acf-827a-4c48-b5c7-b679f054cf3e", "Customer", "CUSTOMER" },
+                    { "2fc9d102-6ea1-434b-a004-a16547859305", "20aff747-d5f1-4794-8b95-ed15371492ad", "Contractor", "CONTRACTOR" },
+                    { "97042ff9-aec3-4ad1-8a85-001c7998460c", "3f6a4000-6312-48c2-b3f1-5349c55a1394", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -217,11 +215,6 @@ namespace Webteam2.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_IssueID",
-                table: "AspNetUsers",
-                column: "IssueID");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -232,6 +225,11 @@ namespace Webteam2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Issues_IssuerId",
+                table: "Issues",
+                column: "IssuerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -252,13 +250,13 @@ namespace Webteam2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Issues");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Issues");
         }
     }
 }

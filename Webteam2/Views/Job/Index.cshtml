@@ -7,9 +7,12 @@
 <br />
 
 <div class="cust_container row p-0 m-0">
+    <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
+        <input type="button" value="New Issue" class="btn btn-info pushLeft" />
+    </a>
     <div class="col-12 border p-3 mt-3">
-        <form action="/" method="post">        	
-             <table id="jobs_table" class="table table-striped border">
+        <form action="/" method="post">
+            <table id="jobs_table" class="table table-striped border">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -22,17 +25,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="table_row">
-                        <td>Row 1 Title </td>
-                        <td>Row 1 Description</td>
-                        <td>Row 1 Location</td>
-                        <td>Row 1 Payment</td>
-                        <td>Row 1 Issuer Rep</td>
-                        <td>Row 1 Issuer First Name</td>
-                        <td>Row 1 Issuer Last Name</td>
-                    </tr>
                 </tbody>
-             </table> 
+            </table>
         </form>
     </div>
 </div>

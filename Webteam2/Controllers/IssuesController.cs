@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Webteam2.Models;
 
 namespace Webteam2.Controllers
@@ -18,9 +22,6 @@ namespace Webteam2.Controllers
     {
         private readonly Context _context;
         private readonly UserManager<User> _userManager;
-        private User _user { get { return _userManager.GetUserAsync(User).Result; } }
-        private bool _IsAdmin { get { return _userManager.IsInRoleAsync(_user, "Administrator").Result; } }
-        private string _userRole { get { return _userManager.GetRolesAsync(_user).Result[0]; } }
 
         public IssuesController(Context context, UserManager<User> userManager)
         {
@@ -28,80 +29,13 @@ namespace Webteam2.Controllers
             _userManager = userManager;
         }
 
-        private bool HasWriteAccess(Issue issue)
-        {
-            if (_IsAdmin || _user.Id == issue.OwnerID)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        private bool CanReadDetails(Issue issue)
-        {
-            string[] allowedRoles = { "Administrator","Contractor"};
-            if (allowedRoles.Contains(_userRole) || HasWriteAccess(issue))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        // GET: Issues
-        public async Task<IActionResult> Index()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                IssuesViewModel issuesView = new IssuesViewModel();
-                if (await _context.Issues.ToListAsync() != null)
-                {
-                    issuesView.AllIssues = await _context.Issues.ToListAsync();
-                    issuesView.UserIssues = issuesView.AllIssues.Where(id => id.OwnerID == _user.Id).ToList();
-                }
-                return View(issuesView);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-        }
-
-        // GET: Issues/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            if (id <= 0)
-            {
-                return NotFound();
-            }
-
-            var issue = await _context.Issues
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (issue != null )
-            {
-                if (CanReadDetails(issue))
-                {
-                    return View(issue);
-                }
-                else
-                {
-                    return NotFound("You're not allowed here.");
-                }
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+        private string[] AcceptedRoles = new string[] { "Customer", "Administrator" };
 
         // GET: Issues/Create
         public async Task<IActionResult> Create()
         {
-            if (_userRole == "Customer" || _IsAdmin)
+            var sender = await this._userManager.GetUserAsync(User);
+            if (AcceptedRoles.Contains(GetUserRole(sender)))
             {
                 return View();
             }
@@ -116,121 +50,53 @@ namespace Webteam2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Location,Payment,Title,Description")] Issue issue)
+        public async Task<IActionResult> Create([Bind("Id,Location,Payment,Title,Description")] Issue issue)
         {
             if (ModelState.IsValid)
             {
-                issue.OwnerID = _userManager.GetUserId(this.User);
-                _context.Add(issue);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(issue);
-        }
-
-        // GET: Issues/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            if (id <= 0)
-            {
-                return NotFound();
-            }
-
-            var issue = await _context.Issues.FindAsync(id);
-            if (issue != null)
-            {
-                if (HasWriteAccess(issue))
+                var sender = await this._userManager.GetUserAsync(User);
+                if (AcceptedRoles.Contains(GetUserRole(sender)))
                 {
-                    return View(issue);
-                }
-                else
-                {
-                    return NotFound("You're not allowed here.");
-                }
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+                    issue.Id = NewIssueId();
+                    issue.Issuer = sender;
 
-        // POST: Issues/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Location,OwnerID,Payment,Title,Description")] Issue issue)
-        {
-           
-            if (id != issue.ID)
-            {
-                return NotFound();
-            }
+                    _context.Add(issue);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(issue);
                     await _context.SaveChangesAsync();
+                    ViewData["IssueResult"] = "Success: Issue added!";
+                    return View(); //new JsonResult("Success: Issue added! //This string is temporary and should later return to your profile.");
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!IssueExists(issue.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
+            ViewData["IssueResult"] = "Fail...";
             return View(issue);
         }
 
-        // GET: Issues/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (!IssueExists(id))
-            {
-                return NotFound();
-            }
 
-            var issue = await _context.Issues
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (issue != null)
-            {
-                if (HasWriteAccess(issue))
-                {
-                    return View(issue);
-                }
-                else
-                {
-                    return NotFound("You're not allowed here.");
-                }
-            }
-            else
-            {
-                return NotFound();
-            }
+        private string GetUserRole(User user)
+        {
+            return _userManager.GetRolesAsync(user).Result.FirstOrDefault();
         }
 
-        // POST: Issues/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        private bool IssueExists(string id)
         {
-            var issue = await _context.Issues.FindAsync(id);
-            _context.Issues.Remove(issue);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return _context.Issues.Any(e => e.Id == id);
         }
 
-        private bool IssueExists(int id)
+
+        private string NewIssueId()
         {
-            return _context.Issues.Any(e => e.ID == id);
+            string id = GenerateIdString();
+            while (IssueExists(id))
+            {
+                id = GenerateIdString();
+            }
+            return id;
+        }
+
+
+        private string GenerateIdString()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }
