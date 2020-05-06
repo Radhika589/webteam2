@@ -32,7 +32,7 @@
                         <li>
                             @*här skall du fortsätta knappen ser cp ut*@
                             <form asp-controller="Account" asp-action="Logout">
-                                <button id="navbar_item_5" class="menu_right" type="submit">Logout</button>
+                                <button id="navbar_item_5" class="menu_right navbar_logout" type="submit">Logout</button>
                             </form>
                         </li>
                         <li><a id="navbar_item_6" class="menu_left" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a></li>
@@ -56,7 +56,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="cust_container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

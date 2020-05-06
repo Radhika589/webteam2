@@ -16,6 +16,16 @@
     .cust_navbar ul li .menu_right {
         float: right;
     }
+.navbar_logout {
+    display: block;
+    text-align: center;
+    /*padding: 5px 10px;*/
+    background-color: darkred;
+    color: white;
+    border-radius: 2px;
+    border: 0;
+    margin: 5px;
+}
 
     .cust_navbar ul li a {
         display: block;
@@ -31,7 +41,7 @@
             text-decoration: underline;
         }
 
-.container {
+.cust_container{
     margin-top: 50px;
     text-align: center;
 }
