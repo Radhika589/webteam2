@@ -40,6 +40,15 @@ namespace Webteam2.Controllers
             return View(issue);
         }
 
+        [HttpPost]
+        public ActionResult OnPostLeaveABid(string id,int bid)
+        {
+            _db.Issues.
+                FirstOrDefault(issue => issue.Id == id).Bid = bid;
+            _db.SaveChanges();
+            return View();
+        }
+
         //[HttpDelete]
         //public async Task<IActionResult> Delete(string id)
         //{
