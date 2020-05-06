@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Webteam2.Factory;
 using Webteam2.Models;
+using Webteam2.Helpers;
 
 namespace Webteam2
 {
@@ -46,6 +47,9 @@ namespace Webteam2
             .AddEntityFrameworkStores<Context>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
             services.AddControllersWithViews();
+
+            //IUserHelper
+            services.Add(new ServiceDescriptor(typeof(IUserHelperService), typeof(UserHelper), ServiceLifetime.Scoped));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

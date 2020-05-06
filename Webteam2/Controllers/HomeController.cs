@@ -9,15 +9,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Webteam2.Models;
+using Webteam2.Helpers;
 
 namespace Webteam2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        //IUserHelper example
+        private readonly IUserHelperService _userHelper;
+        public HomeController(ILogger<HomeController> logger, IUserHelperService userHelper)
         {
             _logger = logger;
+            _userHelper = userHelper; //IUserHelper example
         }
 
         public IActionResult Index()

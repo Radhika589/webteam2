@@ -1,10 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@*//IUserExample inject example*@
+@inject Webteam2.Helpers.IUserHelperService helper
 <div class="text-center">
     <h1 class="display-4">No Model?</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    @*//IUserExample Usage example*@
+    @await Html.PartialAsync("/Views/Shared/_IssuesListPartial.cshtml", helper.GetUserIssues())
 </div>
-<div><a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>  
-    </div>
+<div>
+    <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+</div>
