@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestClient.Net;
 using Webteam2.Models;
 
 namespace Webteam2
@@ -35,15 +36,20 @@ namespace Webteam2
         [HttpPost]
         public async Task<IActionResult> Update(EditProfileModel model)
         {
+            
             if (ModelState.IsValid)
             {
+                var client = new Client(new Uri($"https://www.purgomalum.com/service/json?text={model.Description}"));
+                var response = await client.GetAsync<ProfanityModel>();
                 var user = await _userManager.GetUserAsync(User);
 
-                user.Profile.Description = model.Description;
+                user.Profile.Description = response.Body.Result;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index", model);
         }
     }
+
+    
 }
