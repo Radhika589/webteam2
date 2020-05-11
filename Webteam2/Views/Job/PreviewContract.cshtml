@@ -1,4 +1,5 @@
-﻿@model Issue
+﻿@using Castle.Core.Internal
+@model Issue
 @{
     ViewData["Title"] = "Contract Preview";
 }
@@ -9,7 +10,7 @@
     <!-- Page Heading -->
     <h1 class="my-4">
         Contract Preview
-        <br/>
+        <br />
         <small>Read the details and leave a bid</small>
     </h1>
     <br />
@@ -23,22 +24,25 @@
             </div>*@
         <div class="col-md-12">
             <div>
-                <h2>@Model.Title</h2>
-                <div>
-                    <h5>Description</h5>
-                    <p>@Model.Description</p>
-                </div>
-                <div>
-                    <h5>Issuer</h5>
-                    <p>@Model.Issuer.FirstName @Model.Issuer.LastName</p>
-                </div>
-                <form asp-controller="Job" asp-action="OnPostLeaveABid" asp-route-id="@Model.Id"  method="post">
-                    <label>How Much?</label>
-                    @*default value of -1 makes it possible to seperate mistakes from actual bids in the future.*@
-                    <input name="bid" type="number" min="100" max="10000" value="-1"/>
-                    <br/>
-                    <button class="btn-success m-1">Leave a bid!</button>
-                </form>
+                @if (Model != null)
+                {
+                    <h2>@Model.Title</h2>
+                    <div>
+                        <h5>Description</h5>
+                        <p>@Model.Description</p>
+                    </div>
+                    <div>
+                        <h5>Issuer</h5>
+                        <p>@Model.Issuer.FirstName @Model.Issuer.LastName</p>
+                    </div>
+                    <form asp-controller="Job" asp-action="OnPostLeaveABid" asp-route-id="@Model.Id" method="post">
+                        <label>How Much?</label>
+                        @*default value of -1 makes it possible to seperate mistakes from actual bids in the future.*@
+                        <input name="bid" type="number" min="100" max="10000" value="-1"/>
+                        <br/>
+                        <button class="btn-success m-1">Leave a bid!</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

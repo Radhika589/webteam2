@@ -51,6 +51,9 @@
     $("#jobs_table").on("click",
         "tr",
         function () {
-            window.location.href = '/job/PreviewContract?Id=' + $(this).attr('Id');
+            let id = $(this).attr('Id');
+            if (id) {
+               window.location.href = '/job/PreviewContract?Id=' + $(this).attr('Id'); 
+            }
         });
 });
