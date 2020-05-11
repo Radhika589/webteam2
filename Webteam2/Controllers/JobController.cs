@@ -1,5 +1,4 @@
-﻿using Castle.Core.Internal;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,7 +35,7 @@ namespace Webteam2.Controllers
         [HttpGet]
         public async Task<IActionResult> PreviewContract(string id)
         {
-            if (id!="undefined")
+            if (id != "undefined")
             {
                 var issue = await _db.Issues
                  .FirstOrDefaultAsync(issue => issue.Id == id);
@@ -48,8 +47,11 @@ namespace Webteam2.Controllers
         [HttpPost]
         public ActionResult OnPostLeaveABid(string id, int bid)
         {
-            _db.Issues.
-                FirstOrDefault(issue => issue.Id == id).Bid = bid;
+            if (bid==null)
+            {
+                return View(null);
+            }
+            _db.Issues.FirstOrDefault(issue => issue.Id == id).Bid = bid;
             _db.SaveChanges();
             return View();
         }

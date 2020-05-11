@@ -38,7 +38,7 @@
                     <form asp-controller="Job" asp-action="OnPostLeaveABid" asp-route-id="@Model.Id" method="post">
                         <label>How Much?</label>
                         @*default value of -1 makes it possible to seperate mistakes from actual bids in the future.*@
-                        <input name="bid" type="number" min="100" max="10000" value="-1"/>
+                        <input name="bid" type="number" min="100" max="10000" required="required"/>
                         <br/>
                         <button class="btn-success m-1">Leave a bid!</button>
                     </form>
