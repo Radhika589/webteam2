@@ -55,44 +55,39 @@ namespace Webteam2.Controllers
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ValidateContactor()
+        public async Task<IActionResult> ValidateContactor(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = _db.Users.First(u => u.Id == id);
             await _userManager.RemoveFromRoleAsync(user, "NotValidatedContractor");
             await _userManager.AddToRoleAsync(user, "ValidatedContractor");
-            await _signInManager.RefreshSignInAsync(user);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            //await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction(nameof(AccountController.GetAllConstultantsToValidate), "Account");
         }
+
+
         [HttpGet]
         public IActionResult GetAllConstultantsToValidate(ContractorsToValidateModel contractorsToValidateModel)
         {
             contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;
             return View(contractorsToValidateModel);
         }
-        //kopierad
+        
 
-        //public async Task<IActionResult> ListUser()
-        //{
-        //    var users = _userManager.Users;
-        //    var roles = new List<string>();
-        //    foreach (var user in users)
-        //    {
-        //        string str = "";
-        //        foreach (var role in await _userManager.GetRolesAsync(user.Id))
-        //        {
-        //            str = (str == "") ? role.ToString() : str + " - " + role.ToString();
-        //        }
-        //        roles.Add(str);
-        //    }
-        //    var model = new ListUserViewModel()
-        //    {
-        //        users = users.ToList(),
-        //        roles = roles.ToList()
-        //    };
-        //    return View(model);
-        //}
+
 
 
 
