@@ -45,7 +45,7 @@ namespace Webteam2
                 opt.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<Context>();
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             services.AddControllersWithViews();
         }
 

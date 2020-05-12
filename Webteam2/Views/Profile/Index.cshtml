@@ -1,4 +1,6 @@
-﻿@model ProfileViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@model ProfileViewModel
+@inject SignInManager<User> SignInManager
 @{
     ViewData["Title"] = "Profile";
 }
@@ -27,7 +29,6 @@
                     }
                     @if (Model.IsContractor)
                     {
-                @*             <h3>@Model.UserProfile.Skillset</h3> *@
                         <h5 class="text-right">Rating: @Model.UserProfile.Rating</h5>
                 
                     }
@@ -45,6 +46,7 @@
                 </div>
             </div>
         }
+        
     </div>
 
 </div>
