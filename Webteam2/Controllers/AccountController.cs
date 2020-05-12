@@ -75,15 +75,16 @@ namespace Webteam2.Controllers
             await _userManager.RemoveFromRoleAsync(user, "NotValidatedContractor");
             await _userManager.AddToRoleAsync(user, "ValidatedContractor");
             //await _signInManager.RefreshSignInAsync(user);
-            return RedirectToAction(nameof(AccountController.GetAllConstultantsToValidate), "Account");
+            return RedirectToAction(nameof(AccountController.ValidateContractors), "Account");
         }
 
 
         [HttpGet]
-        public IActionResult GetAllConstultantsToValidate(ContractorsToValidateModel contractorsToValidateModel)
+        public IActionResult ValidateContractors(ContractorsToValidateModel contractorsToValidateModel)
         {
             contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;
             return View(contractorsToValidateModel);
+            //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
         
 
