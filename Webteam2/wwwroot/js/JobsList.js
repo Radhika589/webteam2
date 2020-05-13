@@ -34,6 +34,14 @@
                 "targets": [0],
                 "visible": false,
                 "searchable": false
+            },
+            {
+                targets: 2,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 10 ?
+                        data.substr(0, 25) + '...' :
+                        data;
+                }
             }
         ],
         "columns": [
