@@ -48,36 +48,36 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "197dad57-ab1d-4f81-a895-26f2aa488d50",
-                            ConcurrencyStamp = "9e5e128a-6f48-4bf9-a44b-5971a4e998a0",
+                            Id = "aac27f51-3ae1-47e5-81cd-2f8ab21cb4c6",
+                            ConcurrencyStamp = "545bf6d2-3c97-4327-a272-d88b83801cbb",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "bc4dad47-6741-4351-a985-5cdc32be780b",
-                            ConcurrencyStamp = "6fff50a7-e091-4b04-aa43-8250956fc03b",
+                            Id = "9ee4831a-d8e9-4793-8c2f-cb4e53da1f9c",
+                            ConcurrencyStamp = "c3469868-263d-47ee-a153-3066621d7c19",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "4f929de5-f485-4f32-99c2-9c45df5fe547",
-                            ConcurrencyStamp = "f03d234f-c9e6-4d3e-8e39-67ce242ace70",
+                            Id = "6024722a-083a-46bb-8c52-7e79f97e12a5",
+                            ConcurrencyStamp = "acfb8fd8-b2dc-43a8-b37c-623ab67f6806",
                             Name = "NotValidatedContractor",
                             NormalizedName = "NOTVALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "57f57d29-7781-4393-ac3d-345a199e64e6",
-                            ConcurrencyStamp = "f3050463-4e4b-48d4-a12d-d4422290a6a5",
+                            Id = "d87e36ad-e392-49a4-9cec-fb4bbedeb818",
+                            ConcurrencyStamp = "d35ca33c-1809-4a00-8e5e-d317f2dcf609",
                             Name = "ValidatedContractor",
                             NormalizedName = "VALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "185c4d2f-dc27-4d55-9306-c219f455533c",
-                            ConcurrencyStamp = "b6df1627-e046-4079-ab1f-fd588810cd73",
+                            Id = "efc66a06-daaf-4679-bc8e-5bf8d2759a72",
+                            ConcurrencyStamp = "e68d3d47-9dd9-4baf-9839-ae3ba97a6e84",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -214,7 +214,33 @@ namespace Webteam2.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Webteam2.Models.User", b =>
+            modelBuilder.Entity("Webteam2.Profile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PictureURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("Webteam2.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -296,7 +322,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -305,7 +331,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -320,7 +346,7 @@ namespace Webteam2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -329,7 +355,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -338,9 +364,16 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", "Issuer")
+                    b.HasOne("Webteam2.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId");
+                });
+
+            modelBuilder.Entity("Webteam2.Profile", b =>
+                {
+                    b.HasOne("Webteam2.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("Webteam2.Profile", "UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webteam2.Migrations
 {
-    public partial class testmigration1 : Migration
+    public partial class migration43 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -176,15 +176,37 @@ namespace Webteam2.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Profiles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    PictureURL = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Rating = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Profiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "786c11a8-bb85-49c3-8417-b76f582f8700", "f99705d5-7f74-4ab1-b015-d0a746d26d01", "Visitor", "VISITOR" },
-                    { "bea54d1f-56ff-4857-8aec-3abdeedb76b2", "e9a91439-c54b-465b-a7f8-d286c4ec73cd", "Customer", "CUSTOMER" },
-                    { "f81a8517-0f7c-4cd3-a0d8-d19eed7c7347", "5d73abe9-e301-4a31-a5f6-d4eb1c29f8d5", "Contractor", "CONTRACTOR" },
-                    { "a42214c1-8cd9-4688-8547-c5a076994931", "3f12e3dc-91f5-4977-9605-c9ec2eeae497", "Administrator", "ADMINISTRATOR" }
+                    { "aac27f51-3ae1-47e5-81cd-2f8ab21cb4c6", "545bf6d2-3c97-4327-a272-d88b83801cbb", "Visitor", "VISITOR" },
+                    { "9ee4831a-d8e9-4793-8c2f-cb4e53da1f9c", "c3469868-263d-47ee-a153-3066621d7c19", "Customer", "CUSTOMER" },
+                    { "6024722a-083a-46bb-8c52-7e79f97e12a5", "acfb8fd8-b2dc-43a8-b37c-623ab67f6806", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
+                    { "d87e36ad-e392-49a4-9cec-fb4bbedeb818", "d35ca33c-1809-4a00-8e5e-d317f2dcf609", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
+                    { "efc66a06-daaf-4679-bc8e-5bf8d2759a72", "e68d3d47-9dd9-4baf-9839-ae3ba97a6e84", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -230,6 +252,13 @@ namespace Webteam2.Migrations
                 name: "IX_Issues_IssuerId",
                 table: "Issues",
                 column: "IssuerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profiles_UserId",
+                table: "Profiles",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -251,6 +280,9 @@ namespace Webteam2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Issues");
+
+            migrationBuilder.DropTable(
+                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
