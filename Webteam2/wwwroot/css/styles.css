@@ -26,6 +26,14 @@
     border: 0;
     margin: 5px;
 }
+.navbar_button {
+    background-color: black;
+    text-align: center;
+    border-radius: 2px;
+    border: 0;
+    margin: 5px;
+    color: white;
+}
 
     .cust_navbar ul li a {
         display: block;

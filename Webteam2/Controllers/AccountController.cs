@@ -70,17 +70,6 @@ namespace Webteam2.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-
-
-
-
-
-
-
-
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ValidateContactor(string id)
@@ -92,7 +81,6 @@ namespace Webteam2.Controllers
             return RedirectToAction(nameof(AccountController.ValidateContractors), "Account");
         }
 
-
         [HttpGet]
         public IActionResult ValidateContractors(ContractorsToValidateModel contractorsToValidateModel)
         {
@@ -100,26 +88,6 @@ namespace Webteam2.Controllers
             return View(contractorsToValidateModel);
             //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -127,7 +95,6 @@ namespace Webteam2.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -142,21 +109,13 @@ namespace Webteam2.Controllers
             {
                 return RedirectToLocal(returnUrl);
             }
-            //var user = await _userManager.FindByEmailAsync(userLoginModel.Email);
-            //if (user != null && await _userManager.CheckPasswordAsync(user, userLoginModel.Password))
-            //{
-            //    var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-            //    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-            //    identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            //    await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
-            //    return RedirectToLocal(returnUrl);
-            //}
             else
             {
                 ModelState.AddModelError("", "Invalid Username or Password");
                 return View();
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

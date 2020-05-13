@@ -27,10 +27,13 @@
                             <td> @item.Email</td>
                             <td>
                                 <form asp-controller="Account" asp-action="ValidateContactor" asp-route-id="@item.Id">
-                                    <button id="test" class="menu_right" type="submit" >Validera</button>
+                                    <button id="validate" class="menu_right" type="submit" >Validate</button>
                                 </form> 
                             </td>
                             <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@item.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
                             </td>
                         </tr>
                     }

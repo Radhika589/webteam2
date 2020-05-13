@@ -23,15 +23,28 @@ namespace Webteam2
         }
 
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            return View(new ProfileViewModel
+            if (id == null)
             {
-                UserProfile = user.Profile,
-                IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
-            });
+                var user = await _userManager.GetUserAsync(User);
+                return View(new ProfileViewModel
+                {
+                    UserProfile = user.Profile,
+                    IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
+                });
+            }
+            else
+            {
+                var user = _context.Users.First(u => u.Id == id); // här gick det galet
+                return View(new ProfileViewModel
+                {
+                    UserProfile = user.Profile,
+                    IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
+                });
+            }
         }
+        
 
         [HttpPost]
         public async Task<IActionResult> Update(EditProfileModel model)

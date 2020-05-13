@@ -21,7 +21,6 @@ namespace Webteam2.Factory
             identity.AddClaim(new Claim("firstname", user.FirstName));
             identity.AddClaim(new Claim("lastname", user.LastName));
             identity.AddClaim(new Claim("id", user.Id));
-            //identity.AddClaim(new Claim("id", user.Id));
             return identity;
         }
     }
