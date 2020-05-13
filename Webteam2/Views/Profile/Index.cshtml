@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ProfileViewModel
+@inject SignInManager<User> SignInManager
+@{
+    ViewData["Title"] = "Profile";
+}
+<div class="container shadow p-3 mb-5 bg-white rounded">
+    
+    <div class="row justify-content-md-center">
+        <div class="col-sm">
+            <media>
+                <img src="@Model.UserProfile.PictureURL" alt="@Model.UserProfile.User.FirstName's profile picture"/>
+            </media>
+        </div>
+        <div class="col-sm align-self-center">
+            
+            
+            <div class="card bg-light mb-3" >
+                <div class="card-header"><h4>@Model.UserProfile.User.FirstName @Model.UserProfile.User.LastName</h4></div>
+                <div class="card-body">
+                    <h4 class="card-title">Biography</h4>
+                    @if (string.IsNullOrWhiteSpace(Model.UserProfile.Description))
+                    {
+                        <p>User has not added a biography yet...</p>
+                    }
+                    else
+                    {
+                        <p style="white-space: pre-wrap">@Model.UserProfile.Description</p>
+                    }
+                    @if (Model.IsContractor)
+                    {
+                        <h5 class="text-right">Rating: @Model.UserProfile.Rating</h5>
+                
+                    }
+                </div>
+            </div>
+        </div>
+        @if (User.Claims.First(c => c.Type == "id").Value == Model.UserProfile.UserId)
+        {
+            <div class="container">
+                <button class="btn btn-dark m-2" type="button" data-toggle="collapse" data-target="#collapseEditInfo" aria-expanded="false" aria-controls="collapseEditInfo">
+                    Edit Description
+                </button>
+                <div class="collapse mb-5" id="collapseEditInfo">
+                    @Html.Partial("_Edit", new EditProfileModel {Description = Model.UserProfile.Description, UserProfile = Model.UserProfile})
+                </div>
+            </div>
+        }
+        
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

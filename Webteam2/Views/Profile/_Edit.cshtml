@@ -1,0 +1,21 @@
+﻿@model EditProfileModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+<div>
+
+    <form class="cust_base_form" asp-action="Update" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="cust_form_group">
+                <label asp-for="Description" class="cust_control_label">Describe yourself!</label>
+                <textarea rows="5" cols="160" asp-for="Description" class="cust_form_control"></textarea>
+            </div>
+            <div class="cust_form_group">
+                <input type="submit" value="Update" class="btn btn-dark m-2" />
+            </div>
+    </form>
+        
+    
+
+</div>

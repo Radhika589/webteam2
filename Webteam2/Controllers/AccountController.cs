@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Webteam2.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,12 +19,14 @@ namespace Webteam2.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private Context _context;
 
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, Context context)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -41,6 +44,17 @@ namespace Webteam2.Controllers
                 return View(userModel);
             }
             var user = _mapper.Map<User>(userModel);
+            var userProfile = new Profile
+            {
+                Id = Guid.NewGuid().ToString(),
+                User = user,
+                UserId = user.Id,
+                Description = "",
+                PictureURL = "http://placegoat.com/300/400"
+            };
+            
+            user.Profile = userProfile;
+            _context.Profiles.Add(userProfile);
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {
@@ -51,7 +65,7 @@ namespace Webteam2.Controllers
                 return View(userModel);
             }
             await _userManager.AddToRoleAsync(user, userModel.Role);
-
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(HomeController.Index),"Home");
         }
 

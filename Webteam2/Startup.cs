@@ -28,7 +28,6 @@ namespace Webteam2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMVC();
             services.AddAutoMapper(typeof(Startup));
             var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Context>(options => 
@@ -44,7 +43,7 @@ namespace Webteam2
                 opt.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<Context>();
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             services.AddControllersWithViews();
         }
 
