@@ -17,18 +17,13 @@
     <br />
     <!-- Project One -->
     <div class="row">
-        @*<div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>*@
         <div class="col-md-12">
             <div>
                 @if (Model != null)
                 {
                     <h2>@Model.Title</h2>
-                    <div>
-                        <h5>Description</h5>
+                    <h5>Description</h5>
+                    <div class="pre-scrollable">
                         <p>@Model.Description</p>
                     </div>
                     <div>
@@ -37,9 +32,8 @@
                     </div>
                     <form asp-controller="Job" asp-action="OnPostLeaveABid" asp-route-id="@Model.Id" method="post">
                         <label>How Much?</label>
-                        @*default value of -1 makes it possible to seperate mistakes from actual bids in the future.*@
-                        <input name="bid" type="number" min="100" max="10000" required="required"/>
-                        <br/>
+                        <input name="bid" type="number" min="100" max="10000" required="required" />
+                        <br />
                         <button class="btn-success m-1">Leave a bid!</button>
                     </form>
                 }
@@ -47,6 +41,5 @@
         </div>
     </div>
     <!-- /.row -->
-    <hr>
 </div>
 <!-- /.container -->
