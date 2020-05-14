@@ -68,6 +68,10 @@
                     {
                         <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">ADMINISTRATOR (FOR TESTING)</a></li>
                     }
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">CUSTOMER (FOR TESTING)</a></li>
+                    }
                     @if (User.IsInRole("Visitor"))
                     {
                         <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VISITOR (FOR TESTING)</a></li>
