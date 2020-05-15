@@ -34,12 +34,44 @@
                 "targets": [0],
                 "visible": false,
                 "searchable": false
+            }, 
+            {
+                targets: 1,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
             },
             {
                 targets: 2,
                 render: function (data, type, row) {
-                    return type === 'display' && data.length > 10 ?
-                        data.substr(0, 25) + '...' :
+                    return type === 'display' && data.length > 25 ?
+                        data.substr(0, 22) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 3,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 6,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 7,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
                         data;
                 }
             }
