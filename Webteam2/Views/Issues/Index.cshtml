@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Webteam2.Models.Issue>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Webteam2.Models.Issue>
 
 @{
     ViewData["Title"] = "Issues";
@@ -7,16 +8,17 @@
 
 <h1>All Issues</h1>
 
-<p>
-    @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
-    {
-        <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
-            <input type="button" value="New Issue" class="btn btn-info pushLeft"/>
-        </a>
-    }
-</p>
-<table class="table">
-    <thead>
+<div class="container">
+    <p>
+        @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
+        {
+            <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
+                <input type="button" value="New Issue" class="btn btn-info pushLeft"/>
+            </a>
+        }
+    </p>
+    <table class="table table-striped border">
+        <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -32,26 +34,39 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Payment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City.Name)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.Name)
+                </td>
+                <td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <input type="button" value="Edit" class="btn btn-warning"/>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <input type="button" value="Delete" class="btn btn-danger"/>
+                        </a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <input type="button" value="Details" class="btn btn-info"/>
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>

@@ -9,6 +9,18 @@
 <div class="container">
     <h4>Issue</h4>
     <hr />
+    <div id="controlls">
+        @if (ViewBag.CanEdit)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id">
+                <input type="button" value="Edit" class="btn btn-warning"/>
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id">
+                <input type="button" value="Delete" class="btn btn-danger"/>
+            </a>
+        }
+
+    </div>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -44,8 +56,4 @@
     </dl>
     @await Html.PartialAsync("_MapViewPartial")
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div><a asp-action="Index">Back to List</a></div>

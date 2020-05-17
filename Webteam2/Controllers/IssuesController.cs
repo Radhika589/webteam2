@@ -68,6 +68,7 @@ namespace Webteam2.Controllers
             if (IssueExists(id))
             {
                 var issue = await _context.Issues.FindAsync(id);
+                ViewBag.CanEdit = await CanEdit(issue);
                 return View(issue);
             }
 
