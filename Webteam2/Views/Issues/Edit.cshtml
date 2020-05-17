@@ -1,23 +1,15 @@
-﻿@model Webteam2.Models.Issue 
+﻿@model Webteam2.Models.Issue
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
-@if (ViewBag.Message != null)
-{
-    <script type="text/javascript">
 
-        window.onload = function () {
-            alert("@ViewBag.Message");
-        };
-    </script>
-}
 <div class="align-content-center container flex-sm-wrap">
-    <h2>Create new issue</h2>
+    <h2>Edit Issue</h2>
 
     <h4>Issue</h4>
     <hr />
-    <form asp-action="Create" class="container">
+    <form asp-action="Edit" class="container">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <label asp-for="Title" class="col-sm-2 col-form-label"></label>
@@ -60,11 +52,11 @@
             </div>
         </div>
         <div class="form-group">
-            <input id="createNewIssueBtn" type="submit" value="Create" class="btn btn-primary" />
+            <input id="edtIssueBtn" type="submit" value="Save" class="btn btn-primary"/>
         </div>
         <span id="IssueResult">@Html.ViewData["IssueResult"]</span>
         <div>
-            <a asp-action="Index" asp-controller="Issues">Back to List</a>
+            <a asp-action="Index" asp-controller="job">Back to List</a>
         </div>
     </form>
 </div>
@@ -72,3 +64,4 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/CitySelector.js"></script>
 }
+
