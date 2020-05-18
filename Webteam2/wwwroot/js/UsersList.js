@@ -60,8 +60,9 @@
             { "data": "phoneNumber" },
             { "data": "location" }
         ]
-    });
+    }).buttons().disable();
 
+    //TODO:Executes and action upon click on a row. Connect to an Action Method of your choosing,or delete it.
     //$("#jobs_table").on("click",
     //    "tr",
     //    function () {
