@@ -48,29 +48,29 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "35e4678e-f369-4b5b-ae7d-365cee34b1f2",
-                            ConcurrencyStamp = "b93970ff-700f-4235-952e-5e6e60c61a6b",
+                            Id = "4b22be7b-95f6-4c54-9cfd-50724057505d",
+                            ConcurrencyStamp = "7ecb6ac6-c05b-4f64-8623-5e7fba5d934f",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "0c399790-854b-4b03-bb41-4623cccb9c62",
-                            ConcurrencyStamp = "a71d73c4-a511-442d-bb59-3c139890556c",
+                            Id = "919acd5a-44f1-42a7-8688-5fd517219f86",
+                            ConcurrencyStamp = "4763cfac-eb06-4ec4-bbbb-931ecccce40d",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "ef75dc1a-f839-40c1-95bb-a674b331a5ae",
-                            ConcurrencyStamp = "05262c6d-f0e4-407a-b7d4-7c8769b607cd",
+                            Id = "18584625-07b0-431c-b654-3f63b9f8a84f",
+                            ConcurrencyStamp = "eeaad6f9-70b9-40b2-aa90-8c3e1a3314d6",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "5b51e704-e1a2-4aaf-939c-2d7b7982795b",
-                            ConcurrencyStamp = "3dcca506-fc94-4909-9565-efd4fccfa40e",
+                            Id = "c4790e28-920d-451f-a1a0-57dc0f0bb51b",
+                            ConcurrencyStamp = "0f7310b8-f463-452e-89bf-62e677f22361",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

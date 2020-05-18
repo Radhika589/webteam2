@@ -41,7 +41,8 @@ namespace Webteam2.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    Reputation = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -163,6 +164,7 @@ namespace Webteam2.Migrations
                     Description = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
                     Payment = table.Column<int>(nullable: false),
+                    Bid = table.Column<int>(nullable: true),
                     IssuerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -176,15 +178,36 @@ namespace Webteam2.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Profiles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    PictureURL = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Rating = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Profiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "786c11a8-bb85-49c3-8417-b76f582f8700", "f99705d5-7f74-4ab1-b015-d0a746d26d01", "Visitor", "VISITOR" },
-                    { "bea54d1f-56ff-4857-8aec-3abdeedb76b2", "e9a91439-c54b-465b-a7f8-d286c4ec73cd", "Customer", "CUSTOMER" },
-                    { "f81a8517-0f7c-4cd3-a0d8-d19eed7c7347", "5d73abe9-e301-4a31-a5f6-d4eb1c29f8d5", "Contractor", "CONTRACTOR" },
-                    { "a42214c1-8cd9-4688-8547-c5a076994931", "3f12e3dc-91f5-4977-9605-c9ec2eeae497", "Administrator", "ADMINISTRATOR" }
+                    { "4b22be7b-95f6-4c54-9cfd-50724057505d", "7ecb6ac6-c05b-4f64-8623-5e7fba5d934f", "Visitor", "VISITOR" },
+                    { "919acd5a-44f1-42a7-8688-5fd517219f86", "4763cfac-eb06-4ec4-bbbb-931ecccce40d", "Customer", "CUSTOMER" },
+                    { "18584625-07b0-431c-b654-3f63b9f8a84f", "eeaad6f9-70b9-40b2-aa90-8c3e1a3314d6", "Contractor", "CONTRACTOR" },
+                    { "c4790e28-920d-451f-a1a0-57dc0f0bb51b", "0f7310b8-f463-452e-89bf-62e677f22361", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -230,6 +253,13 @@ namespace Webteam2.Migrations
                 name: "IX_Issues_IssuerId",
                 table: "Issues",
                 column: "IssuerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profiles_UserId",
+                table: "Profiles",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -251,6 +281,9 @@ namespace Webteam2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Issues");
+
+            migrationBuilder.DropTable(
+                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
