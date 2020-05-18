@@ -57,7 +57,7 @@
             { "data": "firstName" },
             { "data": "lastName" },
             { "data": "reputation" },
-            { "data": "tel" },
+            { "data": "phoneNumber" },
             { "data": "location" }
         ]
     });
