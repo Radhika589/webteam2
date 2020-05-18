@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webteam2.Models;
 
 namespace Webteam2.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200504140230_test_migration_5")]
+    partial class test_migration_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,33 +212,7 @@ namespace Webteam2.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Webteam2.Profile", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PictureURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("Webteam2.User", b =>
+            modelBuilder.Entity("Webteam2.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -321,7 +297,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,7 +306,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -345,7 +321,7 @@ namespace Webteam2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -354,7 +330,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Webteam2.User", null)
+                    b.HasOne("Webteam2.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,16 +339,9 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Webteam2.Models.Issue", b =>
                 {
-                    b.HasOne("Webteam2.User", "Issuer")
+                    b.HasOne("Webteam2.Models.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId");
-                });
-
-            modelBuilder.Entity("Webteam2.Profile", b =>
-                {
-                    b.HasOne("Webteam2.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("Webteam2.Profile", "UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,84 +1,99 @@
 ﻿window.addEventListener("load", () => {
-  
-    //var events = $('#events');
-    /*var table =*/ $('#jobs_table').DataTable({
+    var table = $('#jobs_table').DataTable({
         "ajax": "/job/getall/",
+        "createdRow": function (row, data, id) {
+            $(row).attr('Id', data.id);
+        },
         dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: "print",
-                autoPrint:false,
-                text: 'Print Selected Row(chanage to "Accept Job" later)',
-                exportOptions: {
-                    modifier: {
-                        selected: true
+        buttons: {
+            buttons: [
+                {
+                    text: 'Suggest A Price',
+                    action: function (e, dt, node, config) {
+                        //Connect to "Create a new job" Action method.
+                        //for ANDREAS
+
+                        //TODO: Delete before the final release.
+                        console.log("If you can see this, the action function inside the button works.");
+                    },
+                    exportOptions: {
+                        modifier: {
+                            selected: true
+                        }
                     }
+                }
+            ]
+        },
+        "select": {
+            style: 'single'
+        },
+        //Makes the first column(id) invisible.
+        //!Note: The column is still there, and it's data can be accessed! Only the visibility has been disabled.
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }, 
+            {
+                targets: 1,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 2,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 25 ?
+                        data.substr(0, 22) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 3,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 6,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
+                }
+            },
+            {
+                targets: 7,
+                render: function (data, type, row) {
+                    return type === 'display' && data.length > 15 ?
+                        data.substr(0, 12) + '...' :
+                        data;
                 }
             }
         ],
-        "select": {
-            style:'single'
-        },
-        "columns":[
-            {"data":"title"},
-            {"data":"description"},
-            {"data":"location"},
-            {"data":"payment"},
+        "columns": [
+            { "data": "id" },
+            { "data": "title" },
+            { "data": "description" },
+            { "data": "location" },
+            { "data": "payment" },
             { "data": "issuer.reputation" },
             { "data": "issuer.firstName" },
             { "data": "issuer.lastName" }
         ]
-      } );
+    }).buttons().disable();
 
-    //table
-    //    .on('select', function (e, dt, type, indexes) {
-    //        var rowData = table.rows(indexes).data().toArray();
-    //        events.prepend('<div><b>' + type + ' selection</b> - ' + JSON.stringify(rowData) + '</div>');
-    //    })
-    //    .on('deselect', function (e, dt, type, indexes) {
-    //        var rowData = table.rows(indexes).data().toArray();
-    //        events.prepend('<div><b>' + type + ' <i>de</i>selection</b> - ' + JSON.stringify(rowData) + '</div>');
-    //    });
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // async function GetAllJobs() {
-    //     let fetchedJobs;
-    //     fetchedJobs = await fetch("/job/getall/").
-    //         then(response => response.json()).
-    //         catch(error => console.log(error));
-    //     return fetchedJobs;
-    // };
-
-    //PrintJobs();
-    //async function PrintJobs() {
-    //    let jobs = await GetAllJobs();
-    //    jobs.data.forEach(job => {
-    //        console.log(job.id);
-    //        console.log(job.title);
-    //        console.log(job.description);
-    //        console.log(job.payment);
-    //        console.log(job.issuer.reputation);
-    //    });
-    //};
-
-
-
-
-
-
-
-
-
+    $("#jobs_table").on("click",
+        "tr",
+        function () {
+            let id = $(this).attr('Id');
+            if (id) {
+               window.location.href = '/job/PreviewContract?Id=' + $(this).attr('Id'); 
+            }
+        });
 });

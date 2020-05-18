@@ -14,5 +14,6 @@ namespace Webteam2
         public virtual string LastName { get; set; }
         public virtual Profile Profile { get; set; }
 
+        public virtual int? Reputation { get; set; }
     }
 }

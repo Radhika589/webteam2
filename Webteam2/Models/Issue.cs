@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Webteam2.Models
 {
@@ -18,6 +19,7 @@ namespace Webteam2.Models
         public virtual string Location { get; set; }
         //[Required]
         public virtual int Payment { get; set; }
+        public virtual int? Bid { get; set; }
         //[Required]
         public virtual User Issuer { get; set; }
     }
