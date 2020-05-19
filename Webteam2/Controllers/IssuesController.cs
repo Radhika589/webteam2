@@ -56,7 +56,7 @@ namespace Webteam2.Controllers
 
                 await _context.SaveChangesAsync();
                 ViewBag.Message = "Success: Issue added!";
-                return View();
+                return RedirectToAction(nameof(Index));
             }
 
             ViewBag.Message = "Something went wrong...";
