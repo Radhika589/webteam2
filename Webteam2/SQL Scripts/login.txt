@@ -1,0 +1,19 @@
+Visitor
+Visitorsson
+Visitor1@Mail.com
+password: Visitor1+
+
+Customer
+Customersson
+Customer@Mail.com
+password: Customer1+
+
+Contractor
+Contractorsson
+Contractor@Mail.com
+password:  Contractor1+
+
+Administrator
+Administratorsson
+Administrator@Mail.com
+password:  Administrator1+
