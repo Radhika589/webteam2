@@ -19,7 +19,7 @@
 <div class="container">
     <p>
         @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
-        {
+        {//Only show create button for admins and customers. 
             <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
                 <input type="button" value="New Issue" class="btn btn-info pushLeft" />
             </a>
@@ -30,9 +30,6 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Payment)
@@ -51,9 +48,6 @@
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Payment)
                     </td>
                     <td>
@@ -61,7 +55,7 @@
                     </td>
                     <td>
                         @if (User.IsInRole("Administrator"))
-                        {
+                        {//Only show edit / delete buttons in list for admin users.  
                             <a asp-action="Edit" asp-route-id="@item.Id">
                                 <input type="button" value="Edit" class="btn btn-warning" />
                             </a>

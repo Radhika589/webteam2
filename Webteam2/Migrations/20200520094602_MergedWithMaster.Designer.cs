@@ -10,8 +10,8 @@ using Webteam2.Models;
 namespace Webteam2.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20200517174901_withCitiesAndRegions")]
-    partial class withCitiesAndRegions
+    [Migration("20200520094602_MergedWithMaster")]
+    partial class MergedWithMaster
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,29 +50,36 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cfadd2e9-7d56-48a1-9470-c9bb0c1b2cb1",
-                            ConcurrencyStamp = "87aaff38-f3a2-43d9-80ff-7a79bc7e6398",
+                            Id = "808bac87-1025-462b-b4bb-7b0fbdf88449",
+                            ConcurrencyStamp = "d585f758-2f71-4c4c-83c3-a7714960d99b",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "70201fdc-0ab8-4bac-a192-77ab266845ef",
-                            ConcurrencyStamp = "22f0aedc-9fc9-44a6-b7ac-302b92155a5e",
+                            Id = "7971aa09-39f4-4e46-88df-93e7c490d400",
+                            ConcurrencyStamp = "819e9c42-0132-46fd-a883-2e7c00ba1f71",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "6e27e712-d820-4219-b5a9-9eb047932a11",
-                            ConcurrencyStamp = "9d38ff85-5e05-447a-bba6-f361cb6d5f45",
-                            Name = "Contractor",
-                            NormalizedName = "CONTRACTOR"
+                            Id = "34f35e83-9d7d-4ec8-843e-a7af30d70d61",
+                            ConcurrencyStamp = "4238a071-b315-4729-8f50-ee767e738f21",
+                            Name = "NotValidatedContractor",
+                            NormalizedName = "NOTVALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "da02863f-702a-476e-b4f2-f7cdd49952c8",
-                            ConcurrencyStamp = "b188f85e-8cb5-4428-89f3-be66a5c88532",
+                            Id = "ccb06606-0c03-4022-93ec-c45527da2941",
+                            ConcurrencyStamp = "ff031629-c553-432e-b52b-4a78e82b791a",
+                            Name = "ValidatedContractor",
+                            NormalizedName = "VALIDATEDCONTRACTOR"
+                        },
+                        new
+                        {
+                            Id = "fa13b48f-982d-4893-8d09-265ac2adadf2",
+                            ConcurrencyStamp = "9c2b7393-c4c9-4fe9-9267-23a2a31fa451",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -256,7 +263,33 @@ namespace Webteam2.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Webteam2.Models.User", b =>
+            modelBuilder.Entity("Webteam2.Profile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PictureURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("Webteam2.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -281,6 +314,9 @@ namespace Webteam2.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -303,6 +339,9 @@ namespace Webteam2.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("Reputation")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -338,7 +377,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -347,7 +386,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,7 +401,7 @@ namespace Webteam2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -371,7 +410,7 @@ namespace Webteam2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Webteam2.Models.User", null)
+                    b.HasOne("Webteam2.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,9 +432,16 @@ namespace Webteam2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Webteam2.Models.User", "Issuer")
+                    b.HasOne("Webteam2.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId");
+                });
+
+            modelBuilder.Entity("Webteam2.Profile", b =>
+                {
+                    b.HasOne("Webteam2.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("Webteam2.Profile", "UserId");
                 });
 #pragma warning restore 612, 618
         }

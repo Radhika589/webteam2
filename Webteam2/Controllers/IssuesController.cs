@@ -149,8 +149,12 @@ namespace Webteam2.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var issue = await _context.Issues.FindAsync(id);
-            _context.Issues.Remove(issue);
-            await _context.SaveChangesAsync();
+            if (await CanEdit(issue))
+            {
+                _context.Issues.Remove(issue);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
             return RedirectToAction(nameof(Index));
         }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webteam2.Migrations
 {
-    public partial class withCitiesAndRegions : Migration
+    public partial class MergedWithMaster : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,7 +41,9 @@ namespace Webteam2.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    Reputation = table.Column<int>(nullable: true),
+                    Location = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -168,6 +170,27 @@ namespace Webteam2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Profiles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    PictureURL = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Rating = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Profiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "City",
                 columns: table => new
                 {
@@ -222,10 +245,11 @@ namespace Webteam2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "cfadd2e9-7d56-48a1-9470-c9bb0c1b2cb1", "87aaff38-f3a2-43d9-80ff-7a79bc7e6398", "Visitor", "VISITOR" },
-                    { "70201fdc-0ab8-4bac-a192-77ab266845ef", "22f0aedc-9fc9-44a6-b7ac-302b92155a5e", "Customer", "CUSTOMER" },
-                    { "6e27e712-d820-4219-b5a9-9eb047932a11", "9d38ff85-5e05-447a-bba6-f361cb6d5f45", "Contractor", "CONTRACTOR" },
-                    { "da02863f-702a-476e-b4f2-f7cdd49952c8", "b188f85e-8cb5-4428-89f3-be66a5c88532", "Administrator", "ADMINISTRATOR" }
+                    { "808bac87-1025-462b-b4bb-7b0fbdf88449", "d585f758-2f71-4c4c-83c3-a7714960d99b", "Visitor", "VISITOR" },
+                    { "7971aa09-39f4-4e46-88df-93e7c490d400", "819e9c42-0132-46fd-a883-2e7c00ba1f71", "Customer", "CUSTOMER" },
+                    { "34f35e83-9d7d-4ec8-843e-a7af30d70d61", "4238a071-b315-4729-8f50-ee767e738f21", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
+                    { "ccb06606-0c03-4022-93ec-c45527da2941", "ff031629-c553-432e-b52b-4a78e82b791a", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
+                    { "fa13b48f-982d-4893-8d09-265ac2adadf2", "9c2b7393-c4c9-4fe9-9267-23a2a31fa451", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -281,6 +305,13 @@ namespace Webteam2.Migrations
                 name: "IX_Issues_IssuerId",
                 table: "Issues",
                 column: "IssuerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profiles_UserId",
+                table: "Profiles",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -302,6 +333,9 @@ namespace Webteam2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Issues");
+
+            migrationBuilder.DropTable(
+                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -10,8 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Webteam2.Models;
 using Webteam2.Models.Geo;
-using RestSharp.Serialization.Json;
-using RestSharp;
+
 namespace Webteam2.Controllers
 {
 
