@@ -9,9 +9,9 @@ using Webteam2.Models;
 
 namespace Webteam2.Factory
 {
-    public class CustomClaimsFactory : UserClaimsPrincipalFactory<User>
+    public class CustomClaimsFactory : UserClaimsPrincipalFactory<User, IdentityRole>
     {
-        public CustomClaimsFactory(UserManager<User> userManager, IOptions<IdentityOptions> optionsAccessor) : base(userManager, optionsAccessor)
+        public CustomClaimsFactory(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IOptions<IdentityOptions> optionsAccessor) : base(userManager, roleManager, optionsAccessor)
         {
 
         }
@@ -20,7 +20,7 @@ namespace Webteam2.Factory
             var identity = await base.GenerateClaimsAsync(user);
             identity.AddClaim(new Claim("firstname", user.FirstName));
             identity.AddClaim(new Claim("lastname", user.LastName));
-
+            identity.AddClaim(new Claim("id", user.Id));
             return identity;
         }
     }

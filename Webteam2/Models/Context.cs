@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Webteam2.Configuration;
-using Webteam2.Models;
-using Webteam2.Models.Geo;
 
 namespace Webteam2.Models
 {
@@ -21,12 +18,15 @@ namespace Webteam2.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.Profile)
+                .WithOne(b => b.User)
+                .HasForeignKey<Profile>(b => b.UserId);
+
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
-
-        public DbSet<User> Users { get; set; }
         public DbSet<Issue> Issues { get; set; }
-        public DbSet<Region> Region { get; set; }
-        public DbSet<City> City { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+
     }
 }

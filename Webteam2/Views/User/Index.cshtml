@@ -1,4 +1,5 @@
-﻿
+﻿@model Webteam2.Models.UserLists
+
 @{
     ViewData["Title"] = "Index";
 
@@ -10,30 +11,50 @@
 
 <div class="cust_container row p-0 m-0">
     <div class="col-12 border p-3 mt-3">
-        <form action="/" method="post">
             <table id="users_table" class="table table-striped border">
                 <thead>
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Reputation</th>
-                        <th>Tel</th>
+                        <th>Profile</th>
                         <th>Location</th>
+                        <th>Role</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Row 1 First Name</td>
-                        <td>Row 1 Last Name</td>
-                        <td>Row 1 Reputation</td>
-                        <td>Row 1 Tel</td>
-                        <td>Row 1 Location</td>
-                    </tr>
+                    @foreach (var User in Model.Customers)
+                    {
+                        <tr>
+                            <td> @User.FirstName</td>
+                            <td> @User.LastName</td>
+                            <td> @User.Reputation</td>
+                            <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
+                            </td>
+                            <td> @User.Location</td>
+                            <td>Customer</td>
+                        </tr>
+                    }
+                    @foreach (var User in Model.ValidatedContractors)
+                    {
+                        <tr>
+                            <td> @User.FirstName</td>
+                            <td> @User.LastName</td>
+                            <td> @User.Reputation</td>
+                            <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
+                            </td>
+                            <td> @User.Location</td>
+                            <td>Contractor</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-        </form>
     </div>
 </div>
-@section scripts{
-    <script src="~/js/UsersList.js"></script>
-}
+

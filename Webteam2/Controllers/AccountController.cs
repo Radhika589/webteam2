@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Webteam2.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,12 +19,14 @@ namespace Webteam2.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private Context _context;
 
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, Context context)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+			_context = context;
         }
 
         [HttpGet]
@@ -41,6 +44,17 @@ namespace Webteam2.Controllers
                 return View(userModel);
             }
             var user = _mapper.Map<User>(userModel);
+            var userProfile = new Profile
+            {
+                Id = Guid.NewGuid().ToString(),
+                User = user,
+                UserId = user.Id,
+                Description = "",
+                PictureURL = "http://placegoat.com/300/400"
+            };
+            
+            user.Profile = userProfile;
+            _context.Profiles.Add(userProfile);
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {
@@ -51,8 +65,28 @@ namespace Webteam2.Controllers
                 return View(userModel);
             }
             await _userManager.AddToRoleAsync(user, userModel.Role);
+            await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(HomeController.Index),"Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ValidateContactor(string id)
+        {
+            var user = _context.Users.First(u => u.Id == id);
+            await _userManager.RemoveFromRoleAsync(user, "NotValidatedContractor");
+            await _userManager.AddToRoleAsync(user, "ValidatedContractor");
+            //await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction(nameof(AccountController.ValidateContractors), "Account");
+        }
+
+        [HttpGet]
+        public IActionResult ValidateContractors(ContractorsToValidateModel contractorsToValidateModel)
+        {
+            contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;
+            return View(contractorsToValidateModel);
+            //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
 
         [HttpGet]
@@ -75,21 +109,13 @@ namespace Webteam2.Controllers
             {
                 return RedirectToLocal(returnUrl);
             }
-            //var user = await _userManager.FindByEmailAsync(userLoginModel.Email);
-            //if (user != null && await _userManager.CheckPasswordAsync(user, userLoginModel.Password))
-            //{
-            //    var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-            //    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-            //    identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            //    await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
-            //    return RedirectToLocal(returnUrl);
-            //}
             else
             {
                 ModelState.AddModelError("", "Invalid Username or Password");
                 return View();
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

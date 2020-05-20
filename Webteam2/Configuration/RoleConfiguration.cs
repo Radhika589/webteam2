@@ -25,8 +25,13 @@ namespace Webteam2.Configuration
             },
             new IdentityRole
             {
-                Name = "Contractor",
-                NormalizedName = "CONTRACTOR"
+                Name = "NotValidatedContractor",
+                NormalizedName = "NOTVALIDATEDCONTRACTOR"
+            },
+            new IdentityRole
+            {
+                Name = "ValidatedContractor",
+                NormalizedName = "VALIDATEDCONTRACTOR"
             },
             new IdentityRole
             {

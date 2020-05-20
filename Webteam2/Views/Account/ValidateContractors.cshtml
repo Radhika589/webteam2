@@ -1,0 +1,44 @@
+﻿@model Webteam2.Models.ContractorsToValidateModel
+@{
+    ViewData["Title"] = "ValidateContractors";
+}
+<br />
+<h2 class="text-info">ContractorsToValidate</h2>
+<br />
+
+<div class="cust_container row p-0 m-0">
+    <div class="col-12 border p-3 mt-3">
+            <table id="users_table" class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email Name</th>
+                        <th> Validate</th>
+                        <th> Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var item in Model.UsersList)
+                    {
+                        <tr>
+                            <td> @item.FirstName</td>
+                            <td> @item.LastName</td>
+                            <td> @item.Email</td>
+                            <td>
+                                <form asp-controller="Account" asp-action="ValidateContactor" asp-route-id="@item.Id">
+                                    <button id="validate" class="menu_right" type="submit" >Validate</button>
+                                </form> 
+                            </td>
+                            <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@item.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+    </div>
+</div>
+

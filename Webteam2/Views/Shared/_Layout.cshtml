@@ -30,16 +30,17 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li>
-                            @*här skall du fortsätta knappen ser cp ut*@
                             <form asp-controller="Account" asp-action="Logout">
                                 <button id="navbar_item_5" class="menu_right navbar_logout" type="submit">Logout</button>
                             </form>
                         </li>
                         <li><a id="navbar_item_6" class="menu_left" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a></li>
-
                         <li><a id="navbar_item_7" class="menu_left" asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
-                        <li><a id="navbar_item_7" class="menu_left" asp-area="" asp-controller="Issues" asp-action="Index">Temp-Issues</a></li>
-
+                        <li>
+                            <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Claims.First(c => c.Type == "id").Value">
+                                <button id="navbar_item_8" class="menu_left navbar_button" type="submit">My Profile</button>
+                            </form>
+                        </li>
                     }
                     else
                     {
@@ -47,12 +48,39 @@
                         <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
 
                     }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li><a id="navbar_item_9" class="menu_left" asp-area="" asp-controller="Account" asp-action="ValidateContractors">ValidateContractors</a></li>
+                    }
+
+
+
+                    @*Remove below after testing
+                    @if (User.IsInRole("NotValidatedContractor"))
+                    {
+                        <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">NOTVALIDATEDCONTRACTOR (FOR TESTING)</a></li>
+                    }
+                    @if (User.IsInRole("ValidatedContractor"))
+                    {
+                        <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VALIDATED CONTRACTOR (FOR TESTING)</a></li>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">ADMINISTRATOR (FOR TESTING)</a></li>
+                    }
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">CUSTOMER (FOR TESTING)</a></li>
+                    }
+                    @if (User.IsInRole("Visitor"))
+                    {
+                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VISITOR (FOR TESTING)</a></li>
+                    }
+                    Remove until here after testing*@
 
 
 
 
-                    @*<li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-        <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
                 </ul>
             </div>
         </nav>
@@ -63,7 +91,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="position:relative">
+    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Webteam2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
