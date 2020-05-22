@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using RestClient.Net;
 using Webteam2.Models;
 
@@ -61,11 +62,13 @@ namespace Webteam2
             
             if (ModelState.IsValid)
             {
-                var client = new Client(new Uri($"https://www.purgomalum.com/service/json?text={model.Description}"));
-                var response = await client.GetAsync<ProfanityModel>();
+                var encoded = HttpUtility.UrlEncode(model.Description);
+                var client = new Client(new Uri($"https://www.purgomalum.com/service/plain?text={encoded}"));
+                var response = await client.GetAsync<string>();
                 var user = await _userManager.GetUserAsync(User);
 
-                user.Profile.Description = response.Body.Result;
+                user.Profile.Description = response.Body;
+                
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
