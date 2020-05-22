@@ -44,17 +44,17 @@ namespace Webteam2.Controllers
             return View(null);
         }
 
-        [HttpPost]
-        public ActionResult OnPostLeaveABid(string id, int bid)
-        {
-            if (bid==null)
-            {
-                return View(null);
-            }
-            _db.Issues.FirstOrDefault(issue => issue.Id == id).Bid = bid;
-            _db.SaveChanges();
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult OnPostLeaveABid(string id, int bid)
+        //{
+        //    if (bid==null)
+        //    {
+        //        return View(null);
+        //    }
+        //    _db.Issues.FirstOrDefault(issue => issue.Id == id).Bid = bid;
+        //    _db.SaveChanges();
+        //    return View();
+        //}
 
         //[HttpDelete]
         //public async Task<IActionResult> Delete(string id)
