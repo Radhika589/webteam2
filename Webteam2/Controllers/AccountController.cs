@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +72,7 @@ namespace Webteam2.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ValidateContactor(string id)
         {
             var user = _context.Users.First(u => u.Id == id);
@@ -82,6 +83,7 @@ namespace Webteam2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IActionResult ValidateContractors(ContractorsToValidateModel contractorsToValidateModel)
         {
             contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;

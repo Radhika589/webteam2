@@ -22,6 +22,8 @@ namespace Webteam2
             _context = context;
             _userManager = userManager;
         }
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ShowCount()
         {
             var apiCall = new Client(new Uri($"https://api.countapi.xyz/get/DanielAPIcall/ProfileUpdates"));
@@ -29,7 +31,6 @@ namespace Webteam2
 
             return View(response.Body);
         }
-
         public async Task<IActionResult> Index(string id)
         {
             var apiCall = new Client(new Uri($"https://api.countapi.xyz/hit/DanielAPIcall/ProfileUpdates"));
@@ -59,7 +60,6 @@ namespace Webteam2
         [HttpPost]
         public async Task<IActionResult> Update(EditProfileModel model)
         {
-            
             if (ModelState.IsValid)
             {
                 var encoded = HttpUtility.UrlEncode(model.Description);
