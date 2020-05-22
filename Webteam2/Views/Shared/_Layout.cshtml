@@ -40,7 +40,7 @@
                             @*<form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Claims.First(c => c.Type == "id").Value">
                                 <button id="navbar_item_8" class="menu_left navbar_button" type="submit">My Profile</button>
                             </form>*@
-                            <a id="navbar_item_8" class="menu_left navbar_button" asp-action="Index" asp-controller="Profile">Profile</a>
+                            <a id="navbar_item_8" class="menu_left" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
                         </li>
                     }
                     else
@@ -52,37 +52,38 @@
                     @if (User.IsInRole("Administrator"))
                     {
                         <li><a id="navbar_item_9" class="menu_left" asp-area="" asp-controller="Account" asp-action="ValidateContractors">ValidateContractors</a></li>
+                        <li><a id="navbar_item_8" class="menu_left" asp-area="" asp-controller="Profile" asp-action="ShowCount">Show Profile Count</a></li>
                     }
 
 
 
-                    @*Remove below after testing
-                    @if (User.IsInRole("NotValidatedContractor"))
-                    {
-                        <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">NOTVALIDATEDCONTRACTOR (FOR TESTING)</a></li>
-                    }
-                    @if (User.IsInRole("ValidatedContractor"))
-                    {
-                        <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VALIDATED CONTRACTOR (FOR TESTING)</a></li>
-                    }
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">ADMINISTRATOR (FOR TESTING)</a></li>
-                    }
-                    @if (User.IsInRole("Customer"))
-                    {
-                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">CUSTOMER (FOR TESTING)</a></li>
-                    }
-                    @if (User.IsInRole("Visitor"))
-                    {
-                        <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VISITOR (FOR TESTING)</a></li>
-                    }
-                    Remove until here after testing*@
+                            @*Remove below after testing
+        @if (User.IsInRole("NotValidatedContractor"))
+        {
+            <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">NOTVALIDATEDCONTRACTOR (FOR TESTING)</a></li>
+        }
+        @if (User.IsInRole("ValidatedContractor"))
+        {
+            <li><a id="navbar_item_9" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VALIDATED CONTRACTOR (FOR TESTING)</a></li>
+        }
+        @if (User.IsInRole("Administrator"))
+        {
+            <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">ADMINISTRATOR (FOR TESTING)</a></li>
+        }
+        @if (User.IsInRole("Customer"))
+        {
+            <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">CUSTOMER (FOR TESTING)</a></li>
+        }
+        @if (User.IsInRole("Visitor"))
+        {
+            <li><a id="navbar_item_11" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">VISITOR (FOR TESTING)</a></li>
+        }
+        Remove until here after testing*@
 
 
 
 
-                </ul>
+</ul>
             </div>
         </nav>
     </header>

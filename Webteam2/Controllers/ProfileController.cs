@@ -21,12 +21,21 @@ namespace Webteam2
             _context = context;
             _userManager = userManager;
         }
+        public async Task<IActionResult> ShowCount()
+        {
+            var apiCall = new Client(new Uri($"https://api.countapi.xyz/get/DanielAPIcall/ProfileUpdates"));
+            var response = await apiCall.GetAsync<CountModel>();
 
+            return View(response.Body);
+        }
 
         public async Task<IActionResult> Index(string id)
         {
+            var apiCall = new Client(new Uri($"https://api.countapi.xyz/hit/DanielAPIcall/ProfileUpdates"));
+            var response = await apiCall.GetAsync<CountModel>();
             if (id == null)
             {
+            
                 var user = await _userManager.GetUserAsync(User);
                 return View(new ProfileViewModel
                 {
