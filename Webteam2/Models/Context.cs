@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webteam2.Configuration;
 using Webteam2.Models.Geo;
+using Webteam2.Models.X_Change;
 
 namespace Webteam2.Models
 {
@@ -30,6 +31,6 @@ namespace Webteam2.Models
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<City> City { get; set; }
-
+        public DbSet<Currency> Currencies { get; set; }
     }
 }

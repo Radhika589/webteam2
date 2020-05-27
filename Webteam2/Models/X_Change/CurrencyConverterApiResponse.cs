@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace Webteam2.Models
+namespace Webteam2.Models.X_Change
 {
-    public class Response
+    public class CurrencyConverterApiResponse
     {
         [JsonProperty("rates")]
         public Dictionary<string, double> Rates { get; set; }

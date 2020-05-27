@@ -29,5 +29,8 @@ namespace Webteam2.Models
 
         [Required(ErrorMessage = "Please select a location.")]
         public virtual int CityId { get; set; }
+
+        [Required(ErrorMessage = "Please choose your local currency.")]
+        public virtual string LocalCurrency { get; set; }
     }
 }

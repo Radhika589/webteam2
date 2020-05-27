@@ -48,36 +48,36 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fb05ace7-d0d6-42f4-8f11-d4d569e65e11",
-                            ConcurrencyStamp = "3cc3961e-685a-4f24-b452-97e4c991aa1b",
+                            Id = "775620df-2daf-470d-bd68-0008c5427d26",
+                            ConcurrencyStamp = "4be27115-abb6-44c4-96b0-e7bf6a2086c5",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "1538b144-0a59-41aa-ba72-868c48f389c7",
-                            ConcurrencyStamp = "bd422f53-56b3-42fe-b316-a3f9aff1383f",
+                            Id = "99b2898a-00f1-496b-8c5e-b743a6a74284",
+                            ConcurrencyStamp = "6a8e28d4-4c57-4abc-a7cf-882100a351e6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "5f4e9313-2cf1-48a6-a914-69f9b198f4d1",
-                            ConcurrencyStamp = "52cd2182-0725-412d-855f-35db2680da13",
+                            Id = "0397b650-1aa2-48e4-a511-38f82fd0f98b",
+                            ConcurrencyStamp = "b6b2aa1e-898f-4713-8826-423747470c8d",
                             Name = "NotValidatedContractor",
                             NormalizedName = "NOTVALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "c18eae5d-8d3f-439b-a5e7-6f5238bb6a37",
-                            ConcurrencyStamp = "c83aeaaa-2a90-497b-86e5-0780b8adf460",
+                            Id = "56668ab4-8411-4e62-9e37-98fa93402a8c",
+                            ConcurrencyStamp = "a4ae8a4d-97b4-473a-aab4-a97214ea5be3",
                             Name = "ValidatedContractor",
                             NormalizedName = "VALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "8c020397-65e4-4908-a2d4-12b187f9c674",
-                            ConcurrencyStamp = "1cbcdfba-ef1c-43c4-b343-f996e489a36c",
+                            Id = "507b9490-b60b-42b8-b614-6b5158fa5035",
+                            ConcurrencyStamp = "0171fd93-1735-4afc-978b-7f02405e2020",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -244,6 +244,10 @@ namespace Webteam2.Migrations
                     b.Property<string>("IssuerId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("LocalCurrency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Payment")
                         .HasColumnType("int");
 
@@ -259,6 +263,24 @@ namespace Webteam2.Migrations
                     b.HasIndex("IssuerId");
 
                     b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("Webteam2.Models.X_Change.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Abbreviation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("Webteam2.Profile", b =>
