@@ -48,36 +48,36 @@ namespace Webteam2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "775620df-2daf-470d-bd68-0008c5427d26",
-                            ConcurrencyStamp = "4be27115-abb6-44c4-96b0-e7bf6a2086c5",
+                            Id = "0eec3e6c-bce8-4f2a-86cc-83611da3e763",
+                            ConcurrencyStamp = "aab079c0-d0b9-4855-9259-3a682c6706ed",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "99b2898a-00f1-496b-8c5e-b743a6a74284",
-                            ConcurrencyStamp = "6a8e28d4-4c57-4abc-a7cf-882100a351e6",
+                            Id = "5981d229-4f74-4749-b20f-7b68c8ab9b1a",
+                            ConcurrencyStamp = "8ec43302-0732-4b46-95d3-6370fe13d6d3",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "0397b650-1aa2-48e4-a511-38f82fd0f98b",
-                            ConcurrencyStamp = "b6b2aa1e-898f-4713-8826-423747470c8d",
+                            Id = "6eebbf52-65ab-4d4c-9008-1043eff773f7",
+                            ConcurrencyStamp = "5288af11-8e2f-49e0-a140-bda3149efb97",
                             Name = "NotValidatedContractor",
                             NormalizedName = "NOTVALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "56668ab4-8411-4e62-9e37-98fa93402a8c",
-                            ConcurrencyStamp = "a4ae8a4d-97b4-473a-aab4-a97214ea5be3",
+                            Id = "dafbf182-b571-48b7-8264-0a3dd1aa1647",
+                            ConcurrencyStamp = "337c019c-7140-48ac-a525-bd9cbf8dc3d2",
                             Name = "ValidatedContractor",
                             NormalizedName = "VALIDATEDCONTRACTOR"
                         },
                         new
                         {
-                            Id = "507b9490-b60b-42b8-b614-6b5158fa5035",
-                            ConcurrencyStamp = "0171fd93-1735-4afc-978b-7f02405e2020",
+                            Id = "1b9cab13-6a28-474b-b8d7-2b51de250c3d",
+                            ConcurrencyStamp = "40c17114-2545-4126-91ee-afb56bdc8408",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

@@ -31,7 +31,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Region</label>
             <div class="col-sm-4">
-                <select for="Region"id="Region" class="form-control"></select>
+                <select for="Region" id="Region" class="form-control"></select>
             </div>
             <span for="Region" class="text-danger"></span>
         </div>
@@ -47,21 +47,20 @@
         <div class="form-group row">
             <label asp-for="Payment" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-4">
-                <input type="number" asp-for="Payment" class="col-sm-6 form-control" />
+                <input id="Payment" type="number" asp-for="Payment" class="col-sm-6 form-control" />
             </div>
 
             <span asp-validation-for="Payment" class="text-danger"></span>
         </div>
-
         <div class="form-group row">
             <label asp-for="LocalCurrency" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-4">
-                <select id="LocalCurrency" asp-for="LocalCurrency" class="col-sm-10 form-control"></select>
+                <select id="LocalCurrency" class="col-sm-10 form-control"></select>                
             </div>
 
             <span asp-validation-for="LocalCurrency" class="text-danger"></span>
         </div>
-
+        
         <div class="form-group row">
             <label asp-for="Description" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-8">
@@ -82,4 +81,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/CitySelector.js"></script>
+    <script src="~/js/CurrencySelector.js"></script>
 }
