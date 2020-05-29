@@ -17,9 +17,15 @@
                 console.log(payment);
                 $.ajax({
                     url: `/currency/CalculateLocalCurrency?currencyAbbreviation=${selectedText}&amount=${payment}`,
-                    success: function (data) {alert(data) }
+                    success: function (data) {
+                        (data.localCurrency) ? $("#convertedToLocalCurrency").html
+                            (`This equats to ${data.calculatedAmount} ${data.localCurrency} 
+                            at a rate of 100 ${data.baseCurrency} = 
+                            ${new Intl.NumberFormat('en-US', { style: 'currency', currency: `${data.localCurrency}` }).format(data.baseToLocalCurrencyRate * 100)} ${data.localCurrency}.`) :
+                            $("#convertedToLocalCurrency").html(``);
+                        
+                    }
                 });
-                //window.location.href = `/currency/CalculateLocalCurrency?currencyAbbreviation=${selectedText}&amount=${payment}`;
 
             }
             

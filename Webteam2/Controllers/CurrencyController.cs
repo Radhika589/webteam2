@@ -87,8 +87,14 @@ namespace Webteam2.Controllers
             var currencyExists=todaysRates.Rates.TryGetValue(currencyAbbreviation, out targetRate);
             if (currencyExists)
             {
-                var amountInLocalCurrency = Math.Round(amount * targetRate, 2);
-                return Json(amountInLocalCurrency);
+                var jsonResponse = new CurrencyConvertionClientResponse 
+                {
+                    BaseCurrency="SEK",
+                    LocalCurrency=currencyAbbreviation,
+                    BaseToLocalCurrencyRate=Math.Round(targetRate,4,MidpointRounding.ToZero),
+                    CalculatedAmount= Math.Round(amount * targetRate, 2, MidpointRounding.ToZero)
+                };
+                return Json(jsonResponse);
             }
             else if(currencyAbbreviation=="Please Choose A Currency")
             {
