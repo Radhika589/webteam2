@@ -13,8 +13,6 @@
             selectedText = await $('#LocalCurrency')[0].selectedOptions[0].text;
             Payment = await $('#Payment').value;
             if (selectedText && payment) {
-                console.log(selectedText);
-                console.log(payment);
                 $.ajax({
                     url: `/currency/CalculateLocalCurrency?currencyAbbreviation=${selectedText}&amount=${payment}`,
                     success: function (data) {
@@ -23,12 +21,9 @@
                             at a rate of 100 ${data.baseCurrency} = 
                             ${new Intl.NumberFormat('en-US', { style: 'currency', currency: `${data.localCurrency}` }).format(data.baseToLocalCurrencyRate * 100)} ${data.localCurrency}.`) :
                             $("#convertedToLocalCurrency").html(``);
-                        
                     }
                 });
-
             }
-            
         });
     });
 
@@ -36,8 +31,6 @@
         $("#Payment").on("change", async function () {
             payment = $('#Payment')[0].value;
             if (selectedText && payment) {
-                console.log(selectedText);
-                console.log(payment);
             }
         });
     });
