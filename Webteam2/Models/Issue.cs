@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Webteam2.Models.Geo;
@@ -32,5 +33,6 @@ namespace Webteam2.Models
 
         [Required(ErrorMessage = "Please choose your local currency.")]
         public virtual string LocalCurrency { get; set; }
+
     }
 }
