@@ -77,13 +77,25 @@ namespace Webteam2.Controllers
             return currencyResponse;
         }
 
-        [HttpPost]
-        public async Task<string> CalculateLocalCurrency(string currencyId) 
+        public async Task<JsonResult> CalculateLocalCurrency(string currencyAbbreviation, int amount) 
         {
+            var _amount = amount;
+            var _currencyAbbreviation = currencyAbbreviation;
 
-            var test = currencyId;
-
-            return $"We got: {test}";
+            var todaysRates =await GetRates(client,"SEK");
+            double targetRate = -1;
+            var currencyExists=todaysRates.Rates.TryGetValue(currencyAbbreviation, out targetRate);
+            if (currencyExists)
+            {
+                var amountInLocalCurrency = Math.Round(amount * targetRate, 2);
+                return Json(amountInLocalCurrency);
+            }
+            else if(currencyAbbreviation=="Please Choose A Currency")
+            {
+                return Json("You have not chosen a valid currency!");
+            }
+            return Json("Either this currency does not exist in the database," +
+                "or some unknown error has occurred.");
         }
     }
 }

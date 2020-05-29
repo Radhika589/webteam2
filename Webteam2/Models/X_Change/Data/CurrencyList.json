@@ -1,5 +1,9 @@
 [
   {
+    "Abbreviation": "Please Choose A Currency",
+    "FullName": "This is a title!"
+  },
+  {
     "Abbreviation": "DKK",
     "FullName": "Danish Krone"
   },
