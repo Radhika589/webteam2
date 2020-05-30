@@ -76,6 +76,7 @@ namespace Webteam2.Controllers
             return NotFound();
         }
 
+        [HttpGet]
         [Authorize(Roles = "Administrator, Customer")]
         public async Task<IActionResult> Edit(string id)
         {
