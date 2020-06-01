@@ -1,0 +1,62 @@
+﻿@inject UserManager<User> userManager
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Webteam2.Models.Issue>
+@{
+    var user = await userManager.GetUserAsync(User);
+}
+<div class="container table-responsive">
+    <table class="table table-striped border">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Payment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.Name)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Administrator") || item.Issuer== user)
+                        {//Only show edit / delete buttons in list for admin users.
+                            <a asp-controller="Issues" asp-action="Edit" asp-route-id="@item.Id">
+                                <input type="button" value="Edit" class="btn btn-warning" />
+                            </a>
+                            <a asp-controller="Issues" asp-action="Delete" asp-route-id="@item.Id">
+                                <input type="button" value="Delete" class="btn btn-danger" />
+                            </a>
+                        }
+                        <a asp-controller="Issues" asp-action="Details" asp-route-id="@item.Id">
+                            <input type="button" value="Details" class="btn btn-info" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mt-2 mx-auto">
+        @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
+        {//Only show create button for admins and customers.
+            <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
+                <input type="button" value="New Issue" class="btn btn-info mx-auto" />
+            </a>
+        }
+    </div>
+</div>

@@ -94,7 +94,7 @@ namespace Webteam2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Payment,Title,Description,CityId")]
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Payment,Title,Description,CityId,LocalCurrency")]
             Issue issue)
         {
             if (id != issue.Id)

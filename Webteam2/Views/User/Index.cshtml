@@ -38,9 +38,7 @@
                     <td> @User.LastName</td>
                     <td> @User.Reputation</td>
                     <td>
-                        <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
-                            <button id="profile" class="menu_right" type="submit">Profile</button>
-                        </form>
+                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                     </td>
                     <td> @User.Location</td>
                     <td>Customer</td>
@@ -53,9 +51,7 @@
                     <td> @User.LastName</td>
                     <td> @User.Reputation</td>
                     <td>
-                        <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
-                            <button id="profile" class="menu_right" type="submit">Profile</button>
-                        </form>
+                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                     </td>
                     <td> @User.Location</td>
                     <td>Contractor</td>

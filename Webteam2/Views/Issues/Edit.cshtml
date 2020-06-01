@@ -21,14 +21,13 @@
         </div>
 
         <div class="form-group row">
-            <label for="Region" class="col-sm-2 col-form-label">Region</label>
+            <label for="" class="col-sm-2 col-form-label">Region</label>
             <div class="col-sm-4">
-                <select id="Region" class="form-control"></select>
+                <select for="Region" id="Region" class="form-control"></select>
             </div>
-
             <span for="Region" class="text-danger"></span>
-
         </div>
+
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="City">City</label>
             <div class="col-sm-4">
@@ -36,14 +35,25 @@
             </div>
             <span asp-validation-for="CityId" class="text-danger"></span>
         </div>
+
         <div class="form-group row">
-            <label asp-for="Payment" class="col-sm-2 col-form-label"></label>
+            <label asp-for="Payment" class="col-sm-2 col-form-label">Payment in SEK</label>
             <div class="col-sm-4">
-                <input type="number" asp-for="Payment" class="col-sm-6 form-control" />
+                <input id="Payment" type="number" asp-for="Payment" class="col-sm-6 form-control" />
             </div>
 
             <span asp-validation-for="Payment" class="text-danger"></span>
         </div>
+        <div class="form-group row">
+            <label asp-for="LocalCurrency" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <select id="LocalCurrency" asp-for="LocalCurrency" class="col-sm-4 form-control"></select>
+                <p id="convertedToLocalCurrency" class="col-sm-6"></p>
+            </div>
+
+            <span asp-validation-for="LocalCurrency" class="text-danger"></span>
+        </div>
+
         <div class="form-group row">
             <label asp-for="Description" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-8">
@@ -52,7 +62,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input id="edtIssueBtn" type="submit" value="Save" class="btn btn-primary"/>
+            <input id="edtIssueBtn" type="submit" value="Save" class="btn btn-primary" />
         </div>
         <span id="IssueResult">@Html.ViewData["IssueResult"]</span>
         <div>
@@ -63,5 +73,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/CitySelector.js"></script>
+    <script src="~/js/CurrencySelector.js"></script>
 }
 

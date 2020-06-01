@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Castle.Core.Internal;
+using Microsoft.EntityFrameworkCore;
 using RestClient.Net;
 using Webteam2.Models;
 
@@ -31,29 +33,33 @@ namespace Webteam2
 
             return View(response.Body);
         }
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
             var apiCall = new Client(new Uri($"https://api.countapi.xyz/hit/DanielAPIcall/ProfileUpdates"));
             var response = await apiCall.GetAsync<CountModel>();
-            if (id == null)
-            {
+
+            var user = await _userManager.GetUserAsync(User);
+                return View(new ProfileViewModel
+                {
+                    UserProfile = user.Profile,
+                    IsContractor = await _userManager.IsInRoleAsync(user, "contractor"),
+                    UserIssues = await _context.Issues.Where(m => m.Issuer == user).ToListAsync()
+                });
             
-                var user = await _userManager.GetUserAsync(User);
-                return View(new ProfileViewModel
-                {
-                    UserProfile = user.Profile,
-                    IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
-                });
-            }
-            else
+        }
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (id.IsNullOrEmpty())
             {
-                var user = _context.Users.First(u => u.Id == id); // här gick det galet
+                return NotFound();
+            }
+            var user = await _context.Users.FirstAsync(u => u.Id == id); // här gick det galet
                 return View(new ProfileViewModel
                 {
                     UserProfile = user.Profile,
                     IsContractor = await _userManager.IsInRoleAsync(user, "contractor")
                 });
-            }
+            
         }
         
 
