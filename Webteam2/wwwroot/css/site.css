@@ -80,3 +80,13 @@ body {
     height: 100px;
     overflow: auto;
 }
+
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('../img/bk-img/living-room.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
