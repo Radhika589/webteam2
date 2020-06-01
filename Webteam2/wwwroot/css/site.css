@@ -73,7 +73,6 @@ body {
     /*    background-color: #212529;*/
     opacity: 0.2;
     bottom: 0;
-    
 }
 
 #events {
@@ -94,7 +93,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment:fixed;
-    /*min-width:500px;*/
 }
 
 .transparency_custum-80_Procent {
@@ -102,8 +100,3 @@ body {
     background: rgba(255,255,255,0.8);
 }
 
-.customeOverflow {
-    overflow:scroll;
-    min-height:inherit;
-    max-height:730px;
-}
