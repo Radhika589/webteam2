@@ -51,7 +51,7 @@ namespace Webteam2.Controllers
                 User = user,
                 UserId = user.Id,
                 Description = "",
-                PictureURL = "http://placegoat.com/300/400"
+                PictureURL = $"https://api.adorable.io/avatars/150/{user.Id}.png"
             };
             
             user.Profile = userProfile;
