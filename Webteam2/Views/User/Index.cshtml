@@ -9,59 +9,54 @@
 <h2 class="text-info">Users List</h2>
 <br />
 
-<div class="cust_container row p-0 m-0">
-    
-    <div class="col-12 border p-3 mt-3">
-        <form class="float-left">
-            <p>
-                <input type="text" asp-for="SearchString" placeholder="Filter Users"/>
-                <input type="submit" value="Filter" />
-            </p>
-        </form>
-        <table id="users_table" class="table table-striped border">
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Reputation</th>
-                <th>Profile</th>
-                <th>Location</th>
-                <th>Role</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var User in Model.Customers)
-            {
-                <tr>
-                    <td> @User.FirstName</td>
-                    <td> @User.LastName</td>
-                    <td> @User.Reputation</td>
-                    <td>
-                        <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
-                            <button id="profile" class="menu_right" type="submit">Profile</button>
-                        </form>
-                    </td>
-                    <td> @User.Location</td>
-                    <td>Customer</td>
-                </tr>
-            }
-            @foreach (var User in Model.ValidatedContractors)
-            {
-                <tr>
-                    <td> @User.FirstName</td>
-                    <td> @User.LastName</td>
-                    <td> @User.Reputation</td>
-                    <td>
-                        <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
-                            <button id="profile" class="menu_right" type="submit">Profile</button>
-                        </form>
-                    </td>
-                    <td> @User.Location</td>
-                    <td>Contractor</td>
-                </tr>
-            }
-            </tbody>
-        </table>
-    </div>
+<div class="container d-flex table-responsive">
+
+            <table id="users_table" class="table
+                   table-striped
+                   border">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Reputation</th>
+                        <th>Profile</th>
+                        <th>Location</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var User in Model.Customers)
+                    {
+                        <tr>
+                            <td> @User.FirstName</td>
+                            <td> @User.LastName</td>
+                            <td> @User.Reputation</td>
+                            <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
+                            </td>
+                            <td> @User.Location</td>
+                            <td>Customer</td>
+                        </tr>
+                    }
+                    @foreach (var User in Model.ValidatedContractors)
+                    {
+                        <tr>
+                            <td> @User.FirstName</td>
+                            <td> @User.LastName</td>
+                            <td> @User.Reputation</td>
+                            <td>
+                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@User.Id">
+                                    <button id="profile" class="menu_right" type="submit">Profile</button>
+                                </form>
+                            </td>
+                            <td> @User.Location</td>
+                            <td>Contractor</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
 </div>
 

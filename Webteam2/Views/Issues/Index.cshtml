@@ -16,15 +16,7 @@
 }
 <h1>All Issues</h1>
 
-<div class="container">
-    <p>
-        @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
-        {//Only show create button for admins and customers. 
-            <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
-                <input type="button" value="New Issue" class="btn btn-info pushLeft" />
-            </a>
-        }
-    </p>
+<div class="container table-responsive">
     <table class="table table-striped border">
         <thead>
             <tr>
@@ -55,7 +47,7 @@
                     </td>
                     <td>
                         @if (User.IsInRole("Administrator"))
-                        {//Only show edit / delete buttons in list for admin users.  
+                        {//Only show edit / delete buttons in list for admin users.
                             <a asp-action="Edit" asp-route-id="@item.Id">
                                 <input type="button" value="Edit" class="btn btn-warning" />
                             </a>
@@ -71,5 +63,12 @@
             }
         </tbody>
     </table>
-
+    <div class="mt-2 mx-auto">
+        @if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
+        {//Only show create button for admins and customers.
+            <a id="newIssueBtn" asp-action="Create" asp-controller="Issues">
+                <input type="button" value="New Issue" class="btn btn-info mx-auto" />
+            </a>
+        }
+    </div>
 </div>

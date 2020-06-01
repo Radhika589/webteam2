@@ -10,48 +10,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/sl-1.3.1/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/r-2.2.3/rr-1.2.6/sl-1.3.1/datatables.min.css" />
 </head>
 <body>
     <header>
-        <nav id="navbar" class="cust_navbar">
-            <div class="nav_container">
-                <ul>
-                    <li><a id="navbar_item_0" class="menu_left" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a id="navbar_item_1" class="menu_left" asp-area="" asp-controller="Home" asp-action="Seed">Seed Database</a></li>
-                    <li><a id="navbar_item_2" class="menu_left" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-                    <!-- Menu items to the right, revesed order -->
-
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Webteam 2</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li>
-                            <form asp-controller="Account" asp-action="Logout">
-                                <button id="navbar_item_5" class="menu_right navbar_logout" type="submit">Logout</button>
-                            </form>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Issues" asp-action="Index">Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
                         </li>
-                        <li><a id="navbar_item_6" class="menu_left" asp-area="" asp-controller="Issues" asp-action="Index">Jobs</a></li>
-                        <li><a id="navbar_item_7" class="menu_left" asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
-                        <li><a id="navbar_item_8" class="menu_left" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
                     }
                     else
                     {
-                        <li><a id="navbar_item_4" class="menu_right" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                        <li><a id="navbar_item_3" class="menu_right" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
 
                     }
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li><a id="navbar_item_9" class="menu_left" asp-area="" asp-controller="Account" asp-action="ValidateContractors">ValidateContractors</a></li>
-                        <li><a id="navbar_item_8" class="menu_left" asp-area="" asp-controller="Profile" asp-action="ShowCount">Show Profile Count</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="ValidateContractors">ValidateContractors</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Profile" asp-action="ShowCount">Show Profile Count</a></li>
                     }
-
-
-</ul>
+                </ul>
             </div>
         </nav>
     </header>
@@ -69,15 +64,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/sl-1.3.1/datatables.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-print-1.6.1/r-2.2.3/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webteam2.Migrations
 {
-    public partial class MergedWithMaster : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,20 @@ namespace Webteam2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Currencies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Abbreviation = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Currencies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,7 +235,8 @@ namespace Webteam2.Migrations
                     Description = table.Column<string>(maxLength: 500, nullable: false),
                     Payment = table.Column<int>(nullable: false),
                     IssuerId = table.Column<string>(nullable: true),
-                    CityId = table.Column<int>(nullable: false)
+                    CityId = table.Column<int>(nullable: false),
+                    LocalCurrency = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,11 +260,11 @@ namespace Webteam2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "808bac87-1025-462b-b4bb-7b0fbdf88449", "d585f758-2f71-4c4c-83c3-a7714960d99b", "Visitor", "VISITOR" },
-                    { "7971aa09-39f4-4e46-88df-93e7c490d400", "819e9c42-0132-46fd-a883-2e7c00ba1f71", "Customer", "CUSTOMER" },
-                    { "34f35e83-9d7d-4ec8-843e-a7af30d70d61", "4238a071-b315-4729-8f50-ee767e738f21", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
-                    { "ccb06606-0c03-4022-93ec-c45527da2941", "ff031629-c553-432e-b52b-4a78e82b791a", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
-                    { "fa13b48f-982d-4893-8d09-265ac2adadf2", "9c2b7393-c4c9-4fe9-9267-23a2a31fa451", "Administrator", "ADMINISTRATOR" }
+                    { "fdab9f2c-86db-4e91-b8da-e29d3e3aece0", "3f4f685c-56a6-45c9-b496-f0fb63ff1e4f", "Visitor", "VISITOR" },
+                    { "696f70c9-057d-41bb-8194-8425c0f09d85", "d7c11945-beae-4828-a697-d009385d1466", "Customer", "CUSTOMER" },
+                    { "1b9600e1-acf9-4827-93ba-9a2bbaa67c28", "5d3bf3f1-7726-4c07-9bba-ea6329acd5a3", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
+                    { "272538b3-78e7-441b-a352-3d68db8af9e2", "73ee26d6-a0df-407c-8496-062d342f930a", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
+                    { "6a0c7466-bf1c-4fa2-950b-c15494e6354b", "c498315f-907f-4386-99d5-c7f0104f3318", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -330,6 +345,9 @@ namespace Webteam2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Currencies");
 
             migrationBuilder.DropTable(
                 name: "Issues");

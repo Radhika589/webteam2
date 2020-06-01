@@ -1,0 +1,30 @@
+[
+  {
+    "Abbreviation": "Please Choose A Currency",
+    "FullName": "This is a title!"
+  },
+  {
+    "Abbreviation": "DKK",
+    "FullName": "Danish Krone"
+  },
+  {
+    "Abbreviation": "GBP",
+    "FullName": "Pound Sterling"
+  },
+  {
+    "Abbreviation": "SEK",
+    "FullName": "Swedish Krona"
+  },
+  {
+    "Abbreviation": "EUR",
+    "FullName": "EURO"
+  },
+  {
+    "Abbreviation": "NOK",
+    "FullName": "Norwegian Krone"
+  },
+  {
+    "Abbreviation": "USD",
+    "FullName": "United States Dollar"
+  }
+]

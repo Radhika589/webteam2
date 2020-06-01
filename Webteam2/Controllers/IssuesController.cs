@@ -11,6 +11,7 @@ using Castle.Core.Internal;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Webteam2.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Webteam2.Controllers
 {
@@ -43,7 +44,7 @@ namespace Webteam2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Payment,Title,Description,CityId")]
+        public async Task<IActionResult> Create([Bind("Payment,Title,Description,CityId,LocalCurrency")]
             Issue issue)
         {
             issue.Id = NewIssueId();
@@ -75,6 +76,7 @@ namespace Webteam2.Controllers
             return NotFound();
         }
 
+        [HttpGet]
         [Authorize(Roles = "Administrator, Customer")]
         public async Task<IActionResult> Edit(string id)
         {

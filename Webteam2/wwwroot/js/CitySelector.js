@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $.getJSON("/Locations/GetAllRegions",
         null,
         function (data) {
