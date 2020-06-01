@@ -1,9 +1,37 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-</div>
+<!-- Page Content -->
+<div class="container">
 
+        <div class=" p-5 text-center">
+            <h1 class="font-weight-light">Welcome to WEB-TEAM-2!</h1>
+            <p class="lead">
+                Here you can create job postings for your coputer related issues,
+                and accept already posted jobs.
+            </p>
+            <p>Please log in to continue.</p>
+            <div class="text-center">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <input type="button"
+                           value="To Job Postings!"
+                           onclick="location.href='@Url.Action("Index","Issues")'">
+                }
+                else
+                {
+                    <input type="button"
+                           value="Log In!"
+                           onclick="location.href='@Url.Action("Login","Account")'" />
+                    <input type="button"
+                           value="Sign Up!"
+                           onclick="location.href='@Url.Action("Register","Account")'" />
+                }
+            </div>
+        </div>
+
+</div>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Webteam2.Factory;
 using Webteam2.Models;
+using Westwind.AspNetCore.LiveReload;
 
 namespace Webteam2
 {
@@ -45,7 +47,7 @@ namespace Webteam2
             .AddEntityFrameworkStores<Context>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
