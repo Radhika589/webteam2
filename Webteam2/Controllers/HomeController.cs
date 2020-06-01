@@ -19,7 +19,10 @@ namespace Webteam2.Controllers
         {
             _logger = logger;
         }
-
+        public IActionResult Seed()
+        {
+            return View("Seed");
+        }
         public IActionResult Index()
         {
             return View("Index");
@@ -29,10 +32,6 @@ namespace Webteam2.Controllers
             return View("Privacy");
         }
 
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
