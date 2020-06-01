@@ -47,8 +47,7 @@ namespace Webteam2
             .AddEntityFrameworkStores<Context>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, IdentityRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
-            services.AddControllersWithViews();
-            services.AddLiveReload();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +63,6 @@ namespace Webteam2
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseLiveReload();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
