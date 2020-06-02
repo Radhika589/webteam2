@@ -19,27 +19,27 @@
             </p>
 
         </form>
-        <table id="users_table" class="table table-striped border table-responsive">
+        <table id="users_table" class="table table-striped border table-responsive float-right">
             <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Reputation</th>
-                <th>Profile</th>
-                <th>Role</th>
+            <tr class="">
+                <th class="col-4 text-left">First Name</th>
+                <th class="col-4 text-left">Last Name</th>
+                <th class="col-1 text-left">Reputation</th>
+                <th class="col-1 text-left">Profile</th>
+                <th class="col-2 text-left">Role</th>
             </tr>
             </thead>
             <tbody>
             @foreach (var User in Model.Customers)
             {
                 <tr>
-                    <td> @User.FirstName</td>
-                    <td> @User.LastName</td>
-                    <td> @User.Reputation</td>
-                    <td>
+                    <td class="col-4 text-left"> @User.FirstName</td>
+                    <td class="col-4 text-left"> @User.LastName</td>
+                    <td class="col-1 text-left"> @User.Reputation</td>
+                    <td class="col-1 text-left">
                         <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                     </td>
-                    <td>Customer</td>
+                    <td class="col-2">Customer</td>
                 </tr>
             }
             @foreach (var User in Model.ValidatedContractors)
