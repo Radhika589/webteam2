@@ -56,28 +56,24 @@ namespace Webteam2.Controllers
                     .Where(
                        c => c.FirstName.Contains(searchString)
                        || c.LastName.Contains(searchString)
-                       //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.NotValidatedContractors = userLists.NotValidatedContractors
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.ValidatedContractors = userLists.ValidatedContractors
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.Administrators = userLists.Administrators
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             //|| c.Location.Contains(searchString)
                     ).ToList();
             }
 
