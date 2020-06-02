@@ -24,7 +24,6 @@
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Reputation</th>
                 <th>Profile</th>
                 <th>Role</th>
             </tr>
@@ -35,7 +34,6 @@
                 <tr>
                     <td> @User.FirstName</td>
                     <td> @User.LastName</td>
-                    <td> @User.Reputation</td>
                     <td>
                         <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                     </td>
@@ -47,11 +45,9 @@
                 <tr>
                     <td> @User.FirstName</td>
                     <td> @User.LastName</td>
-                    <td> @User.Reputation</td>
                     <td>
                         <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                     </td>
-                    <td> @User.Location</td>
                     <td>Contractor</td>
                 </tr>
             }
