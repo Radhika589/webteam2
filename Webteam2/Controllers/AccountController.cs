@@ -11,8 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Webteam2.Models;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Webteam2.Controllers
 {
     public class AccountController : Controller
@@ -71,6 +69,130 @@ namespace Webteam2.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        public async Task<IActionResult> Initialize()
+        {
+            if (_context.Users.Any())
+            {
+                return new JsonResult("You already have users in your database");
+            }
+            var password = "Password123@";
+            var admin = "Administrator";
+            var customer = "Customer";
+            var contractNoVal = "NotValidatedContractor";
+            var contractYesVal = "ValidatedContractor";
+            var Users = new UserRegistrationModel[]
+            {
+                new UserRegistrationModel{
+                    FirstName = "Daniel",
+                    LastName = "Andersson",
+                    Email = "1@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= customer
+                },
+                new UserRegistrationModel{
+                    FirstName = "Fredrik",
+                    LastName = "Karlsson",
+                    Email = "2@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= customer
+                },
+                new UserRegistrationModel{
+                    FirstName = "Arne",
+                    LastName = "Bertilsson",
+                    Email = "3@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= customer
+                },
+                new UserRegistrationModel{
+                    FirstName = "Roger",
+                    LastName = "Andersson",
+                    Email = "4@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractNoVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Pontus",
+                    LastName = "Rickardsson",
+                    Email = "5@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractNoVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Olof",
+                    LastName = "Torsson",
+                    Email = "6@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractNoVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Anna",
+                    LastName = "Andersson",
+                    Email = "7@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractYesVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Sara",
+                    LastName = "Novi",
+                    Email = "8@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractYesVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Emma",
+                    LastName = "Svensson",
+                    Email = "9@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractYesVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Linnea",
+                    LastName = "Hjalmarsson",
+                    Email = "10@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= contractYesVal
+                },
+                new UserRegistrationModel{
+                    FirstName = "Admin",
+                    LastName = "Adminsson",
+                    Email = "Admin@hotmail.com",
+                    Password = password,
+                    ConfirmPassword = password,
+                    Role= admin
+                },
+
+            };
+            foreach (var UserReg in Users)
+            {
+                var user = _mapper.Map<User>(UserReg);
+                var userProfile = new Profile
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    User = user,
+                    UserId = user.Id,
+                    Description = "",
+                    PictureURL = $"https://api.adorable.io/avatars/150/{user.Id}.png"
+                };
+
+                user.Profile = userProfile;
+                _context.Profiles.Add(userProfile);
+                await _userManager.CreateAsync(user, UserReg.Password);
+                await _userManager.AddToRoleAsync(user, UserReg.Role);
+                _context.SaveChanges();
+            }
+            return new JsonResult("Successfully added users to your database");
+        }
+
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ValidateContactor(string id)
@@ -78,7 +200,6 @@ namespace Webteam2.Controllers
             var user = _context.Users.First(u => u.Id == id);
             await _userManager.RemoveFromRoleAsync(user, "NotValidatedContractor");
             await _userManager.AddToRoleAsync(user, "ValidatedContractor");
-            //await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction(nameof(AccountController.ValidateContractors), "Account");
         }
 
@@ -88,7 +209,6 @@ namespace Webteam2.Controllers
         {
             contractorsToValidateModel.UsersList = _userManager.GetUsersInRoleAsync("NotValidatedContractor").Result;
             return View(contractorsToValidateModel);
-            //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
 
         [HttpGet]
