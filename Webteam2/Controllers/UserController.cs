@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
 using System.Threading.Tasks;
 using Webteam2.Models;
@@ -37,10 +35,10 @@ namespace Webteam2.Controllers
         }
 
 #nullable enable
+
         [HttpGet]
         public IActionResult Index(string? searchString)
         {
-            
             var userLists = new UserLists
             {
                 Customers = _userManager.GetUsersInRoleAsync("Customer").Result,
@@ -53,38 +51,40 @@ namespace Webteam2.Controllers
                 searchString = searchString.Substring(0, 1).ToUpper()
                                + searchString.Substring(1, searchString.Length - 1).ToLower();
 
+
                 userLists.Customers = userLists.Customers
                     .Where(
                        c => c.FirstName.Contains(searchString)
                        || c.LastName.Contains(searchString)
-                       || c.Location.Contains(searchString)
+                       //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.NotValidatedContractors = userLists.NotValidatedContractors
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             || c.Location.Contains(searchString)
+                             //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.ValidatedContractors = userLists.ValidatedContractors
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             || c.Location.Contains(searchString)
+                             //|| c.Location.Contains(searchString)
                     ).ToList();
 
                 userLists.Administrators = userLists.Administrators
                     .Where(
                         c => c.FirstName.Contains(searchString)
                              || c.LastName.Contains(searchString)
-                             || c.Location.Contains(searchString)
+                             //|| c.Location.Contains(searchString)
                     ).ToList();
             }
 
             return View(userLists);
             //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
+
 #nullable disable
 
         #endregion API Calls

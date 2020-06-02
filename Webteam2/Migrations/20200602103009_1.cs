@@ -260,11 +260,11 @@ namespace Webteam2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "fdab9f2c-86db-4e91-b8da-e29d3e3aece0", "3f4f685c-56a6-45c9-b496-f0fb63ff1e4f", "Visitor", "VISITOR" },
-                    { "696f70c9-057d-41bb-8194-8425c0f09d85", "d7c11945-beae-4828-a697-d009385d1466", "Customer", "CUSTOMER" },
-                    { "1b9600e1-acf9-4827-93ba-9a2bbaa67c28", "5d3bf3f1-7726-4c07-9bba-ea6329acd5a3", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
-                    { "272538b3-78e7-441b-a352-3d68db8af9e2", "73ee26d6-a0df-407c-8496-062d342f930a", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
-                    { "6a0c7466-bf1c-4fa2-950b-c15494e6354b", "c498315f-907f-4386-99d5-c7f0104f3318", "Administrator", "ADMINISTRATOR" }
+                    { "5fa1846f-30a8-4c4f-8068-70c50891c27f", "a347a91c-02cf-4779-ab0f-1b0289e7e92e", "Visitor", "VISITOR" },
+                    { "c99f7c34-fbaf-419e-b9f2-7299246c1e17", "2b8e94a9-34b7-448c-af5f-c9ee092a13b6", "Customer", "CUSTOMER" },
+                    { "70224f78-6f37-4184-b939-d1290f9ee4c9", "374ebe81-a8f9-45ea-b6ac-542405f4d348", "NotValidatedContractor", "NOTVALIDATEDCONTRACTOR" },
+                    { "d3fa843a-522d-4f20-adb7-aeccbd1f3b17", "b6156d5b-0582-4c4f-9292-068a8f8fbaed", "ValidatedContractor", "VALIDATEDCONTRACTOR" },
+                    { "9e8ad567-dca7-43f4-b326-e078ca225b26", "73709a2a-bd87-4fde-b5c9-b93037af841a", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
