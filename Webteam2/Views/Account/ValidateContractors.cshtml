@@ -19,21 +19,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @foreach (var item in Model.UsersList)
+                   @foreach (var User in Model.UsersList)
                     {
                         <tr>
-                            <td> @item.FirstName</td>
-                            <td> @item.LastName</td>
-                            <td> @item.Email</td>
+                            <td> @User.FirstName</td>
+                            <td> @User.LastName</td>
+                            <td> @User.Email</td>
                             <td>
-                                <form asp-controller="Account" asp-action="ValidateContactor" asp-route-id="@item.Id">
-                                    <button id="validate" class="menu_right" type="submit" >Validate</button>
-                                </form> 
+                                <form asp-controller="Account" asp-action="ValidateContactor" asp-route-id="@User.Id">
+                                    <button class="custbtn" type="submit">Validate</button>
+                                </form>
                             </td>
                             <td>
-                                <form asp-controller="Profile" asp-action="Index" asp-route-id="@item.Id">
-                                    <button id="profile" class="menu_right" type="submit">Profile</button>
-                                </form>
+                                <a asp-controller="Profile" asp-action="Details" asp-route-id="@User.Id">Profile</a>
                             </td>
                         </tr>
                     }

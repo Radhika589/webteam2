@@ -105,3 +105,12 @@ body {
     min-height: inherit;
     max-height: 730px;
 }
+.custbtn {
+    text-decoration: none;
+    color: #0366d6;
+    background-color:transparent;
+    border: none;
+}
+.custbtn:hover {
+    text-decoration:underline;
+}
