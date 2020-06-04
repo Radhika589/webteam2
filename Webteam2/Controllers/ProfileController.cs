@@ -49,11 +49,13 @@ namespace Webteam2
         }
         public async Task<IActionResult> Details(string? id)
         {
+            var apiCall = new Client(new Uri($"https://api.countapi.xyz/hit/DanielAPIcall/ProfileUpdates"));
+            var response = await apiCall.GetAsync<CountModel>();
             if (id.IsNullOrEmpty())
             {
                 return NotFound();
             }
-            var user = await _context.Users.FirstAsync(u => u.Id == id); // här gick det galet
+            var user = await _context.Users.FirstAsync(u => u.Id == id);
                 return View(new ProfileViewModel
                 {
                     UserProfile = user.Profile,
