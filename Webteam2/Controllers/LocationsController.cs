@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Webteam2.Models;
 using Webteam2.Models.Geo;
@@ -13,6 +14,7 @@ namespace Webteam2.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly Context _context;
+        private const string _baseApi = "https://freegeoip.app/json/";
 
         public LocationsController(Context context)
         {
@@ -45,6 +47,15 @@ namespace Webteam2.Controllers
                 return await _context.City.FindAsync(id);
             }
             return NotFound();
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetUserLocation()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var json = await httpClient.GetStringAsync(_baseApi);
+                return new JsonResult(json);
+            }
         }
 
         [HttpPost]

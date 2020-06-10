@@ -2,7 +2,9 @@
 <link rel="stylesheet" href="/css/map/mapStyle.css" type="text/css">
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 <div id="mapContainer">
-    
+    <label for="track">Show my location</label>
+    <input type="checkbox" id="track" value="false" onchange="Track(this)" />
+    <small>(Adblock needs to be off)</small>
     <div id="map" class="map"></div>
 </div>
 
