@@ -27,7 +27,7 @@ namespace Webteam2.Controllers
             _signInManager = signInManager;
 			_context = context;
         }
-        //todo:do this
+
         [HttpGet]
         public IActionResult Register()
         {
