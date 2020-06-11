@@ -23,11 +23,13 @@
                     @*<li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>*@
-
-                    @*Activate this will give you a link in the navigation menu for seeding an empty database.*@
-                    @*<li class="nav-item">
+                    @if (SignInManager.IsSignedIn(User)&&User.IsInRole("Administrator"))
+                    { 
+                    <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Seed">Seeding <span class="sr-only">(current)</span></a>
-                    </li>*@
+                    </li>
+                    }
+                    
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
