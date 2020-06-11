@@ -17,6 +17,7 @@ window.addEventListener('load', () => {
         url: "/locations/GetLocation",
         data: {id: document.getElementById('CityId').value},
         dataType: "json",
+        //todo: is "{[double, double]}" a comment, or old code?
         success: function(response){ // {[double, double]}
             loadMap(response);
         },
@@ -60,6 +61,7 @@ function GetUserLocation(callback) {
         })
         .then(response => {
             console.log(response);
+            //todo: remove if unnecessary.
             //markers.getSource().addFeature(mapMarkerFeature(ol.proj.fromLonLat([response.longitude, response.latitude]), "user"))
             callback([response.longitude, response.latitude]);
         }).catch(error => {
@@ -86,6 +88,7 @@ var markersSource;
 function loadMap(location) {
     createToggleBtn(mapDiv, mapContainer);
     var cityLocation = ol.proj.fromLonLat(location);
+    //todo: remove if unnecessary.
     //cityMarker = MakeMapMarker(location, "red")
     cityMarker = mapMarkerFeature(location, "city");
     markersSource = new ol.source.Vector();
@@ -108,6 +111,7 @@ function loadMap(location) {
             }),
             new ol.layer.Vector({
                 source: markersSource,
+                //todo: remove if unnecessary.
                 //style: function(feature, resolution) {
                 //    const name = feature.get('name').toUpperCase();
                 //    return name == "CITY" ? makeMarkerStyle("red") : makeMarkerStyle("blue");

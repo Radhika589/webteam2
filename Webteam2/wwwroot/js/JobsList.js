@@ -13,7 +13,7 @@
                         //Connect to "Create a new job" Action method.
                         //for ANDREAS
 
-                        //TODO: Delete before the final release.
+                        //todo: Delete before the final release.
                         console.log("If you can see this, the action function inside the button works.");
                     },
                     exportOptions: {

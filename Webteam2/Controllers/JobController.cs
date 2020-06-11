@@ -32,6 +32,7 @@ namespace Webteam2.Controllers
             return Json(new { success = false, message = "No Jobs Are Available!" });
         }
 
+        //todo: is this even used anymore?
         [HttpGet]
         public async Task<IActionResult> PreviewContract(string id)
         {
@@ -44,6 +45,7 @@ namespace Webteam2.Controllers
             return View(null);
         }
 
+        //todo: Remove if not needed.
         //[HttpPost]
         //public ActionResult OnPostLeaveABid(string id, int bid)
         //{
