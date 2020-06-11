@@ -78,8 +78,6 @@ namespace Webteam2.Controllers
             }
 
             return View(userLists);
-            //todo: remove if not needed.
-            //return RedirectToPage(nameof(AccountController.ValidateContractors), contractorsToValidateModel);
         }
 
 #nullable disable

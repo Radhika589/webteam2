@@ -20,8 +20,6 @@ namespace Webteam2.Controllers
     {
         private readonly Context _context;
         private readonly UserManager<User> _userManager;
-
-
         public IssuesController(Context context, UserManager<User> userManager)
         {
             _context = context;
@@ -88,7 +86,6 @@ namespace Webteam2.Controllers
                     return View(issue);
                 }
             }
-
             return NotFound();
         }
 

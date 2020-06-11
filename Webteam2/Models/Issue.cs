@@ -18,13 +18,8 @@ namespace Webteam2.Models
         public virtual string Title { get; set; }
         [Required(ErrorMessage = "Description is required"), MaxLength(500, ErrorMessage = "Max 500 characters."), MinLength(10, ErrorMessage = "Too short.")]
         public virtual string Description { get; set; }
-        //todo: is this necessary for location?
-        //[Required(ErrorMessage = "You need to enter a location."), MinLength(2, ErrorMessage = "Too short."), MaxLength(30, ErrorMessage = "Max 30 characters")]
-        //public virtual string Location { get; set; }
         [Required(ErrorMessage = "A price is required"), Range(0,999999, ErrorMessage = "Min 0 Max 999 999")]
         public virtual int Payment { get; set; }
-        //todo: is "User" required here?
-        //[Required]
         public virtual User Issuer { get; set; }
 
         [ForeignKey("CityId")]
