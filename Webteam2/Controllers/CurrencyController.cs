@@ -79,9 +79,6 @@ namespace Webteam2.Controllers
 
         public async Task<JsonResult> CalculateLocalCurrency(string currencyAbbreviation, int amount) 
         {
-            var _amount = amount;
-            var _currencyAbbreviation = currencyAbbreviation;
-
             var todaysRates =await GetRates(client,"SEK");
             double targetRate = -1;
             var currencyExists=todaysRates.Rates.TryGetValue(currencyAbbreviation, out targetRate);
