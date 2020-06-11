@@ -110,3 +110,8 @@ body {
     text-decoration:underline;
 }
 
+.customTableFit {
+    white-space: nowrap;
+    width: 1%;
+}
+
